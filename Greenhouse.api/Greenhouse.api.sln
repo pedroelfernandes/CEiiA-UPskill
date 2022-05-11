@@ -5,7 +5,9 @@ VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Greenhouse.api", "Greenhouse.api\Greenhouse.api.csproj", "{7349E2CC-B8E9-405C-98B7-B1F2D355D4DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Greenhouse.web", "Greenhouse.web\Greenhouse.web.csproj", "{7B7F0286-966D-4E5F-9DAC-9B05C72DA860}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Greenhouse.web", "Greenhouse.web\Greenhouse.web.csproj", "{7B7F0286-966D-4E5F-9DAC-9B05C72DA860}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherStation.api", "WeatherStation.API\WeatherStation.api.csproj", "{8D809412-E688-418B-8118-FF38E10144C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7B7F0286-966D-4E5F-9DAC-9B05C72DA860}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B7F0286-966D-4E5F-9DAC-9B05C72DA860}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B7F0286-966D-4E5F-9DAC-9B05C72DA860}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D809412-E688-418B-8118-FF38E10144C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D809412-E688-418B-8118-FF38E10144C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D809412-E688-418B-8118-FF38E10144C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D809412-E688-418B-8118-FF38E10144C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
