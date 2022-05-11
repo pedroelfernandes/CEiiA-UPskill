@@ -27,5 +27,8 @@ namespace WeatherStation.api.Services
             var myList = _readingsCollection.AsQueryable().OrderByDescending(r => r.ReadDate).ToList().DistinctBy(r => r.SensorId).ToList();
             return myList;
         }
+
+        public async Task<Reading> GetLastBySensorId(string id) =>
+            await _readingsCollection.Find(r => r.SensorId == id).SortByDescending(r => r.ReadDate).FirstOrDefaultAsync();
     }
 }
