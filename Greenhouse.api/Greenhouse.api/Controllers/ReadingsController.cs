@@ -30,5 +30,12 @@ namespace Greenhouse.api.Controllers
         [Route("GetLast")]
         public List<Reading> GetLast() =>
             _greenhouseService.GetLast();
+
+
+
+        [HttpGet]
+        [Route("GetLastBySensorId")]
+        public async Task<Reading> GetLastBySensorId(string id) =>
+            await _greenhouseService.GetLastBySensorId(id);
     }
 }
