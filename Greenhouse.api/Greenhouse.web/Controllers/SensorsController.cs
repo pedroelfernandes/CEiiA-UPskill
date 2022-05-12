@@ -1,12 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Greenhouse.web.Data;
+using Greenhouse.web.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Greenhouse.web.Controllers
 {
     public class SensorsController : Controller
     {
-        public IActionResult Index()
+        
+
+        private readonly IConfiguration _configuration;
+
+        public SensorsController(IConfiguration configuration)
         {
-            return View();
+            
+            _configuration = configuration;
         }
+
+
+        // HTTP Method: GET       
+        public IActionResult Get()
+        {
+                return View();
+        }
+
     }
 }

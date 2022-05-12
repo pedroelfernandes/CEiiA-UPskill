@@ -20,7 +20,5 @@ namespace Greenhouse.web.Models
         //[Required]
         //[DataType(DataType.Url)]
         //public string ApiUrl { get; set; }
-
-
     }
 }
