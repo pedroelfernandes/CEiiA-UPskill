@@ -10,9 +10,9 @@ namespace Greenhouse.web.Data
         : base(options)
         { }
 
-        public DbSet<Reading> Readings { get; set; }
-        public DbSet<Sensor> Sensors { get; set; }
-        public DbSet<SensorType> SensorTypes { get; set; }
-        public DbSet<API> APIs { get; set; }
+        public DbSet<Reading>? Readings { get; set; }
+        public DbSet<Sensor>? Sensors { get; set; }
+        public DbSet<SensorType>? SensorTypes { get; set; }
+        public DbSet<API>? APIs { get; set; }
     }
 }
