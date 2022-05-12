@@ -15,7 +15,7 @@ namespace WeatherStation.api.Models
 
 
         [BsonElement("Date")]
-        public string? ReadDate { get; set; }
+        public DateTime? ReadDate { get; set; }
 
         public string? Value { get; set; }
     }
