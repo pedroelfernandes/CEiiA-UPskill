@@ -6,7 +6,7 @@ namespace Greenhouse.api.Controllers
 {
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class ReadingsController : ControllerBase
     {
         private readonly GreenhouseService _greenhouseService;
@@ -27,21 +27,18 @@ namespace Greenhouse.api.Controllers
 
 
         [HttpGet]
-        [Route("GetLast")]
         public List<Reading> GetLast() =>
             _greenhouseService.GetLast();
 
 
 
         [HttpGet]
-        [Route("GetLastBySensorId")]
         public async Task<Reading> GetLastBySensorId(string id) =>
             await _greenhouseService.GetLastBySensorId(id);
 
 
 
         [HttpGet]
-        [Route("GetLastValuesBySensorId")]
         public async Task<List<Reading>> GetLastValuesBySensorId(string id, int limit) =>
             await _greenhouseService.GetLastValuesBySensorId(id, limit);
     }
