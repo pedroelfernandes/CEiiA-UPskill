@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MainAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class MainController : Controller
     {
@@ -25,7 +25,6 @@ namespace MainAPI.Controllers
 
 
         [HttpGet]
-        [Route("GetLastByAPIBySensorId")]
         public async Task<Reading> GetLastByAPIBySensorId(Uri uri, int id) =>
             (Reading) await MainAPI.Services.Services.GetLastByAPIBySensorId(uri, id);
     }
