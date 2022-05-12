@@ -30,5 +30,8 @@ namespace WeatherStation.api.Services
 
         public async Task<Reading> GetLastBySensorId(string id) =>
             await _readingsCollection.Find(r => r.SensorId == id).SortByDescending(r => r.ReadDate).FirstOrDefaultAsync();
+
+        public async Task<List<Reading>> GetLastValuesBySensorId(string id, int limit) =>
+            await _readingsCollection.Find(r => r.SensorId == id).SortByDescending(r => r.ReadDate).Limit(limit).ToListAsync();
     }
 }
