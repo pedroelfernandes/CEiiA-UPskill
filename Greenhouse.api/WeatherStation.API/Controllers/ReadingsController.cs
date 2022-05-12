@@ -22,9 +22,16 @@ namespace WeatherStation.api.Controllers
         [Route("GetLast")]
         public List<Reading> GetLast() => _weatherStationService.GetLast();
 
+
         [HttpGet]
         [Route("GetLastBySensorId")]
         public async Task<Reading> GetLastBySensorId(string id) =>
             await _weatherStationService.GetLastBySensorId(id);
+
+
+        [HttpGet]
+        [Route("GetLastValuesBySensorId")]
+        public async Task<List<Reading>> GetLastValuesBySensorId(string id, int limit) =>
+            await _weatherStationService.GetLastValuesBySensorId(id, limit);
     }
 }
