@@ -34,6 +34,10 @@ namespace Greenhouse.api.Services
         {
             var myList = _readingsCollection.AsQueryable().OrderByDescending(r => r.ReadDate).ToList().DistinctBy(r => r.SensorId).ToList();
             return myList;
+
+            //var sensorIdList = _readingsCollection.DistinctAsync(r => r.SensorId, FilterDefinition<Reading>.Empty);
+
+            //await sensorIdList.ForEachAsync(sensorId => _readingsCollection.FindAsync(r => r.SensorId == sensorId).AsQueryable().OrderByDescending(r => r.ReadDate));            
         }
 
 
