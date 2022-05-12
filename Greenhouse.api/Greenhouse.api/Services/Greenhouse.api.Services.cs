@@ -33,16 +33,7 @@ namespace Greenhouse.api.Services
         public List<Reading> GetLast()
         {
             var myList = _readingsCollection.AsQueryable().OrderByDescending(r => r.ReadDate).ToList().DistinctBy(r => r.SensorId).ToList();
-            return myList;
-
-            IAsyncCursor<string> sensorIdList = (IAsyncCursor<string>) _readingsCollection.DistinctAsync(r => r.SensorId, FilterDefinition<Reading>.Empty);
-
-            List<Reading> readings = new();
-
-            foreach (var sensorId in sensorIdList.ToEnumerable())
-            {
-                _readingsCollection.Find(r => r.SensorId == sensorId).SortByDescending(r => r.ReadDate).Limit(5).ForEachAsync(r => readings.Add(r));
-            }             
+            return myList;            
         }
 
 
