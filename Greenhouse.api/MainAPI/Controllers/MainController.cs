@@ -26,6 +26,11 @@ namespace MainAPI.Controllers
 
         [HttpGet]
         public async Task<Reading> GetLastByAPIBySensorId(Uri uri, int id) =>
-            (Reading) await MainAPI.Services.Services.GetLastByAPIBySensorId(uri, id);
+            (Reading)await MainAPI.Services.Services.GetLastByAPIBySensorId(uri, id);
+
+
+        [HttpGet]
+        public async Task<List<Reading>> GetLastValuesBySensorId(Uri uri, int id, int limit) => 
+            (List<Reading>)await MainAPI.Services.Services.GetLastValuesBySensorId(uri, id, limit);
     }
 }

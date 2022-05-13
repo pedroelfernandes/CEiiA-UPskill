@@ -29,7 +29,7 @@ namespace MainAPI.Services
 
             if (response.IsSuccessStatusCode)
             {
-                var res = await response.Content.ReadFromJsonAsync<List<Reading>>();
+                List<Reading>? res = await response.Content.ReadFromJsonAsync<List<Reading>>();
 
                 if (res != null)
                     readings = res;
@@ -52,13 +52,35 @@ namespace MainAPI.Services
 
             if (response.IsSuccessStatusCode)
             {
-                var res = await response.Content.ReadFromJsonAsync<Reading>();
+                Reading? res = await response.Content.ReadFromJsonAsync<Reading>();
 
                 if (res != null)
                     reading = res;
             }
 
             return reading;
+        }
+
+
+        public static async Task<IEnumerable<Reading>> GetLastValuesBySensorId(Uri uri, int id, int limit)
+        {
+            IEnumerable<Reading> readings = new List<Reading>();
+
+            HttpClient client = MyHttpClient.HttpClHlp.GetHttpClient(uri);
+
+            HttpResponseMessage response = await client.GetAsync($"getlastvaluesbysensorid?id={id}&limit={limit}");
+
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                List<Reading>? res = await response.Content.ReadFromJsonAsync<List<Reading>>();
+
+                if (res != null)
+                    readings = res;
+            }
+
+            return readings;
         }
     }
 }
