@@ -12,9 +12,9 @@ namespace Greenhouse.api.Services
         private readonly ReadingsRepository _readingsRepository;
 
 
-        public GreenhouseService(ReadingsRepository readingsRepository)
+        public GreenhouseService(IOptions<GreenhouseDatabaseSettings> options)
         {
-            _readingsRepository = readingsRepository;
+            _readingsRepository = new ReadingsRepository(options);
         }
 
 
