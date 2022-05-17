@@ -14,5 +14,6 @@ namespace Greenhouse.web.Data
         public DbSet<Sensor>? Sensors { get; set; }
         public DbSet<SensorType>? SensorTypes { get; set; }
         public DbSet<API>? APIs { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
