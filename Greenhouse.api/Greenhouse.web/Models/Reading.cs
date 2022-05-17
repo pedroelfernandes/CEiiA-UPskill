@@ -2,7 +2,6 @@
 {
     public class Reading
     {
-
         private string id = string.Empty;
         public string Id { get => id; set => id = value.ToString(); }
 
