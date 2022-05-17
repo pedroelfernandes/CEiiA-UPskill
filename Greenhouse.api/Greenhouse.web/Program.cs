@@ -9,9 +9,7 @@ builder.Services.AddControllersWithViews();
 //configure data and connection string
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(
-    builder.Configuration.GetConnectionString("GreenhouseDBConnection")
-    )
-);
+    builder.Configuration.GetConnectionString("GreenhouseDBConnection")));
 
 var app = builder.Build();
 

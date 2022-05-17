@@ -1,13 +1,19 @@
-﻿namespace Greenhouse.web.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Greenhouse.web.Models
 {
     public class API
     {
+        [Required]
         public int ApiId { get; set; }
 
 
+        [Required, StringLength(50)]
         public string ApiName { get; set; } = null!;
 
 
-        public string ApiUrl {get; set; } = null!;
+        [StringLength(50)]
+        public string ApiDescription { get; set; } = null!;
+
     }
 }
