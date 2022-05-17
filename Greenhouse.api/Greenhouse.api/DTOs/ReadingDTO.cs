@@ -19,7 +19,7 @@ namespace Greenhouse.api.DTOs
 
         public static ReadingDTO ToDto(Reading reading)
         {
-            return new ReadingDTO
+            return new ReadingDTO()
             {
                 SensorId = reading.SensorId,
                 SensorType = reading.SensorType,
