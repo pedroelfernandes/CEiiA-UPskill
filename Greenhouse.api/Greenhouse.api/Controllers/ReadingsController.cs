@@ -1,4 +1,5 @@
-﻿using Greenhouse.api.Models;
+﻿using Greenhouse.api.DTOs;
+using Greenhouse.api.Models;
 using Greenhouse.api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,19 +28,19 @@ namespace Greenhouse.api.Controllers
 
 
         [HttpGet]
-        public List<Reading> GetLast() =>
+        public List<ReadingDTO> GetLast() =>
             _greenhouseService.GetLast();
 
 
 
         [HttpGet]
-        public async Task<Reading> GetLastBySensorId(string id) =>
+        public async Task<ReadingDTO> GetLastBySensorId(string id) =>
             await _greenhouseService.GetLastBySensorId(id);
 
 
 
         [HttpGet]
-        public async Task<List<Reading>> GetLastValuesBySensorId(string id, int limit) =>
+        public async Task<List<ReadingDTO>> GetLastValuesBySensorId(string id, int limit) =>
             await _greenhouseService.GetLastValuesBySensorId(id, limit);
     }
 }
