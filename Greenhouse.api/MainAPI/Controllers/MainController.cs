@@ -19,18 +19,18 @@ namespace MainAPI.Controllers
 
 
         [HttpGet]
-        public async Task<List<Reading>> GetLastByAPI(Uri uri) =>
-            (List<Reading>)await MainAPI.Services.Services.GetLastByAPI(uri);
+        public async Task<List<Reading>> GetLastByAPI(string id) =>
+            (List<Reading>)await MainAPI.Services.Services.GetLastByAPI(id, _configuration);
 
 
 
         [HttpGet]
-        public async Task<Reading> GetLastByAPIBySensorId(Uri uri, int id) =>
-            (Reading)await MainAPI.Services.Services.GetLastByAPIBySensorId(uri, id);
+        public async Task<Reading> GetLastByAPIBySensorId(string id, int sensorId) =>
+            (Reading)await MainAPI.Services.Services.GetLastByAPIBySensorId(id, sensorId, _configuration);
 
 
         [HttpGet]
-        public async Task<List<Reading>> GetLastValuesBySensorId(Uri uri, int id, int limit) => 
-            (List<Reading>)await MainAPI.Services.Services.GetLastValuesBySensorId(uri, id, limit);
+        public async Task<List<Reading>> GetLastValuesBySensorId(string id, int sensorId, int limit) => 
+            (List<Reading>)await MainAPI.Services.Services.GetLastValuesBySensorId(id, sensorId, limit, _configuration);
     }
 }

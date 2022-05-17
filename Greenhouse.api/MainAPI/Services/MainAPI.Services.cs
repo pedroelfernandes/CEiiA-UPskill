@@ -6,21 +6,31 @@ namespace MainAPI.Services
 {
     public class Services
     {
-        private readonly ApplicationDbContext _db;
+        //private readonly ApplicationDbContext _db;
+        private readonly IConfiguration _configuration;
 
 
 
-        public Services(ApplicationDbContext db)
+        public Services(IConfiguration configuration)
         {
-            _db = db;
+            //_db = db;
+            _configuration = configuration;
         }
 
 
+        public static System.Uri GetAPIUrl(string id, IConfiguration configuration)
+        {
+            List<StoredURL> storedURLs = configuration.GetSection("URL-Section:URLs").Get<List<StoredURL>>();
+            System.Uri url = new(storedURLs.Find(u => u.Id == id).Url);
+            return url;
+        }
 
-        public static async Task<IEnumerable<Reading>> GetLastByAPI(Uri uri)
+
+        public static async Task<IEnumerable<Reading>> GetLastByAPI(string id, IConfiguration configuration)
         {
             IEnumerable<Reading> readings = new List<Reading>();
 
+            System.Uri uri = GetAPIUrl(id, configuration);
             HttpClient client = MyHttpClient.HttpClHlp.GetHttpClient(uri);
 
             HttpResponseMessage response = await client.GetAsync("getlast");
@@ -40,13 +50,14 @@ namespace MainAPI.Services
 
 
 
-        public static async Task<Reading> GetLastByAPIBySensorId(Uri uri, int id)
+        public static async Task<Reading> GetLastByAPIBySensorId(string id, int sensorId, IConfiguration configuration)
         {
             Reading reading = new();
 
+            System.Uri uri = GetAPIUrl(id, configuration);
             HttpClient client = MyHttpClient.HttpClHlp.GetHttpClient(uri);
 
-            HttpResponseMessage response = await client.GetAsync($"getlastbysensorid?id={id}");
+            HttpResponseMessage response = await client.GetAsync($"getlastbysensorid?id={sensorId}");
 
             response.EnsureSuccessStatusCode();
 
@@ -62,13 +73,14 @@ namespace MainAPI.Services
         }
 
 
-        public static async Task<IEnumerable<Reading>> GetLastValuesBySensorId(Uri uri, int id, int limit)
+        public static async Task<IEnumerable<Reading>> GetLastValuesBySensorId(string id, int sensorId, int limit, IConfiguration configuration)
         {
             IEnumerable<Reading> readings = new List<Reading>();
 
+            System.Uri uri = GetAPIUrl(id, configuration);
             HttpClient client = MyHttpClient.HttpClHlp.GetHttpClient(uri);
 
-            HttpResponseMessage response = await client.GetAsync($"getlastvaluesbysensorid?id={id}&limit={limit}");
+            HttpResponseMessage response = await client.GetAsync($"getlastvaluesbysensorid?id={sensorId}&limit={limit}");
 
             response.EnsureSuccessStatusCode();
 
