@@ -4,7 +4,7 @@ namespace Greenhouse.web.Models
 {
     public class SensorType
     {
-
+        [Key]
         public int IdSensorType {get; set;}
 
         public string NameSensorType { get; set; } = null!;
