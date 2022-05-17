@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WeatherStation.api.DTO;
 using WeatherStation.api.Models;
 using WeatherStation.api.Services;
 
@@ -19,16 +20,16 @@ namespace WeatherStation.api.Controllers
 
 
         [HttpGet]
-        public List<Reading> GetLast() => _weatherStationService.GetLast();
+        public List<ReadingDTO> GetLast() => _weatherStationService.GetLast();
 
 
         [HttpGet]
-        public async Task<Reading> GetLastBySensorId(string id) =>
+        public async Task<ReadingDTO> GetLastBySensorId(string id) =>
             await _weatherStationService.GetLastBySensorId(id);
 
 
         [HttpGet]
-        public async Task<List<Reading>> GetLastValuesBySensorId(string id, int limit) =>
+        public async Task<List<ReadingDTO>> GetLastValuesBySensorId(string id, int limit) =>
             await _weatherStationService.GetLastValuesBySensorId(id, limit);
     }
 }
