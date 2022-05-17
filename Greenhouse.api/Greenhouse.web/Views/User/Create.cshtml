@@ -1,0 +1,26 @@
+﻿@model User
+
+
+<form method="post">
+    <div class="border m-2 p-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">
+                Create User
+            </h2>
+        </div>
+        <div asp-validation-summary="All"></div>
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a asp-controller="User" asp-action="Index" class="btn btn-secondary">Back to Users</a> 
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

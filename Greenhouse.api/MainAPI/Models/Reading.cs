@@ -2,9 +2,6 @@
 {
     public class Reading
     {
-        public string? Id { get; set; }
-
-
         public string? SensorId { get; set; }
 
 
