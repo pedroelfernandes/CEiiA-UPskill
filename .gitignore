@@ -350,4 +350,4 @@ MigrationBackup/
 .ionide/
 
 # Ignore Greenhouse.web appsettings.json
-Greenhouse.api/Greenhouse.web/appsettings.json
+./Greenhouse.api/Greenhouse.web/appsettings.json
