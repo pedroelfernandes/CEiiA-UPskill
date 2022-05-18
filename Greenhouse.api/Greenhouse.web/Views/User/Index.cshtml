@@ -1,61 +1,89 @@
 ﻿@*@model List<User>
 
-    <h1>Users</h1>
+	<h1>Users</h1>
 
-    <div class="container text-end">
-        <a asp-controller="User" asp-action="Create" class="btn btn-primary">Create New User</a>
-    </div>
-
-    <table class="table table-bordered table-striped">
-
-        <tr>
-            <th>Number</th><th>Name</th><th>...</th><th>...</th>
-        </tr>
-
-        @foreach(var user in Model)
-{
-    <tr>
-        <td>@user.UserId</td>
-        <td>@user.Name</td>
-        <td>@user.Company</td>
-        <td>@user.PhoneNumber</td>
-        <td>@user.EmailAddress</td>
-        <td>@user.Password</td>
-        <td>
-            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.UserId">Edit</a>
-        </td>
-        <td>
-            <a asp-controller="User" asp-action="Delete" asp-route-id="@user.UserId">Delete</a>
-        </td>
-    </tr>
-}
-    </table>*@
-
-	<link rel="stylesheet" href="~/css/LoginForm.css" asp-append-version="true" />
-
-    <div class="container">
-	<div class="screen">
-		<div class="screen__content">
-			<form class="login">
-				<div class="login__field">
-					<i class="login__icon fas fa-user"></i>
-					<input type="text" class="login__input" placeholder="User name / Email">
-				</div>
-				<div class="login__field">
-					<i class="login__icon fas fa-lock"></i>
-					<input type="password" class="login__input" placeholder="Password">
-				</div>
-				<button class="button login__submit">
-					<span class="button__text">Log In Now</span>
-					<i class="button__icon fas fa-chevron-right"></i>
-				</button>				
-			</form>
-		</div>
-		<div class="screen__background">
-			<span class="screen__background__shape screen__background__shape4"></span>
-			<span class="screen__background__shape screen__background__shape3"></span>		
-			<span class="screen__background__shape screen__background__shape2"></span>
-			<span class="screen__background__shape screen__background__shape1"></span>
-		</div>		
+	<div class="container text-end">
+	<a asp-controller="User" asp-action="Create" class="btn btn-primary">Create New User</a>
 	</div>
-</div>
+
+	<table class="table table-bordered table-striped">
+
+	<tr>
+	<th>Number</th><th>Name</th><th>...</th><th>...</th>
+	</tr>
+
+	@foreach(var user in Model)
+	{
+	<tr>
+	<td>@user.UserId</td>
+	<td>@user.Name</td>
+	<td>@user.Company</td>
+	<td>@user.PhoneNumber</td>
+	<td>@user.EmailAddress</td>
+	<td>@user.Password</td>
+	<td>
+	<a asp-controller="User" asp-action="Edit" asp-route-id="@user.UserId">Edit</a>
+	</td>
+	<td>
+	<a asp-controller="User" asp-action="Delete" asp-route-id="@user.UserId">Delete</a>
+	</td>
+	</tr>
+	}
+	</table>*@
+
+<section class="vh-100 bg-image"
+  style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+
+              <form>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
+                  <label class="form-label" for="form3Example1cg">Username</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" />
+                  <label class="form-label" for="form3Example3cg">Email</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
+                  <label class="form-label" for="form3Example4cg">Password</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
+                  <label class="form-label" for="form3Example4cdg">Repeat password</label>
+                </div>
+
+                <div class="form-check d-flex justify-content-center mb-5">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
+                  <label class="form-check-label" for="form2Example3g">
+                    I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
+                  </label>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                  <button type="button"
+                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                </div>
+
+                <p class="text-center text-muted mt-5 mb-0">Already have an account? <a href="#!"
+                    class="fw-bold text-body"><u>Login here</u></a></p>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
