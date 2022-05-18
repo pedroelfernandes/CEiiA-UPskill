@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Greenhouse.web.Migrations
 {
-    public partial class CreateAPIsCRUD : Migration
+    public partial class FirstMigrationSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -67,6 +67,24 @@ namespace Greenhouse.web.Migrations
                 {
                     table.PrimaryKey("PK_SensorTypes", x => x.IdSensorType);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Company = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<int>(type: "int", nullable: false),
+                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.UserId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -82,6 +100,9 @@ namespace Greenhouse.web.Migrations
 
             migrationBuilder.DropTable(
                 name: "SensorTypes");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }
