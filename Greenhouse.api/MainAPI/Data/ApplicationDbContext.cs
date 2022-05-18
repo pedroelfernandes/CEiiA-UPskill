@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MainAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace MainAPI.Data
 {
@@ -8,7 +9,11 @@ namespace MainAPI.Data
         : base(options)
         { }
 
-        //public DbSet<Reading>? Readings { get; set; }
+
+        public DbSet<User>? Users { get; set; }
+
+
+        public DbSet<API>? APIs { get; set; }
     }
 
 }
