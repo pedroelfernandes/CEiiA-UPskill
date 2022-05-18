@@ -119,7 +119,6 @@ namespace Greenhouse.web.Migrations
                     b.ToTable("SensorTypes");
                 });
 
-
             modelBuilder.Entity("Greenhouse.web.Models.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -129,7 +128,6 @@ namespace Greenhouse.web.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
 
                     b.Property<string>("Company")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailAddress")
@@ -137,7 +135,6 @@ namespace Greenhouse.web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
