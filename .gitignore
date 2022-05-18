@@ -351,3 +351,4 @@ MigrationBackup/
 
 # Ignore Greenhouse.web appsettings.json
 **/Greenhouse.web/appsettings.json
+**/MainAPI/appsettings.json
