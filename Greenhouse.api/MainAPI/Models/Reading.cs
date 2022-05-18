@@ -1,5 +1,8 @@
-﻿namespace MainAPI.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MainAPI.Models
 {
+    [NotMapped]
     public class Reading
     {
         public string? SensorId { get; set; }
