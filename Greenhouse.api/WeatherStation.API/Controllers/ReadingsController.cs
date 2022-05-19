@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WeatherStation.api.DTO;
+using WeatherStation.api.DTOs;
 using WeatherStation.api.Models;
 using WeatherStation.api.Services;
 
@@ -31,5 +31,10 @@ namespace WeatherStation.api.Controllers
         [HttpGet]
         public async Task<List<ReadingDTO>> GetLastValuesBySensorId(string id, int limit) =>
             await _weatherStationService.GetLastValuesBySensorId(id, limit);
+
+
+        [HttpGet]
+        public List<SensorDTO> GetSensors() =>
+            _weatherStationService.GetSensors();
     }
 }
