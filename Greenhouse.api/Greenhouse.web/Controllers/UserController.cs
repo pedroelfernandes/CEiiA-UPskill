@@ -30,5 +30,15 @@ namespace Greenhouse.web.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Login(User user)
+        {
+            if (user != null)
+            {
+                return View(user);
+            }
+            //_db.Users.FindAsync(user.UserName).;
+            return View();
+        }
     }
 }
