@@ -12,7 +12,7 @@ namespace Greenhouse.web.Models
         public string ApiName { get; set; } = null!;
 
 
-        [StringLength(50)]
+        [StringLength(250)]
         public string ApiDescription { get; set; } = null!;
 
     }
