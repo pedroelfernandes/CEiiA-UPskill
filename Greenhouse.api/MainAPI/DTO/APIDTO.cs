@@ -4,6 +4,9 @@ namespace MainAPI.DTO
 {
     public class APIDTO
     {
+        public int? Id { get; set; }
+
+
         public string? Name { get; set; }
 
 
@@ -14,6 +17,7 @@ namespace MainAPI.DTO
         {
             return new APIDTO()
             {
+                Id = api.Id,
                 Name = api.Name,
                 Description = api.Description
             };

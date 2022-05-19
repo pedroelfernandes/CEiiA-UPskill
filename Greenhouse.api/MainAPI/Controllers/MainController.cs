@@ -1,5 +1,6 @@
 ﻿using MainAPI.DTO;
 using MainAPI.Models;
+using MainAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MainAPI.Controllers
@@ -9,12 +10,13 @@ namespace MainAPI.Controllers
     public class MainController : Controller
     {
         private readonly IConfiguration _configuration;
+        private readonly APIRepository _apiRepository;
 
 
-
-        public MainController(IConfiguration configuration)
+        public MainController(IConfiguration configuration, APIRepository apiRepository)
         {
             _configuration = configuration;
+            _apiRepository = apiRepository;
         }
 
 
@@ -38,5 +40,10 @@ namespace MainAPI.Controllers
         [HttpGet]
         public async Task<List<SensorDTO>> GetAPISensors(string id) =>
             (List<SensorDTO>)await MainAPI.Services.Services.GetAPISensors(id, _configuration);
+
+
+        [HttpGet]
+        public async Task<List<APIDTO>> GetAPIs() =>
+            (List<APIDTO>)await MainAPI.Services.Services.GetAPIs(_apiRepository);
     }
 }

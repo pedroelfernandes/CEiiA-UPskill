@@ -1,21 +1,21 @@
 ﻿using MainAPI.Data;
 using MainAPI.DTO;
 using MainAPI.Models;
+using MainAPI.Repositories;
 using MyHttpClient = MainAPI.HttpClientHelper;
 
 namespace MainAPI.Services
 {
     public class Services
     {
-        //private readonly ApplicationDbContext _db;
         private readonly IConfiguration _configuration;
+        private readonly APIRepository _apiRepository;
 
 
-
-        public Services(IConfiguration configuration)
+        public Services(IConfiguration configuration, APIRepository apiRepository)
         {
-            //_db = db;
             _configuration = configuration;
+            _apiRepository = apiRepository;
         }
 
 
@@ -117,6 +117,21 @@ namespace MainAPI.Services
             }
 
             return sensors;
+        }
+
+
+        public static async Task<IEnumerable<APIDTO>> GetAPIs(APIRepository apiRepository)
+        {
+            IEnumerable<API> APIs = new List<API>();
+
+            APIs = apiRepository.GetAPIs();
+
+            if (APIs is null)
+                throw new Exception("No APIs found.");
+
+            IEnumerable<APIDTO> res = APIs.Select(api => APIDTO.ToDto(api)).ToList();
+
+            return res;
         }
     }
 }
