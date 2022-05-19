@@ -1,5 +1,6 @@
 ﻿using Greenhouse.web.Data;
 using Greenhouse.web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Greenhouse.web.Controllers
@@ -20,15 +21,18 @@ namespace Greenhouse.web.Controllers
             return View(users);
         }
 
-        public IActionResult Create(User user)
+        public async Task<IActionResult> Create(User user)
         {
+            //form must be valid
             if (!ModelState.IsValid)
             {
                 return View(user);
             }
+
+            //save data in registered account
             _db.Users.Add(user);
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("UserDashboard");
         }
 
         public async Task<IActionResult> Login(User user)
@@ -38,8 +42,38 @@ namespace Greenhouse.web.Controllers
                 return View(user);
             }
             //_db.Users.FindAsync(user.UserName).;
-            return View();
+            return RedirectToAction("UserDashboard");
+
+            //if (ModelState.IsValid)
+            //{
+            //    if (ValidateUser(user.EmailAddress, user.Password))
+            //    {
+
+            //        FormsAuthentication.SetAuthCookie(user.EmailAddress, false);
+            //        return RedirectToAction("Index", "Members");
+            //    }
+            //    else
+            //    {
+            //        ModelState.AddModelError("", "");
+            //    }
+            //}
+            //return View();
+
         }
+
+
+        ////[HttpPost]
+        ////[Authorize]
+        //public async Task<IActionResult> Logout(User user)
+        //{
+        //    //FormsAuthentication.SignOut();
+        //    if (user != null)
+        //    {
+        //        return View(user);
+        //    }
+        //    return RedirectToAction("Login");
+        //}
+
 
         public async Task<IActionResult> UserDashboard(User user)
         {
@@ -50,14 +84,44 @@ namespace Greenhouse.web.Controllers
             //_db.Users.FindAsync(user.UserName).;
             return View();
         }
+        public async Task<IActionResult> EditUserSettings(int? userId)
+        {
+            //variables
+            User? user;
+
+            //value cannot be null
+            if (userId == null)
+                return BadRequest();
+
+            // value must be greater than zero
+            if (userId <= 0)
+                return NotFound();
+
+            //get the user
+            user = _db.Users.Find(userId);
+
+            //user must exist
+            if (user is null)
+                return NotFound();
+
+
+            //_db.Users.FindAsync(user.UserName).;
+
+            //show the form with the user settings
+            return View(user);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> EditUserSettings(User user)
         {
-            if (user != null)
-            {
+            //form must be valid
+            if (!ModelState.IsValid)
                 return View(user);
-            }
-            //_db.Users.FindAsync(user.UserName).;
-            return View();
+
+            // update new input data
+            _db.Users.Update(user);
+            _db.SaveChanges();
+            return RedirectToAction("UserDashboard");
         }
     }
 }
