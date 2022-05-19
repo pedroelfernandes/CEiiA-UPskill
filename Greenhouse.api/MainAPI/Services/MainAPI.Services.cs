@@ -1,4 +1,5 @@
 ﻿using MainAPI.Data;
+using MainAPI.DTO;
 using MainAPI.Models;
 using MyHttpClient = MainAPI.HttpClientHelper;
 
@@ -93,6 +94,29 @@ namespace MainAPI.Services
             }
 
             return readings;
+        }
+
+
+        public static async Task<IEnumerable<SensorDTO>> GetAPISensors(string id, IConfiguration configuration)
+        {
+            IEnumerable<SensorDTO> sensors = new List<SensorDTO>();
+
+            System.Uri uri = GetAPIUrl(id, configuration);
+            HttpClient client = MyHttpClient.HttpClHlp.GetHttpClient(uri);
+
+            HttpResponseMessage response = await client.GetAsync("getsensors");
+
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                List<SensorDTO>? res = await response.Content.ReadFromJsonAsync<List<SensorDTO>>();
+
+                if (res != null)
+                    sensors = res;
+            }
+
+            return sensors;
         }
     }
 }

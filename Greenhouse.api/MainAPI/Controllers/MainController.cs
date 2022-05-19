@@ -1,4 +1,5 @@
-﻿using MainAPI.Models;
+﻿using MainAPI.DTO;
+using MainAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MainAPI.Controllers
@@ -32,5 +33,10 @@ namespace MainAPI.Controllers
         [HttpGet]
         public async Task<List<Reading>> GetLastValuesBySensorId(string id, int sensorId, int limit) => 
             (List<Reading>)await MainAPI.Services.Services.GetLastValuesBySensorId(id, sensorId, limit, _configuration);
+
+
+        [HttpGet]
+        public async Task<List<SensorDTO>> GetAPISensors(string id) =>
+            (List<SensorDTO>)await MainAPI.Services.Services.GetAPISensors(id, _configuration);
     }
 }
