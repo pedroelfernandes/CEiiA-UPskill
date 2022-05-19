@@ -1,6 +1,6 @@
 ﻿using WeatherStation.api.Models;
 
-namespace WeatherStation.api.DTO
+namespace WeatherStation.api.DTOs
 {
     public class ReadingDTO
     {

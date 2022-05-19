@@ -34,5 +34,27 @@ namespace WeatherStation.api.Repositories
 
         public async Task<List<Reading>> GetLastValuesBySensorId(string id, int limit) =>
             await _readingsCollection.Find(r => r.SensorId == id).SortByDescending(r => r.ReadDate).Limit(limit).ToListAsync();
+
+
+        public List<string> GetSensorsId() =>
+            _readingsCollection.Distinct(r => r.SensorId, FilterDefinition<Reading>.Empty).ToList();
+
+
+        public List<Reading> GetSensors()
+        {
+            List<string> sensors = GetSensorsId();
+
+            if (sensors is null)
+                throw new Exception("Sensors not found");
+
+            List<Reading> readings = new List<Reading>();
+
+            foreach (string sensorId in sensors)
+            {
+                readings.Add(_readingsCollection.Find(r => r.SensorId == sensorId).SortByDescending(r => r.ReadDate).FirstOrDefault());
+            }
+
+            return readings;
+        }
     }
 }

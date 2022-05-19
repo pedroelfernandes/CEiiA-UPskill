@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using WeatherStation.api.DTO;
+using WeatherStation.api.DTOs;
 using WeatherStation.api.Models;
 using WeatherStation.api.Repositories;
 
@@ -58,6 +58,18 @@ namespace WeatherStation.api.Services
                 throw new Exception("Readings not found");
 
             List<ReadingDTO> result = readings.Select(r => ReadingDTO.ToDto(r)).ToList();
+            return result;
+        }
+
+
+        public List<SensorDTO> GetSensors()
+        {
+            IEnumerable<Reading> readings = _readingRepository.GetSensors();
+
+            if (readings is null)
+                throw new Exception("Readings not found");
+
+            List<SensorDTO> result = readings.Select(reading => SensorDTO.ToDto(reading)).ToList();
             return result;
         }
     }
