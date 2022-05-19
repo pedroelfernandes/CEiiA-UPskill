@@ -18,7 +18,6 @@ namespace Greenhouse.api.Services
         }
 
 
-
         public async Task<List<Reading>> GetAsync() =>
             //await _readingsCollection.Find(_ => true).ToListAsync();
             await _readingsRepository.GetAsync();
@@ -39,7 +38,6 @@ namespace Greenhouse.api.Services
         }
 
 
-
         public async Task<ReadingDTO> GetLastBySensorId(string id)
         {
             //await _readingsCollection.Find(r => r.SensorId == id).SortByDescending(r => r.ReadDate).FirstOrDefaultAsync();
@@ -52,8 +50,6 @@ namespace Greenhouse.api.Services
         }
 
 
-
-
         public async Task<List<ReadingDTO>> GetLastValuesBySensorId(string id, int limit)
         {
             //await _readingsCollection.Find(r => r.SensorId == id).SortByDescending(r => r.ReadDate).Limit(limit).ToListAsync();
@@ -63,6 +59,28 @@ namespace Greenhouse.api.Services
                 throw new Exception("No readings found");
 
             List<ReadingDTO> result = readings.Select(reading => ReadingDTO.ToDto(reading)).ToList();
+            return result;
+        }
+
+
+        //public List<string> GetSensorsId()
+        //{
+        //    IEnumerable<string> readings = _readingsRepository.GetSensorsId();
+        //    if (readings is null)
+        //        throw new Exception("No sensors found");
+
+        //    return readings.ToList();
+        //}
+
+
+        public List<SensorDTO> GetSensors()
+        {
+            IEnumerable<Reading> readings = _readingsRepository.GetSensors();
+
+            if (readings is null)
+                throw new Exception("Readings not found");
+
+            List<SensorDTO> result = readings.Select(reading => SensorDTO.ToDto(reading)).ToList();
             return result;
         }
     }
