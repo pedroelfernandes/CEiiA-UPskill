@@ -40,5 +40,24 @@ namespace Greenhouse.web.Controllers
             //_db.Users.FindAsync(user.UserName).;
             return View();
         }
+
+        public async Task<IActionResult> UserDashboard(User user)
+        {
+            if (user != null)
+            {
+                return View(user);
+            }
+            //_db.Users.FindAsync(user.UserName).;
+            return View();
+        }
+        public async Task<IActionResult> EditUserSettings(User user)
+        {
+            if (user != null)
+            {
+                return View(user);
+            }
+            //_db.Users.FindAsync(user.UserName).;
+            return View();
+        }
     }
 }
