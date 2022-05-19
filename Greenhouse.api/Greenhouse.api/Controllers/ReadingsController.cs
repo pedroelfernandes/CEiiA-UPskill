@@ -13,12 +13,10 @@ namespace Greenhouse.api.Controllers
         private readonly GreenhouseService _greenhouseService;
 
 
-
         public ReadingsController(GreenhouseService greenhouseService)
         {
             _greenhouseService = greenhouseService;
         }
-
 
 
         [HttpGet]
@@ -26,11 +24,9 @@ namespace Greenhouse.api.Controllers
             await _greenhouseService.GetAsync();
 
 
-
         [HttpGet]
         public List<ReadingDTO> GetLast() =>
             _greenhouseService.GetLast();
-
 
 
         [HttpGet]
@@ -38,9 +34,18 @@ namespace Greenhouse.api.Controllers
             await _greenhouseService.GetLastBySensorId(id);
 
 
-
         [HttpGet]
         public async Task<List<ReadingDTO>> GetLastValuesBySensorId(string id, int limit) =>
             await _greenhouseService.GetLastValuesBySensorId(id, limit);
+
+
+        //[HttpGet]
+        //public List<string> GetSensorsId() =>
+        //    _greenhouseService.GetSensorsId();
+
+
+        [HttpGet]
+        public List<SensorDTO> GetSensors() =>
+            _greenhouseService.GetSensors();
     }
 }
