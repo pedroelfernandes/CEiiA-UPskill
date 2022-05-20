@@ -6,16 +6,10 @@ using MyHttpClient = MainAPI.HttpClientHelper;
 
 namespace MainAPI.Services
 {
-    public class Services
+    public class Service
     {
-        private readonly IConfiguration _configuration;
-        private readonly APIRepository _apiRepository;
-
-
-        public Services(IConfiguration configuration, APIRepository apiRepository)
+        public Service()
         {
-            _configuration = configuration;
-            _apiRepository = apiRepository;
         }
 
 
@@ -120,11 +114,11 @@ namespace MainAPI.Services
         }
 
 
-        public static async Task<IEnumerable<APIDTO>> GetAPIs(APIRepository apiRepository)
+        public static async Task<IEnumerable<APIDTO>> GetAPIs(ApplicationDbContext db)
         {
             IEnumerable<API> APIs = new List<API>();
 
-            APIs = apiRepository.GetAPIs();
+            APIs = MainAPI.Repositories.APIRepository.GetAPIs(db);
 
             if (APIs is null)
                 throw new Exception("No APIs found.");
