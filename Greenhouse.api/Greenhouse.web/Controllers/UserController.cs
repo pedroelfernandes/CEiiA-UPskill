@@ -62,17 +62,15 @@ namespace Greenhouse.web.Controllers
         }
 
 
-        ////[HttpPost]
-        ////[Authorize]
-        //public async Task<IActionResult> Logout(User user)
-        //{
-        //    //FormsAuthentication.SignOut();
-        //    if (user != null)
-        //    {
-        //        return View(user);
-        //    }
-        //    return RedirectToAction("Login");
-        //}
+        //[HttpPost]
+        //[Authorize]
+        public async Task<IActionResult> Logout()
+        {
+           
+                return View("Index");
+            //}
+            //return RedirectToAction("Index");
+        }
 
 
         public async Task<IActionResult> UserDashboard(User user)
