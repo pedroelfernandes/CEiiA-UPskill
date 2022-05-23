@@ -5,15 +5,15 @@ namespace Greenhouse.web.Models
     public class API
     {
         [Required]
-        public int ApiId { get; set; }
+        public int Id { get; set; }
 
 
         [Required, StringLength(50)]
-        public string ApiName { get; set; } = null!;
+        public string Name { get; set; } = null!;
 
 
         [StringLength(250)]
-        public string ApiDescription { get; set; } = null!;
+        public string Description { get; set; } = null!;
 
     }
 }

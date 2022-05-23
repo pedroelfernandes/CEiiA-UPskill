@@ -1,7 +1,7 @@
 ﻿@model API
 
-<form method="post" asp-controller="APIs" asp-action ="DeletePOST" asp-route-id="@Model.ApiId">
-	<input asp-for="ApiId" hidden />
+<form method="post" asp-controller="APIs" asp-action ="DeletePOST" asp-route-id="@Model.Id">
+	<input asp-for="Id" hidden />
 
 	<div class = "border m-2 p-4">
 
@@ -14,16 +14,16 @@
 		<div asp-validation-summary="All"></div>
 
 		<div class= "mb-3">
-			<label asp-for="ApiId" class="form-label"></label>
-			<input asp-for="ApiId" class="form-control" readonly />
+			<label asp-for="Id" class="form-label"></label>
+			<input asp-for="Id" class="form-control" readonly />
 		</div>
 		<div class= "mb-3">
-			<label asp-for="ApiName" class="form-label"></label>
-			<input asp-for="ApiName" class="form-control" readonly />
+			<label asp-for="Name" class="form-label"></label>
+			<input asp-for="Name" class="form-control" readonly />
 		</div>
 		<div class= "mb-3">
-			<label asp-for="ApiDescription" class="form-label"></label>
-			<input asp-for="ApiDescription" class="form-control" readonly />
+			<label asp-for="Description" class="form-label"></label>
+			<input asp-for="Description" class="form-control" readonly />
 		</div>
 
 		<button type="submit" class="btn btn-primary">Delete</button>
