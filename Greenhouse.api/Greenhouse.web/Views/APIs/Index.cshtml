@@ -17,14 +17,14 @@
 	@foreach (API aPI in Model)
 	{
 		<tr>
-			<td>@aPI.ApiId</td>
-			<td>@aPI.ApiName</td>
-			<td>@aPI.ApiDescription</td>
+			<td>@aPI.Id</td>
+			<td>@aPI.Name</td>
+			<td>@aPI.Description</td>
 			<td>
-				<a asp-controller="APIs" asp-action="Edit" asp-route-id="@aPI.ApiId">Edit</a>
+				<a asp-controller="APIs" asp-action="Edit" asp-route-id="@aPI.Id">Edit</a>
 			</td>
 			<td>
-				<a asp-controller="APIs" asp-action="Delete" asp-route-id="@aPI.ApiId">Delete</a>
+				<a asp-controller="APIs" asp-action="Delete" asp-route-id="@aPI.Id">Delete</a>
 			</td>
 		</tr>
 	}

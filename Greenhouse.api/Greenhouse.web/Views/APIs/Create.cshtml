@@ -13,20 +13,20 @@
 		<div asp-validation-summary="All"></div>
 
 		<div class= "mb-3">
-			<label asp-for="ApiId" class="form-label">API Id</label>
-			<input asp-for="ApiId" class="form-control" disabled/>
+			<label asp-for="Id" class="form-label">API Id</label>
+			<input asp-for="Id" class="form-control" disabled/>
 		</div>
 
 		<div class= "mb-3">
-			<label asp-for="ApiName" class="form-label">Name of the API</label>
-			<input asp-for="ApiName" class="form-control" />
-			<span asp-validation-for="ApiName" class= "text-danger"></span>
+			<label asp-for="Name" class="form-label">Name of the API</label>
+			<input asp-for="Name" class="form-control" />
+			<span asp-validation-for="Name" class= "text-danger"></span>
 		</div>
 
 		<div class= "mb-3">
-			<label asp-for="ApiDescription" class="form-label">Description</label>
-			<input asp-for="ApiDescription" class="form-control" />
-			<span asp-validation-for="ApiDescription" class= "text-danger"></span>
+			<label asp-for="Description" class="form-label">Description</label>
+			<input asp-for="Description" class="form-control" />
+			<span asp-validation-for="Description" class= "text-danger"></span>
 		</div>
 
 		<button type="submit" class="btn btn-primary">Create</button>
