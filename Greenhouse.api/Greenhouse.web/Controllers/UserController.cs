@@ -1,5 +1,6 @@
 ﻿using Greenhouse.web.Data;
 using Greenhouse.web.Models;
+using Greenhouse.web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,12 @@ namespace Greenhouse.web.Controllers
     {
 
         private readonly ApplicationDbContext _db;
+        private readonly IConfiguration _configuration;
 
-        public UserController(ApplicationDbContext db)
+        public UserController(ApplicationDbContext db, IConfiguration configuration)
         {
             _db = db;
+            _configuration = configuration;
         }
 
         public IActionResult Index()
@@ -28,19 +31,16 @@ namespace Greenhouse.web.Controllers
             {
                 return View(user);
             }
-
-            //save data in registered account
-            _db.Users.Add(user);
-            _db.SaveChanges();
-            return RedirectToAction("UserDashboard");
+ 
+            return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Login(User user)
+        public async Task<IActionResult> Login()
         {
-            if (user != null)
-            {
-                return View(user);
-            }
+            //if (user != null)
+            //{
+            //    return View(user);
+            //}
             //_db.Users.FindAsync(user.UserName).;
             return RedirectToAction("UserDashboard");
 
@@ -73,15 +73,17 @@ namespace Greenhouse.web.Controllers
         }
 
 
-        public async Task<IActionResult> UserDashboard(User user)
+        public async Task<IActionResult> UserDashboard()
         {
-            if (user != null)
-            {
-                return View(user);
-            }
-            //_db.Users.FindAsync(user.UserName).;
-            return View();
+            return View(await ClientServices.GetAPI(_configuration));
         }
+
+
+        public async Task<IActionResult> UserDashboard1(string apiId, string sensorId)
+        {
+            return View(await ClientServices.GetLastSensorValue(apiId, sensorId, _configuration));
+        }
+
         public async Task<IActionResult> EditUserSettings(int? userId)
         {
             //variables

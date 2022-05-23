@@ -1,4 +1,7 @@
-﻿namespace Greenhouse.web.Models
+﻿using Greenhouse.web.Models;
+using MyHttpClient = Greenhouse.web.Helpers;
+
+namespace Greenhouse.web.Models
 {
     public class Reading
     {
@@ -38,6 +41,27 @@
             return readings;
         }
 
+
+        public static async Task<IEnumerable<Reading>> GetLastByAPI(string id, IConfiguration configuration)
+        {
+            IEnumerable<Reading> readings = new List<Reading>();
+
+            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+
+            HttpResponseMessage response = await client.GetAsync($"getlastbyapi?id={id}");
+
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                List<Reading>? res = await response.Content.ReadFromJsonAsync<List<Reading>>();
+
+                if (res != null)
+                    readings = res;
+            }
+
+            return readings;
+        }
     }
 
     
