@@ -1,5 +1,4 @@
-﻿using Greenhouse.web.Data;
-using Greenhouse.web.Models;
+﻿using Greenhouse.web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Greenhouse.web.Controllers

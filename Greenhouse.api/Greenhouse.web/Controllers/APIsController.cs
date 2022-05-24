@@ -1,25 +1,44 @@
-﻿using Greenhouse.web.Data;
+﻿
 using Greenhouse.web.Models;
+using Greenhouse.web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Greenhouse.web.Controllers
 {
     public class APIsController : Controller
     {
-        private readonly ApplicationDbContext _db;
-
-        public APIsController(ApplicationDbContext db)
+       
+        IConfiguration _configuration;
+        public APIsController(IConfiguration configuration)
         {
-            _db = db;
+          _configuration = configuration;
         }
 
         //DISPLAY API
         public IActionResult Index()
         {
-            List<API> aPIs = _db.APIs.ToList();
+            var aPIs = ClientServices.GetAPI(_configuration).Result;
+
             return View(aPIs);
         }
+
+        //TEST_SIMILAR TO MAIN
+        [HttpGet]
+        public async Task<List<API>> GetAPIs() =>
+            (List<API>)await ClientServices.GetAPI(_configuration);
+
+        ////DISPLAY API
+        //public IActionResult Index()
+        //{
+        //    string uri = _configuration.GetValue<string>("URI");
+        //    var aPIs = API.GetAPIs(uri).Result;
+        //    string uri = _configuration.GetValue<string>(ClientServices.GetAPI());
+
+
+        //    return View(aPIs);
+        //}
 
         //ADD function (CREATE)
         public IActionResult Create()
@@ -38,23 +57,22 @@ namespace Greenhouse.web.Controllers
             if (!ModelState.IsValid)
                 return View(aPI);
 
-            _db.APIs.Add(aPI);
-            _db.SaveChanges();
+
+          
             return RedirectToAction("Index");
         }
 
         //method EDIT (by id)
         public IActionResult Edit(int? id)
         {
-            API aPI;
+
+            API aPI = new();
 
             if (id is null)
                 return BadRequest();
 
             if (id <= 0)
                 return NotFound();
-
-            aPI = _db.APIs.Find(id);
 
             if (aPI == null)
                 return NotFound();
@@ -72,8 +90,6 @@ namespace Greenhouse.web.Controllers
             if (!ModelState.IsValid)
                 return View(aPI);
 
-            _db.Entry(aPI).State = EntityState.Modified;
-            _db.SaveChanges();
             //Return redirect to action
             return RedirectToAction("Index");
         }
@@ -81,15 +97,15 @@ namespace Greenhouse.web.Controllers
         //DELETE
         public IActionResult Delete(int? id)
         {
-            API aPI;
+            
+            
+           API aPI = new();
 
             if (id is null)
                 return BadRequest();
 
             if (id <= 0)
                 return NotFound();
-
-            aPI = _db.APIs.Find(id);
 
             if (aPI == null)
                 return NotFound();
@@ -102,15 +118,11 @@ namespace Greenhouse.web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int? id)
         {
-            API aPI;
-            aPI = _db.APIs.Find(id);
+            API aPI = new();
 
             if (aPI == null)
                 return NotFound();
 
-            _db.APIs.Remove(aPI);
-            //_db.Entry(aPI).State = EntityState.Modified;
-            _db.SaveChanges();
             return RedirectToAction("Index");
 
 

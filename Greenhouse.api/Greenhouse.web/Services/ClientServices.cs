@@ -99,9 +99,11 @@ namespace Greenhouse.web.Services
         {
             IEnumerable<API> apis = new List<API>();
 
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+            string apiId = configuration.GetValue<string>("URI");
 
-            HttpResponseMessage response = await client.GetAsync("getapis");
+            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URI"));
+
+            HttpResponseMessage response = await client.GetAsync("Main/GetAPIs");
 
             response.EnsureSuccessStatusCode();
 
