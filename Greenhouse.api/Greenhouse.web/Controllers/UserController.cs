@@ -75,15 +75,15 @@ namespace Greenhouse.web.Controllers
         //}
 
 
-        public async Task<IActionResult> UserDashboard()
-        {
-            return View(await ClientServices.GetAPI(_configuration));
-        }
+        //public async Task<IActionResult> UserDashboard()
+        //{
+        //    return View(await ReadingServices.GetAPI(_configuration));
+        //}
 
 
         public async Task<IActionResult> UserDashboard1(string apiId, string sensorId)
         {
-            return View(await ClientServices.GetLastSensorValue(apiId, sensorId, _configuration));
+            return View(await ReadingServices.GetLastSensorValue(apiId, sensorId, _configuration));
         }
 
         public async Task<IActionResult> EditUserSettings(int? userId)

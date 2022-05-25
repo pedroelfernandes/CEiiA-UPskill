@@ -1,0 +1,29 @@
+﻿@model List<Sensor>
+
+@{
+	Layout = "_LoggedInLayout";
+}
+
+@*<div>
+	<a asp-action="GetLastValueBySensorId" asp-area="" asp-controller="Readings" type="button"></a>
+</div>*@
+
+
+
+<table class="table table-hover">
+	<thead>
+		<tr class="table-info">
+			<th>Sensor Id</th>
+			<th>Sensor Type</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (Sensor sensor in Model)
+		{
+			<tr class="table-info">
+				<th>@sensor.Id</th>
+				<th>@sensor.Type</th>
+			</tr>
+		}
+	</tbody>
+</table>
