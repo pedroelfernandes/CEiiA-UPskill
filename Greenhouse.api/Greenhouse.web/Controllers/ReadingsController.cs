@@ -1,5 +1,4 @@
-﻿using Greenhouse.web.Data;
-using Greenhouse.web.Models;
+﻿using Greenhouse.web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Greenhouse.web.Controllers
@@ -8,12 +7,10 @@ namespace Greenhouse.web.Controllers
 
     {
         private readonly IConfiguration _configuration;
-        public readonly ApplicationDbContext _db;
 
-        public ReadingsController(IConfiguration configuration, ApplicationDbContext db)
+        public ReadingsController(IConfiguration configuration)
         {
             _configuration = configuration;
-            _db = db;
         }
 
 

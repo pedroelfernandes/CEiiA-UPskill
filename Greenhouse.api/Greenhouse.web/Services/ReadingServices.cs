@@ -70,7 +70,6 @@ namespace Greenhouse.web.Services
             }
             return reading;
         }
-<<<<<<< HEAD:Greenhouse.api/Greenhouse.web/Services/ClientServices.cs
 
         public static async Task<List<Sensor>> GetAPISensors(string apiId, IConfiguration configuration)
         {
@@ -118,8 +117,5 @@ namespace Greenhouse.web.Services
             return apis;
         }
 
-
-=======
->>>>>>> main:Greenhouse.api/Greenhouse.web/Services/ReadingServices.cs
     }
 }

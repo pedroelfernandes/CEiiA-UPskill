@@ -10,13 +10,13 @@ namespace Greenhouse.web.Controllers
     {
 
         //private readonly ApplicationDbContext _db;
-        //private readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
-        //public UserController(ApplicationDbContext db, IConfiguration configuration)
-        //{
-        //    _db = db;
-        //    _configuration = configuration;
-        //}
+        public UserController( IConfiguration configuration)
+        {
+            
+            _configuration = configuration;
+        }
 
         //public IActionResult Index()
         //{
@@ -31,7 +31,7 @@ namespace Greenhouse.web.Controllers
         //    {
         //        return View(user);
         //    }
- 
+
         //    return RedirectToAction("Index");
         //}
 
@@ -66,7 +66,7 @@ namespace Greenhouse.web.Controllers
         ////[Authorize]
         //public async Task<IActionResult> Logout()
         //{
-           
+
         //        return View("Index");
         //    //}
         //    //return RedirectToAction("Index");
@@ -75,7 +75,6 @@ namespace Greenhouse.web.Controllers
 
         //public async Task<IActionResult> UserDashboard()
         //{
-<<<<<<< HEAD
         //    return View(await ClientServices.GetAPI(_configuration));
         //}
 
@@ -84,7 +83,6 @@ namespace Greenhouse.web.Controllers
         //{
         //    return View(await ClientServices.GetLastSensorValue(apiId, sensorId, _configuration));
         //}
-=======
         //    return View(await ReadingServices.GetAPI(_configuration));
         //}
 
@@ -93,7 +91,6 @@ namespace Greenhouse.web.Controllers
         {
             return View(await ReadingServices.GetLastSensorValue(apiId, sensorId, _configuration));
         }
->>>>>>> main
 
         //public async Task<IActionResult> EditUserSettings(int? userId)
         //{
