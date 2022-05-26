@@ -14,6 +14,7 @@ namespace Greenhouse.web.Controllers
         }
 
 
+        //NEED TO DELETE THIS METHOD, MAYBE
         public async Task<IActionResult> Index()
         {
             IEnumerable<Reading> readings = await Reading.GetReadings(_configuration.GetValue<string>("URL"));

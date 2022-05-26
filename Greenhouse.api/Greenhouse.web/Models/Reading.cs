@@ -39,7 +39,7 @@ namespace Greenhouse.web.Models
             }
 
             return readings;
-        }               
+        }
     }
 
     
