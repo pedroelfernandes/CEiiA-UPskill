@@ -3,10 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Greenhouse.web.Services
 {
-    public class ClientServices
+    public class ReadingServices
     {
-
-
         public static async Task<List<Reading>> GetLastByAPI(string apiId, IConfiguration configuration)
         {
             List<Reading> reading = new();
@@ -72,6 +70,7 @@ namespace Greenhouse.web.Services
             }
             return reading;
         }
+<<<<<<< HEAD:Greenhouse.api/Greenhouse.web/Services/ClientServices.cs
 
         public static async Task<List<Sensor>> GetAPISensors(string apiId, IConfiguration configuration)
         {
@@ -120,5 +119,7 @@ namespace Greenhouse.web.Services
         }
 
 
+=======
+>>>>>>> main:Greenhouse.api/Greenhouse.web/Services/ReadingServices.cs
     }
 }
