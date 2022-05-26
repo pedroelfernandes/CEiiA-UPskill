@@ -19,7 +19,7 @@ namespace Greenhouse.web.Controllers
         //DISPLAY API
         public IActionResult Index()
         {
-            var aPIs = ClientServices.GetAPI(_configuration).Result;
+            var aPIs = APIServices.GetAPI(_configuration).Result;
 
             return View(aPIs);
         }
@@ -27,7 +27,7 @@ namespace Greenhouse.web.Controllers
         //TEST_SIMILAR TO MAIN
         [HttpGet]
         public async Task<List<API>> GetAPIs() =>
-            (List<API>)await ClientServices.GetAPI(_configuration);
+            (List<API>)await APIServices.GetAPI(_configuration);
 
         ////DISPLAY API
         //public IActionResult Index()
