@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MainAPI.Models
 {
@@ -21,5 +22,8 @@ namespace MainAPI.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public string? Email { get; set; }
+
+        [Required, ForeignKey("Role")]
+        public Role? Role { get; set; }
     }
 }
