@@ -23,6 +23,9 @@ namespace MainAPI.Models
         [DataType(DataType.EmailAddress)]
         public string? Email { get; set; }
 
+        [Required]
+        public bool Active { get; set; }
+
         [Required, ForeignKey("Role")]
         public Role? Role { get; set; }
     }

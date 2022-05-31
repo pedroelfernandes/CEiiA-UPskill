@@ -24,5 +24,8 @@ namespace MainAPI.Models
         [ForeignKey("AssetType")]
         public AssetType? AssetType { get; set; }
 
+        [Required]
+        public bool Active { get; set; }
+
     }
 }

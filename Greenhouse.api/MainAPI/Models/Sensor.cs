@@ -24,11 +24,17 @@ namespace MainAPI.Models
         [Required]
         public DataType ActiveSince { get; set; }
 
+        [Required]
+        public bool Active { get; set; }
+
         [Required, ForeignKey("SensorType")]
         public SensorType? SensorType { get; set; }
 
         [Required, ForeignKey("Asset")]
         public Asset? Asset { get; set; }
+
+        //[Required, ForeignKey("API")]
+        //public API? API { get; set; }
 
     }
 }
