@@ -15,13 +15,16 @@ namespace MainAPI.Models
 
         public string? Description { get; set; }
 
+        [Required]
         public string? Company { get; set; }
 
+        [Required]
         public string? Location { get; set; }
 
+        [Required]
         public DateTime? CreationDate { get; set; }
 
-        [ForeignKey("AssetType")]
+        [Required, ForeignKey("AssetType")]
         public int AssetTypeId { get; set; }
         public AssetType? AssetType { get; set; }
 
