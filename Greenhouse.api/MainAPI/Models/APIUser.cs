@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MainAPI.Models
 {
-    public class User
+    public class APIUser
     {
         [Key]
         [Required]
@@ -27,6 +27,7 @@ namespace MainAPI.Models
         public bool Active { get; set; }
 
         [Required, ForeignKey("Role")]
+        public int RoleId { get; set; }
         public Role? Role { get; set; }
     }
 }

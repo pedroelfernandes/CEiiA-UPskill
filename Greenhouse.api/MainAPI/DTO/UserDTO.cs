@@ -10,7 +10,7 @@ namespace MainAPI.DTO
         public string? Email { get; set; }
 
 
-        public static UserDTO ToDto(User user)
+        public static UserDTO ToDto(APIUser user)
         {
             return new UserDTO()
             {

@@ -28,13 +28,10 @@ namespace MainAPI.Models
         public bool Active { get; set; }
 
         [Required, ForeignKey("SensorType")]
+        public int SensorTypeId { get; set; }
         public SensorType? SensorType { get; set; }
 
-        [Required, ForeignKey("Asset")]
-        public Asset? Asset { get; set; }
-
-        //[Required, ForeignKey("API")]
-        //public API? API { get; set; }
+        public ICollection<AssetSensor>? Assets { get; set; }
 
     }
 }

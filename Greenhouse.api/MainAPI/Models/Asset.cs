@@ -22,10 +22,13 @@ namespace MainAPI.Models
         public DateTime? CreationDate { get; set; }
 
         [ForeignKey("AssetType")]
+        public int AssetTypeId { get; set; }
         public AssetType? AssetType { get; set; }
 
         [Required]
         public bool Active { get; set; }
+
+        public ICollection<AssetSensor>? Sensors { get; set; }
 
     }
 }
