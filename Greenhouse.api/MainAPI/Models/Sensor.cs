@@ -14,11 +14,13 @@ namespace MainAPI.Models
         [Required]
         public string? Description { get; set; }
 
+        [Required]
         public string? Unit { get; set; }
 
         [Required]
         public int URLId { get; set; }
 
+        [Required]
         public string? Company { get; set; }
 
         [Required]
