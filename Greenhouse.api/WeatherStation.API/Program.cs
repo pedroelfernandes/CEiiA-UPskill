@@ -1,5 +1,8 @@
 using WeatherStation.api.Models;
-using WeatherStation.api.Services;
+using WeatherStation.api.Repositories.Implementation;
+using WeatherStation.api.Repositories.Interface;
+using WeatherStation.api.Services.Implementations;
+using WeatherStation.api.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +14,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<WeatherStationDatabaseSettings>(
-    builder.Configuration.GetSection("WeatherStationDb"));
+    builder.Configuration.GetSection(WeatherStationDatabaseSettings.Name));
 
-builder.Services.AddSingleton<WeatherStationService>();
+builder.Services.AddSingleton<ReadingService>();
+builder.Services.AddSingleton<SensorService>();
+
+builder.Services.AddScoped<IReadingRepository, ReadingRepository>();
+builder.Services.AddScoped<ISensorRepository, SensorRepository>();
+
+builder.Services.AddScoped<IReadingService, ReadingService>();
+builder.Services.AddScoped<ISensorService, SensorService>();
+
 
 var app = builder.Build();
 

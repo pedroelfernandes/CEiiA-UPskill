@@ -7,17 +7,17 @@ namespace WeatherStation.api.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; }
+        public string Id { get; set; } = null!;
 
-        public string? SensorId { get; set; }
 
-        public string? SensorType { get; set; }
+        public string SensorId { get; set; } = null!;
 
 
         [BsonElement("Date")]
-        public DateTime? ReadDate { get; set; }
+        public DateTime ReadDate { get; set; }
 
-        public string? Value { get; set; }
+
+        public string Value { get; set; } = null!;
     }
 }
 
