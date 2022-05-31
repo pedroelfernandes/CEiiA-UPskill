@@ -1,51 +1,30 @@
 ﻿using Greenhouse.api.DTOs;
 using Greenhouse.api.Models;
-using Greenhouse.api.Services;
+using Greenhouse.api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Greenhouse.api.Controllers
 {
-
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class ReadingsController : ControllerBase
+    public class ReadingsController : Controller
     {
-        private readonly GreenhouseService _greenhouseService;
+        private readonly IReadingService _readingService;
 
 
-        public ReadingsController(GreenhouseService greenhouseService)
+        public ReadingsController(IReadingService readingService)
         {
-            _greenhouseService = greenhouseService;
+            _readingService = readingService;
         }
 
 
         [HttpGet]
-        public async Task<List<Reading>> Get() => 
-            await _greenhouseService.GetAsync();
+        public async Task<IReadOnlyList<ReadingDTO>> GetBySensorId(string sensorId, int size, string sort = "desc", string order = "date") =>
+            await _readingService.GetBySensorId(sensorId, size, sort, order);
 
 
         [HttpGet]
-        public List<ReadingDTO> GetLast() =>
-            _greenhouseService.GetLast();
-
-
-        [HttpGet]
-        public async Task<ReadingDTO> GetLastBySensorId(string id) =>
-            await _greenhouseService.GetLastBySensorId(id);
-
-
-        [HttpGet]
-        public async Task<List<ReadingDTO>> GetLastValuesBySensorId(string id, int limit) =>
-            await _greenhouseService.GetLastValuesBySensorId(id, limit);
-
-
-        //[HttpGet]
-        //public List<string> GetSensorsId() =>
-        //    _greenhouseService.GetSensorsId();
-
-
-        [HttpGet]
-        public List<SensorDTO> GetSensors() =>
-            _greenhouseService.GetSensors();
+        public async Task<IReadOnlyList<ReadingDTO>> GetBetweenDatesBySensorId(string sensorId, DateTime startDate, DateTime endDate, string sort = "desc", string order = "date") =>
+            await _readingService.GetBetweenDatesBySensorId(sensorId, startDate, endDate, sort, order);
     }
 }

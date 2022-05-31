@@ -4,18 +4,26 @@ namespace Greenhouse.api.DTOs
 {
     public class SensorDTO
     {
-        public string? Id { get; set; }
+        public string Id { get; set; } = null!;
 
 
-        public string? Type { get; set; }
+        public string Name { get; set; } = null!;
 
 
-        public static SensorDTO ToDto(Reading reading)
+        public string Type { get; set; } = null!;
+
+
+        public string Company { get; set; } = null!;
+
+
+        public static SensorDTO ToDto(Sensor sensor)
         {
             return new SensorDTO()
             {
-                Id = reading.SensorId,
-                Type = reading.SensorType
+                Id = sensor.Id,
+                Name = sensor.Name,
+                Type = sensor.Type,
+                Company = sensor.Company
             };
         }
     }

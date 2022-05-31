@@ -4,16 +4,13 @@ namespace Greenhouse.api.DTOs
 {
     public class ReadingDTO
     {
-        public string? SensorId { get; init; }
+        public string Id { get; init; } = null!;
 
 
-        public string? SensorType { get; init; }
+        public DateTime ReadDate { get; init; }
 
 
-        public DateTime? ReadDate { get; init; }
-
-
-        public string? Value { get; init; }
+        public string Value { get; init; } = null!;
 
 
 
@@ -21,8 +18,7 @@ namespace Greenhouse.api.DTOs
         {
             return new ReadingDTO()
             {
-                SensorId = reading.SensorId,
-                SensorType = reading.SensorType,
+                Id = reading.Id,
                 ReadDate = reading.ReadDate,
                 Value = reading.Value
             };

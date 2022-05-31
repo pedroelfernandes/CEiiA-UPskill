@@ -2,10 +2,12 @@
 {
     public class GreenhouseDatabaseSettings
     {
-        public string? ConnectionString { get; set; }
+        public const string Name = "GreenhouseDatabase";
 
-        public string? DatabaseName { get; set; }
 
-        public string? ReadingsCollectionName { get; set; }
+        public string ConnectionString { get; set; } = null!;
+
+
+        public string DatabaseName { get; set; } = null!;
     }
 }
