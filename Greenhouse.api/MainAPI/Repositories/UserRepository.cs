@@ -7,7 +7,7 @@ namespace MainAPI.Repositories
     {
         public static bool AuthenticateUser(string name, string password, ApplicationDbContext db)
         {
-            User u = db.Users.FirstOrDefault(u => u.Username == name);
+            APIUser u = db.APIUsers.FirstOrDefault(u => u.Username == name);
             
             if ( u != null)
             {
