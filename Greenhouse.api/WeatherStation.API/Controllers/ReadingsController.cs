@@ -18,12 +18,12 @@ namespace WeatherStation.api.Controllers
 
 
         [HttpGet]
-        public async Task<IReadOnlyList<ReadingDTO>> GetBySensorId(string sensorId, int size, string sort = "desc", string order = "date") =>
+        public async Task<IReadOnlyList<ReadingDTO>> GetBySensorId(string sensorId, int size, string sort = "desc", string order = "ReadDate") =>
             await _readingService.GetBySensorId(sensorId, size, sort, order);
 
 
         [HttpGet]
-        public async Task<IReadOnlyList<ReadingDTO>> GetBetweenDatesBySensorIdAsync(string sensorId, DateTime startDate, DateTime endDate, string sort = "desc", string order = "date") =>
+        public async Task<IReadOnlyList<ReadingDTO>> GetBetweenDatesBySensorIdAsync(string sensorId, DateTime startDate, DateTime endDate, string sort = "desc", string order = "ReadDate") =>
             await _readingService.GetBetweenDatesBySensorId(sensorId, startDate, endDate, sort, order);
     }
 }
