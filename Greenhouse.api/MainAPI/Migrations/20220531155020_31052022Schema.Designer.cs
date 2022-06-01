@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MainAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220531152138_schema1")]
-    partial class schema1
+    [Migration("20220531155020_31052022Schema")]
+    partial class _31052022Schema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
