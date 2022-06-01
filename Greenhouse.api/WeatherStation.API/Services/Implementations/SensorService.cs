@@ -22,5 +22,13 @@ namespace WeatherStation.api.Services.Implementations
 
             return SensorDTO.ToDto(sensor);
         }
+
+
+        public async Task<IReadOnlyList<SensorDTO>> GetAllSensors()
+        {
+            IReadOnlyList<Sensor> sensors = await _sensorRepository.GetAllSensors();
+
+            return sensors.Select(s => SensorDTO.ToDto(s)).ToList();
+        }
     }
 }
