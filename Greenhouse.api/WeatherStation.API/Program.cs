@@ -16,8 +16,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<WeatherStationDatabaseSettings>(
     builder.Configuration.GetSection(WeatherStationDatabaseSettings.Name));
 
-builder.Services.AddSingleton<ReadingService>();
-builder.Services.AddSingleton<SensorService>();
+//builder.Services.AddSingleton<ReadingService>();
+//builder.Services.AddSingleton<SensorService>();
 
 builder.Services.AddScoped<IReadingRepository, ReadingRepository>();
 builder.Services.AddScoped<ISensorRepository, SensorRepository>();
