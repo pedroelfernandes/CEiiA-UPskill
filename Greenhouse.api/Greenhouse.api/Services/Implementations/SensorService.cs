@@ -22,5 +22,13 @@ namespace Greenhouse.api.Services.Implementations
 
             return SensorDTO.ToDto(sensor);
         }
+
+
+        public async Task<IReadOnlyList<SensorDTO>> GetAllSensors()
+        {
+            IReadOnlyList<Sensor> sensors = await _sensorRepository.GetAllSensors();
+
+            return sensors.Select(sensor => SensorDTO.ToDto(sensor)).ToList();
+        }
     }
 }
