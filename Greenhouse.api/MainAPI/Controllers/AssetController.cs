@@ -1,83 +1,38 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MainAPI.Data;
+using MainAPI.DTO;
+using MainAPI.HttpClientHelper;
+using MainAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MainAPI.Controllers
 {
+    //connect to swagger
+    [ApiController]
+    [Route("api/[controller]/[Action]")]
+
     public class AssetController : Controller
     {
-        // GET: AssetController
-        public ActionResult Index()
+
+        private readonly IAssetService _assetService;
+        public AssetController(IAssetService assetService)
         {
-            return View();
+            _assetService = assetService;
         }
 
-        // GET: AssetController/Details/5
-        public ActionResult Details(int id)
+        //getlist of Assets
+        [HttpGet]
+        public async Task<IEnumerable<AssetDTO>> GetAssets()
         {
-            return View();
+            return await _assetService.GetAssets(Enumerables.SortItem.ASC, Enumerables.OrderItem.Id);
         }
 
-        // GET: AssetController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
 
-        // POST: AssetController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        ////Method Get Asset ById
+        //[HttpGet("id")]
 
-        // GET: AssetController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: AssetController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: AssetController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: AssetController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //async Task<AssetDTO> GetAssetById()
+        //{
+        //    return await _assetService.GetAssetById(Id);
+        //}
     }
 }
