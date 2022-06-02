@@ -1,4 +1,5 @@
 ﻿using WeatherStation.api.DTOs;
+using WeatherStation.api.Enumerables;
 using WeatherStation.api.Models;
 using WeatherStation.api.Repositories.Interface;
 using WeatherStation.api.Services.Interfaces;
@@ -15,7 +16,7 @@ namespace WeatherStation.api.Services.Implementations
             _readingRepository = readingRepository;
         }
 
-        public async Task<IReadOnlyList<ReadingDTO>> GetBySensorId(string sensorId, int size, string sort, string order)
+        public async Task<IReadOnlyList<ReadingDTO>> GetBySensorId(string sensorId, int size, SortEnum sort, OrderEnum order)
         {
             IReadOnlyList<Reading> readings = await _readingRepository.GetBySensorId(sensorId, size, sort, order);
 
@@ -23,7 +24,7 @@ namespace WeatherStation.api.Services.Implementations
         }
 
 
-        public async Task<IReadOnlyList<ReadingDTO>> GetBetweenDatesBySensorId(string sensorIid, DateTime startDate, DateTime endDate, string sort, string order)
+        public async Task<IReadOnlyList<ReadingDTO>> GetBetweenDatesBySensorId(string sensorIid, DateTime startDate, DateTime endDate, SortEnum sort, OrderEnum order)
         {
             IReadOnlyList<Reading> readings= await _readingRepository.GetBetweenDatesBySensorId(sensorIid, startDate, endDate, sort, order);
 

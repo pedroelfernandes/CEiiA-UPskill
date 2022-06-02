@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using WeatherStation.api.Enumerables;
 using WeatherStation.api.Models;
 using WeatherStation.api.Repositories.Interface;
 
@@ -21,23 +22,69 @@ namespace WeatherStation.api.Repositories.Implementation
         }
 
 
-        public async Task<IReadOnlyList<Reading>> GetBySensorId(string sensorId, int size, string sort = "desc", string order = "date")
-        {
-            SortDefinition<Reading> sortDefinition = sort.Equals("desc", StringComparison.OrdinalIgnoreCase) ? 
-                Builders<Reading>.Sort.Descending(order) : Builders<Reading>.Sort.Ascending(order);
+        private async Task<IReadOnlyList<Reading>> GetLastXReadings(string sensorId, int size) =>
+            await _readingsCollection.Find(r => r.SensorId == sensorId).Limit(size).SortByDescending(r => r.ReadDate).ToListAsync();
 
-            return await _readingsCollection.Find(r => r.SensorId == sensorId).Sort(sortDefinition).Limit(size).ToListAsync();
+
+        private async Task<IReadOnlyList<Reading>> GetReadingsBetweenDates(string sensorId, DateTime startDate, DateTime endDate)
+        {
+            FilterDefinition<Reading> filter = new FilterDefinitionBuilder<Reading>().Where(r => r.ReadDate >= startDate && r.ReadDate <= endDate && r.SensorId == sensorId);
+
+            return await _readingsCollection.Find(filter).SortByDescending(r => r.ReadDate).ToListAsync();
         }
 
 
-        public async Task<IReadOnlyList<Reading>> GetBetweenDatesBySensorId(string sensorId, DateTime startDate, DateTime endDate, string sort = "desc", string order = "date")
+        public async Task<IReadOnlyList<Reading>> GetBySensorId(string sensorId, int size, SortEnum sort, OrderEnum order)
         {
-            SortDefinition<Reading> sortDefinition = sort.Equals("desc", StringComparison.OrdinalIgnoreCase) ?
-                Builders<Reading>.Sort.Descending(order) : Builders<Reading>.Sort.Ascending(order);
+            IReadOnlyList<Reading> readings = await GetLastXReadings(sensorId, size);
 
-            FilterDefinition<Reading> filter = new FilterDefinitionBuilder<Reading>().Where(r => r.ReadDate >= startDate && r.ReadDate <= endDate && r.SensorId == sensorId);
+            if(sort.Equals(SortEnum.Descending))
+            {
+                return order switch
+                {
+                    OrderEnum.Id => readings.OrderByDescending(r => r.Id).ToList(),
+                    OrderEnum.ReadDate => readings.OrderByDescending(r => r.ReadDate).ToList(),
+                    OrderEnum.Value => readings.OrderByDescending(r => r.Value).ToList(),
+                    _ => throw new Exception("Check your enums, burro do caralho")
+                };
+            }
+            else
+            {
+                return order switch
+                {
+                    OrderEnum.Id => readings.OrderBy(r => r.Id).ToList(),
+                    OrderEnum.ReadDate => readings.OrderBy(r => r.ReadDate).ToList(),
+                    OrderEnum.Value => readings.OrderBy(r => r.Value).ToList(),
+                    _ => throw new Exception("Check your enums, burro do caralho")
+                };
+            }
+        }
 
-            return await _readingsCollection.Find(filter).Sort(sortDefinition).ToListAsync();
+
+        public async Task<IReadOnlyList<Reading>> GetBetweenDatesBySensorId(string sensorId, DateTime startDate, DateTime endDate, SortEnum sort, OrderEnum order)
+        {
+            IReadOnlyList<Reading> readings = await GetReadingsBetweenDates(sensorId, startDate, endDate);
+
+            if (sort.Equals(SortEnum.Descending))
+            {
+                return order switch
+                {
+                    OrderEnum.Id => readings.OrderByDescending(r => r.Id).ToList(),
+                    OrderEnum.ReadDate => readings.OrderByDescending(r => r.ReadDate).ToList(),
+                    OrderEnum.Value => readings.OrderByDescending(r => r.Value).ToList(),
+                    _ => throw new Exception("Check your enums, burro do caralho")
+                };
+            }
+            else
+            {
+                return order switch
+                {
+                    OrderEnum.Id => readings.OrderBy(r => r.Id).ToList(),
+                    OrderEnum.ReadDate => readings.OrderBy(r => r.ReadDate).ToList(),
+                    OrderEnum.Value => readings.OrderBy(r => r.Value).ToList(),
+                    _ => throw new Exception("Check your enums, burro do caralho")
+                };
+            }
         }
     }
 }

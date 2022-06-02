@@ -25,6 +25,6 @@ namespace WeatherStation.api.Repositories.Implementation
 
 
         public async Task<IReadOnlyList<Sensor>> GetAllSensors() =>
-            await _sensorsCollection.Find(s => s.Id != null).ToListAsync();
+            await _sensorsCollection.Find(_ => true).ToListAsync();
     }
 }
