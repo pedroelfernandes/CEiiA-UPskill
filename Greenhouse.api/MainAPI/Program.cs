@@ -21,9 +21,13 @@ options.UseSqlServer(
 
 builder.Services.AddScoped<IAPIUserRepository, APIUserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<ISensorRepository, SensorRepository>();
+builder.Services.AddScoped<ISensorTypeRepository, SensorTypeRepository>();
 
 builder.Services.AddScoped<IAPIUserService, APIUserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<ISensorService, SensorService>();    
+builder.Services.AddScoped<ISensorTypeService, SensorTypeService>();
 
 var app = builder.Build();
 
