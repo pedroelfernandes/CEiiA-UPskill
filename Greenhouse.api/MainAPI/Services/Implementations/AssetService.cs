@@ -9,35 +9,16 @@ namespace MainAPI.Services.Implementations
     public class AssetService: IAssetService
     {
         private readonly IAssetRepository _assetRepository;
-
+        private bool tempAsset;
 
         public AssetService(IAssetRepository assetRepository)
         {
             _assetRepository = assetRepository;
         }
 
-        //public Task<AssetDTO> CreateAsset(Asset asset)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
-        //public Task<AssetDTO> DeleteAsset(int Id)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
-        //public Task<AssetDTO> EditAsset(int Id)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public async Task<AssetDTO> GetAssetById(int Id)
-        //{
-
-        //    throw new NotImplementedException();
-        //}
-
-        //Create the service to send the full Assets list
+        //transform Assets list to a DTO object
         public async Task<IEnumerable<AssetDTO>> GetAssets(Enumerables.SortItem sort, Enumerables.OrderItem order)
         {
             //Creates a list of assets and send it to a DTO
@@ -50,5 +31,42 @@ namespace MainAPI.Services.Implementations
 
             return assetsDTO;
         }
+
+
+        //transfer a specific Asset to DTO
+        public async Task<AssetDTO> GetAssetById(int Id)
+        {
+
+            //transfer the Asset with the specific Id from the repository to DTO
+            Asset tempasset = await _assetRepository.GetAssetById(Id);
+            return AssetDTO.ToDto(tempasset);
+        }
+
+
+        //Transfer the CreateAsset content to DTO
+        public async Task<AssetDTO> CreateAsset(Asset asset)
+        {
+            Asset tempAsset = await _assetRepository.CreateAsset(asset);
+            return AssetDTO.ToDto(tempAsset);
+        }
+
+        //Edit
+        public async Task<AssetDTO> EditAsset(int id, string name, string company, string location, DateTime creationDate, AssetType assetType, bool active)
+        {
+            Asset tempAsset = await _assetRepository.EditAsset(id, name, company, location, creationDate, assetType, active);
+            return AssetDTO.ToDto(tempAsset);
+        }
+
+
+        //Inactivate Asset
+        public async Task<bool> ChangeState(int id)
+        {
+            return await _assetRepository.ChangeState(id);            
+        }
+
+
+
+
+
     }
 }

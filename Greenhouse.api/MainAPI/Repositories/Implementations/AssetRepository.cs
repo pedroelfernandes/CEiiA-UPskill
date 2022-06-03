@@ -15,20 +15,12 @@ namespace MainAPI.Repositories.Implementations
             _db = db;
         }
 
-        //public Task<bool> CreateAsset(Asset asset)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Task<bool> DeleteAsset(int Id)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public async Task<Asset> GetAssetById(int id)
-        //{
-        //    return await _db.Assets.FirstOrDefaultAsync(a => a.Id == id);
-        //}
+        public async Task<Asset> GetAssetById(int id)
+        {
+            Asset asset;
+            asset = await _db.Assets.FindAsync(id);
+            return asset;
+        }
 
         public async Task<IEnumerable<Asset>> GetAssets(Enumerables.SortItem sort, Enumerables.OrderItem order)
         {
@@ -37,9 +29,39 @@ namespace MainAPI.Repositories.Implementations
             return assets;
 
         }
-        //public Task<bool> EditAsset(int Id)
-        //{
-        //    throw new NotImplementedException();
-        //}
+
+        public async Task<Asset> CreateAsset(Asset asset)
+        {
+            await _db.Assets.AddAsync(asset);
+            await _db.SaveChangesAsync();
+            return asset;
+        }
+
+        public async Task<Asset> EditAsset(int id, string name, string company, string location, DateTime creationDate, AssetType assetType, bool active)
+        {
+            _db.Assets.Update(await GetAssetById(id)).Property(a => a.Name).CurrentValue = name;
+            _db.Assets.Update(await GetAssetById(id)).Property(a => a.Company).CurrentValue = company;
+            _db.Assets.Update(await GetAssetById(id)).Property(a => a.Location).CurrentValue = location;
+            _db.Assets.Update(await GetAssetById(id)).Property(a => a.CreationDate).CurrentValue = creationDate;
+            _db.Assets.Update(await GetAssetById(id)).Property(a => a.AssetType).CurrentValue = assetType;
+            _db.Assets.Update(await GetAssetById(id)).Property(a => a.Active).CurrentValue = active;
+
+            await _db.SaveChangesAsync();
+            return await GetAssetById(id);
+        }
+
+
+        public async Task<bool> ChangeState(int id)
+        {
+            Asset? asset;
+            asset = await _db.Assets.FindAsync(id);
+
+            if(asset == null)
+                return false;
+
+            asset.Active ^= true;
+            await _db.SaveChangesAsync();
+            return true;
+        }
     }
 }

@@ -30,7 +30,7 @@ namespace MainAPI.DTO
                 Company = asset.Company,
                 Location = asset.Location,
                 CreationDate = asset.CreationDate,
-                AssetTypeId = asset.AssetTypeId,
+                AssetType = asset.AssetType,
                 Active = asset.Active,
             };
         }

@@ -1,6 +1,7 @@
 ﻿using MainAPI.Data;
 using MainAPI.DTO;
 using MainAPI.HttpClientHelper;
+using MainAPI.Models;
 using MainAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,20 +20,55 @@ namespace MainAPI.Controllers
             _assetService = assetService;
         }
 
-        //getlist of Assets
+
+
+        //Get Assets List
         [HttpGet]
-        public async Task<IEnumerable<AssetDTO>> GetAssets()
+        public async Task<IEnumerable<AssetDTO>> GetAssets() => await _assetService.GetAssets(Enumerables.SortItem.ASC, Enumerables.OrderItem.Id);
+
+
+
+        //GetAsset ById
+        [HttpGet("id")]
+        public async Task<AssetDTO> GetAssetById(int Id) => await _assetService.GetAssetById(Id);
+
+
+
+        //Create new asset
+        [HttpPost]
+        public async Task<AssetDTO> CreateAsset(int id, string name, string company, string location, DateTime creationDate, int assetTypeId, bool active )
         {
-            return await _assetService.GetAssets(Enumerables.SortItem.ASC, Enumerables.OrderItem.Id);
+            Asset? asset = new()
+            {
+                Id = id,
+                Name = name,
+                Company = company,
+                Location = location,
+                CreationDate = creationDate,
+                AssetTypeId = assetTypeId,
+                Active = active,
+            };
+
+            return await _assetService.CreateAsset(asset);
         }
 
 
-        ////Method Get Asset ById
-        //[HttpGet("id")]
 
-        //async Task<AssetDTO> GetAssetById()
-        //{
-        //    return await _assetService.GetAssetById(Id);
-        //}
+        //Edit asset
+        [HttpPost]
+        public async Task<AssetDTO> EditAsset(int id, string name, string company, string location, DateTime creationDate, AssetType assetType, bool active)
+        {
+            return await _assetService.EditAsset(id, name, company, location, creationDate, assetType, active);
+        }
+
+
+
+        //Delete Asset
+        [HttpPost]
+        public async Task<bool> ChangeState(int id)
+        {
+            return await _assetService.ChangeState(id);
+        }
+
     }
 }

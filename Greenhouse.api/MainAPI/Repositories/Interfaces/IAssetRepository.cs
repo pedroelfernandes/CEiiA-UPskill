@@ -5,11 +5,11 @@ namespace MainAPI.Repositories.Interfaces
 {
     public interface IAssetRepository
     {
-        //Task<bool> CreateAsset(Asset asset);
-        //Task<bool> DeleteAsset(int Id);
-        Task<IEnumerable<Asset>> GetAssets(Enumerables.SortItem sort, Enumerables.OrderItem order);
-        //Task<Asset> GetAssetById(int Id);
-        //Task<bool> EditAsset(int Id);
 
+        Task<IEnumerable<Asset>> GetAssets(Enumerables.SortItem sort, Enumerables.OrderItem order);
+        Task<Asset> GetAssetById(int Id);
+        Task<Asset> EditAsset(int id, string name, string company, string location, DateTime creationDate, AssetType assetType, bool active);
+        Task<Asset> CreateAsset(Asset asset);
+        Task<bool> ChangeState(int id);
     }
 }
