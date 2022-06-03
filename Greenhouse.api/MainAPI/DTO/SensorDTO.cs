@@ -17,7 +17,7 @@ namespace MainAPI.DTO
 
         public string? Company { get; set; }
 
-        public DataType ActiveSince { get; set; }
+        //public DateTime ActiveSince { get; set; }
 
         public bool Active { get; set; }
 
@@ -34,7 +34,7 @@ namespace MainAPI.DTO
                 Unit = sensor.Unit,
                 URLId = sensor.URLId,
                 Company = sensor.Company,
-                ActiveSince = sensor.ActiveSince,
+                //ActiveSince = sensor.ActiveSince,
                 Active = sensor.Active,
                 SensorTypeId = sensor.SensorTypeId,
             };

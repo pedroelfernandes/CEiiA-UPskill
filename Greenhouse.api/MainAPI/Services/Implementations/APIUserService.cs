@@ -17,11 +17,8 @@ namespace MainAPI.Services.Implementations
 
         public async Task<APIUserDTO> Create(APIUser apiUser)
         {
-            APIUserDTO userDTO = new APIUserDTO();
-            userDTO.Username = apiUser.Username;
-
-            await _apiUserRepository.Create(apiUser);
-            return userDTO;
+            APIUser tempUser = await _apiUserRepository.Create(apiUser);
+            return APIUserDTO.ToDto(tempUser);
         }
 
         public async Task<APIUserDTO> Get(int id)
@@ -30,17 +27,17 @@ namespace MainAPI.Services.Implementations
             return APIUserDTO.ToDto(user);
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> ChangeState(int id)
         {
-            return await _apiUserRepository.Delete(id);
+            return await _apiUserRepository.ChangeState(id);
         }
 
-        public async Task<APIUserDTO> Edit(APIUser apiUser)
+        public async Task<APIUserDTO> Edit(int id, string username, string email, int roleId)
         {
 
-            APIUser user = await _apiUserRepository.Edit(apiUser);
+            APIUser tempUser = await _apiUserRepository.Edit(id, username, email, roleId);
 
-            return APIUserDTO.ToDto(user);
+            return APIUserDTO.ToDto(tempUser);
         }
     }
 }
