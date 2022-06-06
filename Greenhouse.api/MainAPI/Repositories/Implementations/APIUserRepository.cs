@@ -16,7 +16,7 @@ namespace MainAPI.Repositories.Implementations
         public async Task<APIUser> Create(APIUser apiUser)
         {
             if (apiUser == null)
-                return apiUser;
+                throw new Exception("User not defined.");
 
             await _db.APIUsers.AddAsync(apiUser);
             await _db.SaveChangesAsync();
@@ -26,10 +26,12 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<APIUser> Get(int id)
         {
-            APIUser? apiUser;
-
             // get the user
-            apiUser = await _db.APIUsers.FindAsync(id);
+            APIUser? apiUser = await _db.APIUsers.FindAsync(id);
+
+            if (apiUser == null)
+                throw new Exception("User not found.");
+
             return apiUser;
         }
 
@@ -44,14 +46,12 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<bool> ChangeState(int id)
         {
-            APIUser? apiUser;
-
-            apiUser = await _db.APIUsers.FindAsync(id);
+            APIUser? apiUser = await _db.APIUsers.FindAsync(id);
 
             if (apiUser == null)
                 return false;
 
-            apiUser.Active ^= true;
+            apiUser.IsActive ^= true;
             await _db.SaveChangesAsync();
             return true;
         }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MainAPI.Models
 {
-    public class AssetTypeId
+    public class AssetType
     {
         [Key]
         [Required]
@@ -16,17 +16,6 @@ namespace MainAPI.Models
         public string? Description { get; set; }
 
         [Required]
-        public bool Active { get; set; }
-
-        public static AssetTypeDTO ToDto(AssetTypeId assetType)
-        {
-            return new AssetTypeDTO()
-            {
-                Id = assetType.Id,
-                Name = assetType.Name,
-                Description = assetType.Description,
-                Active = assetType.Active,
-            };
-        }
+        public bool IsActive { get; set; }
     }
 }

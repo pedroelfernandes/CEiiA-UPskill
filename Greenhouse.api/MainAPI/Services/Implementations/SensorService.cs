@@ -33,10 +33,10 @@ namespace MainAPI.Services.Implementations
         }
 
         public async Task<SensorDTO> Edit(int id, string name, string description,
-            string unit, int urlId, string company, DateTime activeSince, bool active, int sensorTypeId)
+            string unit, int urlId, string company, bool active, int sensorTypeId)
         {
 
-            Sensor tempSensor = await _sensorRepository.Edit(id, name, description, unit, urlId, company, activeSince, active, sensorTypeId);
+            Sensor tempSensor = await _sensorRepository.Edit(id, name, description, unit, urlId, company, active, sensorTypeId);
 
             return SensorDTO.ToDto(tempSensor);
         }

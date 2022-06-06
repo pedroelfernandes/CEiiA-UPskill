@@ -24,7 +24,7 @@ namespace MainAPI.Models
         public string? Email { get; set; }
 
         [Required]
-        public bool Active { get; set; }
+        public bool IsActive { get; set; }
 
         [Required, ForeignKey("Role")]
         public int RoleId { get; set; }

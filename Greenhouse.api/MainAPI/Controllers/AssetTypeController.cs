@@ -19,7 +19,7 @@ namespace MainAPI.Controllers
 
         //Get AssetTypes List
         [HttpGet]
-        public async Task<IEnumerable<AssetTypeDTO>> GetAssetTypes() => await _assetTypeService.GetAssetTypes(Enumerables.SortItem.ASC, Enumerables.OrderItem.Id);
+        public async Task<IEnumerable<AssetTypeDTO>> GetAssetTypes() => await _assetTypeService.GetAssetTypes();
 
 
 
@@ -33,12 +33,12 @@ namespace MainAPI.Controllers
         [HttpPost]
         public async Task<AssetTypeDTO> CreateAssetType(int id, string name, string description, bool active)
         {
-            AssetTypeId? assetType = new()
+            AssetType? assetType = new()
             {
                 Id = id,
                 Name = name,
                 Description = description,
-                Active = active,
+                IsActive = active,
             };
 
             return await _assetTypeService.CreateAssetType(assetType);

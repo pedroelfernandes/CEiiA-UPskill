@@ -25,23 +25,23 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<Sensor> Get(int id)
         {
-            Sensor? sensor;
+            Sensor sensor = await _db.Sensors.FindAsync(id);
 
-            // get the sensor
-            sensor = await _db.Sensors.FindAsync(id);
+            if (sensor == null)
+                throw new Exception("Sensor not found.");
+
             return sensor;
         }
 
         public async Task<Sensor> Edit(int id, string name, string description,
-            string unit, int urlId, string company, DateTime activeSince, bool active, int sensorTypeId)
+            string unit, int urlId, string company, bool active, int sensorTypeId)
         {
             _db.Sensors.Update(await Get(id)).Property(r => r.Name).CurrentValue = name;
             _db.Sensors.Update(await Get(id)).Property(r => r.Description).CurrentValue = description;
             _db.Sensors.Update(await Get(id)).Property(r => r.Unit).CurrentValue = unit;
             _db.Sensors.Update(await Get(id)).Property(r => r.URLId).CurrentValue = urlId;
             _db.Sensors.Update(await Get(id)).Property(r => r.Company).CurrentValue = company;
-            //_db.Sensors.Update(await Get(id)).Property(r => r.ActiveSince).CurrentValue = activeSince;
-            _db.Sensors.Update(await Get(id)).Property(r => r.Active).CurrentValue = active;
+            _db.Sensors.Update(await Get(id)).Property(r => r.IsActive).CurrentValue = active;
             _db.Sensors.Update(await Get(id)).Property(r => r.SensorTypeId).CurrentValue = sensorTypeId;
             await _db.SaveChangesAsync();
             return await Get(id);
@@ -49,14 +49,12 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<bool> ChangeState(int id)
         {
-            Sensor? sensor;
-
-            sensor = await _db.Sensors.FindAsync(id);
+            Sensor sensor = await _db.Sensors.FindAsync(id);
 
             if (sensor == null)
                 return false;
 
-            sensor.Active ^= true;
+            sensor.IsActive ^= true;
             await _db.SaveChangesAsync();
             return true;
         }

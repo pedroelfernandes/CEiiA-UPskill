@@ -17,7 +17,7 @@ namespace MainAPI.Repositories.Implementations
         public async Task<SensorType> Create(SensorType sensorType)
         {
             if (sensorType == null)
-                return sensorType;
+                throw new Exception("SensorType not defined.");
 
             await _db.SensorTypes.AddAsync(sensorType);
             await _db.SaveChangesAsync();
@@ -26,10 +26,11 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<SensorType> Get(int id)
         {
-            SensorType? sensorType;
+            SensorType? sensorType = await _db.SensorTypes.FindAsync(id);
 
-            // get the sensor
-            sensorType = await _db.SensorTypes.FindAsync(id);
+            if (sensorType == null)
+                throw new Exception("SensorType not found.");
+
             return sensorType;
         }
 
@@ -43,14 +44,12 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<bool> ChangeState(int id)
         {
-            SensorType? sensorType;
-
-            sensorType = await _db.SensorTypes.FindAsync(id);
+            SensorType? sensorType = await _db.SensorTypes.FindAsync(id);
 
             if (sensorType == null)
                 return false;
 
-            sensorType.Active ^= true;
+            sensorType.IsActive ^= true;
             await _db.SaveChangesAsync();
             return true;
         }

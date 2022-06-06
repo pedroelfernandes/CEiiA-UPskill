@@ -9,8 +9,6 @@ namespace MainAPI.Data
         : base(options)
         { }
 
-        public DbSet<API>? APIs { get; set; }
-
         public DbSet<APIUser>? APIUsers { get; set; }
 
         public DbSet<Role>? Roles { get; set; }
@@ -21,7 +19,7 @@ namespace MainAPI.Data
 
         public DbSet<Asset>? Assets { get; set; }
 
-        public DbSet<AssetTypeId>? AssetTypes { get; set; }
+        public DbSet<AssetType>? AssetTypes { get; set; }
 
         public DbSet<AssetSensor> AssetSensors { get; set; }
 

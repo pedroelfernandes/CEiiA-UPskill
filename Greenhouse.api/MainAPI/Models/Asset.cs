@@ -26,10 +26,10 @@ namespace MainAPI.Models
 
         [Required, ForeignKey("AssetType")]
         public int AssetTypeId { get; set; }
-        public AssetTypeId? AssetType { get; set; }
+        public AssetType? AssetType { get; set; }
 
         [Required]
-        public bool Active { get; set; }
+        public bool IsActive { get; set; }
 
         public ICollection<AssetSensor>? Sensors { get; set; }
 

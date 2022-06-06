@@ -24,7 +24,7 @@ namespace MainAPI.Controllers
 
         //Get Assets List
         [HttpGet]
-        public async Task<IEnumerable<AssetDTO>> GetAssets() => await _assetService.GetAssets(Enumerables.SortItem.ASC, Enumerables.OrderItem.Id);
+        public async Task<IEnumerable<AssetDTO>> GetAssets() => await _assetService.GetAssets();
 
 
 
@@ -46,7 +46,7 @@ namespace MainAPI.Controllers
                 Location = location,
                 CreationDate = creationDate,
                 AssetTypeId = assetTypeId,
-                Active = active,
+                IsActive = active,
             };
 
             return await _assetService.CreateAsset(asset);
