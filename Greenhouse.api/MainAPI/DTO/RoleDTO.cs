@@ -19,7 +19,7 @@ namespace MainAPI.DTO
                 Id = role.Id,
                 Name = role.Name,
                 Description = role.Description,
-                Active = role.Active,
+                Active = role.IsActive,
             };
         }
     }

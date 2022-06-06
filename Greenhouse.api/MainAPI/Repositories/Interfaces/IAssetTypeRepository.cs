@@ -5,7 +5,7 @@ namespace MainAPI.Repositories.Interfaces
 {
     public interface IAssetTypeRepository
     {
-        Task<IEnumerable<AssetType>> GetAssetTypes(Enumerables.SortItem sort, Enumerables.OrderItem order);
+        Task<IEnumerable<AssetType>> GetAssetTypes();
         Task<AssetType> GetAssetTypeById(int id);
         Task<AssetType> CreateAssetType(AssetType assetType);
         Task<AssetType> EditAssetType(int id, string name, string description, bool active);

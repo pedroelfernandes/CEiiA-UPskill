@@ -28,7 +28,7 @@ namespace MainAPI.Controllers
             Role? role = new()
             {
                 Name = name,
-                Active = active
+                IsActive = active
             };
 
             return await _roleService.Create(role);

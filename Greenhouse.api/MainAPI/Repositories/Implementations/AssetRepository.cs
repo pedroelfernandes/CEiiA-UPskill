@@ -15,7 +15,7 @@ namespace MainAPI.Repositories.Implementations
             _db = db;
         }
 
-        public async Task<IEnumerable<Asset>> GetAssets(Enumerables.SortItem sort, Enumerables.OrderItem order)
+        public async Task<IEnumerable<Asset>> GetAssets()
         {
             var assets = new List<Asset>();
             assets = await _db.Assets.ToListAsync();
@@ -25,14 +25,20 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<Asset> GetAssetById(int id)
         {
-            Asset asset;
-            asset = await _db.Assets.FindAsync(id);
+            Asset asset = await _db.Assets.FindAsync(id);
+
+            if (asset == null)
+                throw new Exception("Asset not found.");
+
             return asset;
         }
 
 
         public async Task<Asset> CreateAsset(Asset asset)
         {
+            if (asset == null)
+                throw new Exception("Asset not defined.");
+
             await _db.Assets.AddAsync(asset);
             await _db.SaveChangesAsync();
             return asset;
@@ -53,6 +59,9 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<Asset> EditAsset(Asset asset)
         {
+            if (asset == null)
+                throw new Exception("Asset not defined.");
+
             _db.Assets.Update(asset);
             await _db.SaveChangesAsync();
             return asset;
@@ -60,13 +69,12 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<bool> ChangeState(int id)
         {
-            Asset? asset;
-            asset = await _db.Assets.FindAsync(id);
+            Asset? asset = await _db.Assets.FindAsync(id);
 
             if(asset == null)
                 return false;
 
-            asset.Active ^= true;
+            asset.IsActive ^= true;
             await _db.SaveChangesAsync();
             return true;
         }

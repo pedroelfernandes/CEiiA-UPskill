@@ -5,6 +5,7 @@ namespace MainAPI.DTO
     public class AssetDTO
     {
         public int Id { get; set; }
+
         public string? Name { get; set; }
 
         public string? Company { get; set; }
@@ -13,11 +14,12 @@ namespace MainAPI.DTO
 
         public DateTime? CreationDate { get; set; }
 
-        public int AssetTypeId { get; set; }
+        //public int AssetTypeId { get; set; }
+        public AssetTypeDTO? AssetType { get; set; }
 
         public bool Active { get; set; }
 
-        public ICollection<AssetSensor>? Sensors { get; set; }
+        public IReadOnlyCollection<AssetSensor>? Sensors { get; set; }
 
         public static AssetDTO ToDto(Asset asset)
         {
@@ -28,8 +30,10 @@ namespace MainAPI.DTO
                 Company = asset.Company,
                 Location = asset.Location,
                 CreationDate = asset.CreationDate,
-                AssetTypeId = asset.AssetTypeId,
-                Active = asset.Active,
+                //AssetTypeId = asset.AssetTypeId,
+                AssetType = AssetTypeDTO.ToDto(asset.AssetType),
+                Active = asset.IsActive,
+                Sensors = (IReadOnlyCollection<AssetSensor>?) asset.Sensors
             };
         }
     }

@@ -14,6 +14,6 @@ namespace MainAPI.Models
         public string? Description { get; set; }
        
         [Required]
-        public bool Active { get; set; }
+        public bool IsActive { get; set; }
     }
 }

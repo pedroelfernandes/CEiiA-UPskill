@@ -16,17 +16,6 @@ namespace MainAPI.Models
         public string? Description { get; set; }
 
         [Required]
-        public bool Active { get; set; }
-
-        public static AssetTypeDTO ToDto(AssetType assetType)
-        {
-            return new AssetTypeDTO()
-            {
-                Id = assetType.Id,
-                Name = assetType.Name,
-                Description = assetType.Description,
-                Active = assetType.Active,
-            };
-        }
+        public bool IsActive { get; set; }
     }
 }

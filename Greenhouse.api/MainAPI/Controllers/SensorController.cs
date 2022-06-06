@@ -24,7 +24,7 @@ namespace MainAPI.Controllers
         public async Task<SensorDTO> Edit(int id, string name, string description,
             string unit, int urlId, string company, DateTime activeSince, bool active, int sensorTypeId)
         {
-            return await _sensorService.Edit(id, name, description, unit, urlId, company, activeSince, active, sensorTypeId);
+            return await _sensorService.Edit(id, name, description, unit, urlId, company, active, sensorTypeId);
         }
 
 

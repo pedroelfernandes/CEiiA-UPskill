@@ -27,7 +27,7 @@ namespace MainAPI.Controllers
             SensorType? sensorType = new()
             {
                 Name = name,
-                Active = active
+                IsActive = active
             };
             return await _sensorTypeService.Create(sensorType);
         }

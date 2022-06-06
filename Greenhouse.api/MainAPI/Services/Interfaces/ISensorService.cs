@@ -10,7 +10,7 @@ namespace MainAPI.Services.Interfaces
         Task<SensorDTO> Get(int id);
 
         Task<SensorDTO> Edit(int id, string name, string description,
-            string unit, int urlId, string company, DateTime activeSince, bool active, int sensorTypeId);
+            string unit, int urlId, string company, bool active, int sensorTypeId);
 
         Task<bool> ChangeState(int id);
     }

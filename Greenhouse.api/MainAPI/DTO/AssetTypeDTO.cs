@@ -16,7 +16,7 @@ namespace MainAPI.DTO
                 Id = assetType.Id,
                 Name = assetType.Name,
                 Description = assetType.Description,
-                Active = assetType.Active,
+                Active = assetType.IsActive,
             };
         }
     }
