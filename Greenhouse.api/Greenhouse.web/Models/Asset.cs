@@ -3,34 +3,34 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Greenhouse.web.Models
 {
-    public class Sensor
+    public class Asset
     {
-        [Required, Key]
+        [Key]
+        [Required]
         public int Id { get; set; }
 
         [Required]
         public string? Name { get; set; }
 
-        [Required]
         public string? Description { get; set; }
 
         [Required]
-        public string? Unit { get; set; }
-
-         [Required]
         public string? Company { get; set; }
 
         [Required]
-        public DataType ActiveSince { get; set; }
+        public string? Location { get; set; }
+
+        [Required]
+        public DateTime? CreationDate { get; set; }
+
+        [Required, ForeignKey("AssetType")]
+        public int AssetTypeId { get; set; }
+        public AssetType? AssetType { get; set; }
 
         [Required]
         public bool Active { get; set; }
 
-        [Required, ForeignKey("SensorType")]
-        public int SensorTypeId { get; set; }
-        public SensorType? SensorType { get; set; }
+        public ICollection<AssetSensor>? Sensors { get; set; }
 
-        public ICollection<AssetSensor>? Assets { get; set; }
     }
 }
-

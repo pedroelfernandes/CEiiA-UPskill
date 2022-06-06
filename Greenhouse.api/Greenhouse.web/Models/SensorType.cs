@@ -4,12 +4,12 @@ namespace Greenhouse.web.Models
 {
     public class SensorType
     {
-        public int IdSensorType {get; set;}
+        public int Id {get; set;}
 
+        public string Name { get; set; } = null!;
 
-        public string NameSensorType { get; set; } = null!;
+        public string Description { get; set; } = null!;
 
-
-        public string SensorTypeDescription { get; set; } = null!;
+        public bool Active { get; set; }
     }
 }
