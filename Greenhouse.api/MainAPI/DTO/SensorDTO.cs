@@ -13,15 +13,16 @@ namespace MainAPI.DTO
 
         public string? Unit { get; set; }
 
-        public int URLId { get; set; }
+        //public int URLId { get; set; }
 
         public string? Company { get; set; }
 
-        //public DateTime ActiveSince { get; set; }
+        public DateTime ActiveSince { get; set; }
 
         public bool Active { get; set; }
 
-        public int SensorTypeId { get; set; }
+        //public int SensorTypeId { get; set; }
+        public SensorTypeDTO SensorType { get; set; }
 
 
         public static SensorDTO ToDto(Sensor sensor)
@@ -32,11 +33,12 @@ namespace MainAPI.DTO
                 Name = sensor.Name,
                 Description = sensor.Description,
                 Unit = sensor.Unit,
-                URLId = sensor.URLId,
+                //URLId = sensor.URLId,
                 Company = sensor.Company,
-                //ActiveSince = sensor.ActiveSince,
+                ActiveSince = sensor.ActiveSince,
                 Active = sensor.Active,
-                SensorTypeId = sensor.SensorTypeId,
+                //SensorTypeId = sensor.SensorTypeId,
+                SensorType = SensorTypeDTO.ToDto(sensor.SensorType)
             };
         }
     }

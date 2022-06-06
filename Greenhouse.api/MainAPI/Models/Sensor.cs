@@ -24,7 +24,7 @@ namespace MainAPI.Models
         public string? Company { get; set; }
 
         [Required]
-        public DataType ActiveSince { get; set; }
+        public DateTime ActiveSince { get; set; }
 
         [Required]
         public bool Active { get; set; }

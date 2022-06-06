@@ -5,6 +5,7 @@ namespace MainAPI.DTO
     public class AssetDTO
     {
         public int Id { get; set; }
+
         public string? Name { get; set; }
 
         public string? Company { get; set; }
@@ -13,7 +14,8 @@ namespace MainAPI.DTO
 
         public DateTime? CreationDate { get; set; }
 
-        public int AssetTypeId { get; set; }
+        //public int AssetTypeId { get; set; }
+        public AssetTypeDTO AssetType { get; set; }
 
         public bool Active { get; set; }
 
@@ -28,7 +30,8 @@ namespace MainAPI.DTO
                 Company = asset.Company,
                 Location = asset.Location,
                 CreationDate = asset.CreationDate,
-                AssetTypeId = asset.AssetTypeId,
+                //AssetTypeId = asset.AssetTypeId,
+                AssetType = AssetTypeDTO.ToDto(asset.AssetType),
                 Active = asset.Active,
             };
         }

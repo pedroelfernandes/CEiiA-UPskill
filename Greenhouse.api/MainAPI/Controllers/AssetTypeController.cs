@@ -33,7 +33,7 @@ namespace MainAPI.Controllers
         [HttpPost]
         public async Task<AssetTypeDTO> CreateAssetType(int id, string name, string description, bool active)
         {
-            AssetTypeId? assetType = new()
+            AssetType? assetType = new()
             {
                 Id = id,
                 Name = name,

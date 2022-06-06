@@ -15,29 +15,29 @@ namespace MainAPI.Repositories.Implementations
             _db = db;
         }
 
-        public async Task<IEnumerable<AssetTypeId>> GetAssetTypes(Enumerables.SortItem sort, Enumerables.OrderItem order)
+        public async Task<IEnumerable<AssetType>> GetAssetTypes(Enumerables.SortItem sort, Enumerables.OrderItem order)
         {
-            var assetTypes = new List<AssetTypeId>();
+            var assetTypes = new List<AssetType>();
             assetTypes = await _db.AssetTypes.ToListAsync();
             return assetTypes;
         }
 
 
-        public async Task<AssetTypeId> GetAssetTypeById(int id)
+        public async Task<AssetType> GetAssetTypeById(int id)
         {
-            AssetTypeId assetType;
+            AssetType assetType;
             assetType = await _db.AssetTypes.FindAsync(id);
             return assetType;
         }
 
-        public async Task<AssetTypeId> CreateAssetType(AssetTypeId assetType)
+        public async Task<AssetType> CreateAssetType(AssetType assetType)
         {
             await _db.AssetTypes.AddAsync(assetType);
             await _db.SaveChangesAsync();
             return assetType;
         }
 
-        public async Task<AssetTypeId> EditAssetType(int id, string name, string description, bool active)
+        public async Task<AssetType> EditAssetType(int id, string name, string description, bool active)
         {
             _db.AssetTypes.Update(await GetAssetTypeById(id)).Property(a => a.Name).CurrentValue = name;
             _db.AssetTypes.Update(await GetAssetTypeById(id)).Property(a => a.Description).CurrentValue = description;
@@ -50,7 +50,7 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<bool> ChangeStateAssetType(int id)
         {
-            AssetTypeId? assetType;
+            AssetType? assetType;
             assetType = await _db.AssetTypes.FindAsync(id);
 
             if (assetType == null)
