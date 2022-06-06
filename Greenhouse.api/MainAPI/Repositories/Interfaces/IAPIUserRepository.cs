@@ -5,12 +5,12 @@ namespace MainAPI.Repositories.Interfaces
 {
     public interface IAPIUserRepository
     {
-        public Task<bool> Create(APIUser apiUser);
+        public Task<APIUser> Create(APIUser apiUser);
 
         public Task<APIUser> Get(int id);
 
-        public Task<APIUser> Edit(APIUser apiUser);
+        public Task<APIUser> Edit(int id, string username, string email, int roleId);
 
-        public Task<bool> Delete(int id);
+        public Task<bool> ChangeState(int id);
     }
 }

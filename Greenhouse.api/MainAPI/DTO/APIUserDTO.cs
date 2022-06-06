@@ -17,7 +17,7 @@ namespace MainAPI.DTO
 
         public static APIUserDTO ToDto(APIUser user)
         {
-            return new APIUserDTO()
+            return new APIUserDTO
             {
                 Id = user.Id,
                 Username = user.Username,

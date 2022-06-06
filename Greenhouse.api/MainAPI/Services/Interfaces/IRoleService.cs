@@ -9,8 +9,8 @@ namespace MainAPI.Services.Interfaces
 
         Task<RoleDTO> Get(int id);
 
-        Task<RoleDTO> Edit(Role role);
+        Task<RoleDTO> Edit(int id, string name, string description);
 
-        Task<bool> Delete(int id);
+        Task<bool> ChangeState(int id);
     }
 }

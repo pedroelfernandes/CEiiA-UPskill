@@ -13,15 +13,15 @@ namespace MainAPI.Repositories.Implementations
             _db = db;
         }
 
-        public async Task<bool> Create(APIUser apiUser)
+        public async Task<APIUser> Create(APIUser apiUser)
         {
             if (apiUser == null)
-                return  false;
+                return apiUser;
 
             await _db.APIUsers.AddAsync(apiUser);
             await _db.SaveChangesAsync();
 
-            return true;
+            return apiUser;
         }
 
         public async Task<APIUser> Get(int id)
@@ -33,14 +33,16 @@ namespace MainAPI.Repositories.Implementations
             return apiUser;
         }
 
-        public async Task<APIUser> Edit(APIUser apiUser)
+        public async Task<APIUser> Edit(int id, string username, string email, int roleId)
         {
-            _db.APIUsers.Update(apiUser);
+            _db.APIUsers.Update(await Get(id)).Property(r => r.Username).CurrentValue = username;
+            _db.APIUsers.Update(await Get(id)).Property(r => r.Email).CurrentValue = email;
+            _db.APIUsers.Update(await Get(id)).Property(r => r.RoleId).CurrentValue = roleId;
             await _db.SaveChangesAsync();
-            return apiUser;
+            return await Get(id);
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> ChangeState(int id)
         {
             APIUser? apiUser;
 
@@ -49,7 +51,7 @@ namespace MainAPI.Repositories.Implementations
             if (apiUser == null)
                 return false;
 
-            _db.APIUsers.Update(apiUser).Property(u => u.Active).CurrentValue = false;
+            apiUser.Active ^= true;
             await _db.SaveChangesAsync();
             return true;
         }

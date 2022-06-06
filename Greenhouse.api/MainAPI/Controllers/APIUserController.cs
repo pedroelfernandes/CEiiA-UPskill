@@ -25,5 +25,36 @@ namespace MainAPI.Controllers
         //    => true;
         public async Task<APIUserDTO> Get(int id) =>
             await _apiUserService.Get(id);
+
+
+        // Create a new user
+        [HttpPost]
+        public async Task<APIUserDTO> Create(string username,string password, string email, bool active, int roleId )
+        {
+            APIUser? apiUser = new()
+            {
+                Username = username,
+                Password = password,
+                Email = email,
+                Active = active,
+                RoleId = roleId
+            };
+            return await _apiUserService.Create(apiUser);
+        }
+
+        // Edit user information
+        [HttpPut]
+        public async Task<APIUserDTO> Edit(int id, string name, string email, int roleId)
+        {
+            return await _apiUserService.Edit(id, name, email, roleId);
+        }
+
+
+        // Change state from active to inactive
+        [HttpPut]
+        public async Task<bool> ChangeState(int id)
+        {
+            return await _apiUserService.ChangeState(id);
+        }
     }
 }

@@ -17,30 +17,27 @@ namespace MainAPI.Services.Implementations
 
         public async Task<RoleDTO> Create(Role role)
         {
-            RoleDTO roleDTO = new RoleDTO();
-            roleDTO.Name = role.Name;
-
-            await _roleRepository.Create(role);
-            return roleDTO;
+            Role tempRole = await _roleRepository.Create(role);
+            return RoleDTO.ToDto(tempRole);
         }
 
         public async Task<RoleDTO> Get(int id)
         {
-            Role roleDto = await _roleRepository.Get(id);
-            return RoleDTO.ToDto(roleDto);
+            Role tempRole = await _roleRepository.Get(id);
+            return RoleDTO.ToDto(tempRole);
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> ChangeState(int id)
         {
-            return await _roleRepository.Delete(id);
+            return await _roleRepository.ChangeState(id);
         }
 
-        public async Task<RoleDTO> Edit(Role role)
+        public async Task<RoleDTO> Edit(int id, string name, string description)
         {
 
-            Role roleDto = await _roleRepository.Edit(role);
+            Role tempRole = await _roleRepository.Edit(id, name, description);
 
-            return RoleDTO.ToDto(roleDto);
+            return RoleDTO.ToDto(tempRole);
         }
     }
 }

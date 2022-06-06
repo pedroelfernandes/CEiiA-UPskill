@@ -9,8 +9,8 @@ namespace MainAPI.Services.Interfaces
 
         Task<SensorTypeDTO> Get(int id);
 
-        Task<SensorTypeDTO> Edit(SensorType sensorType);
+        Task<SensorTypeDTO> Edit(int id, string name, string description);
 
-        Task<bool> Delete(int id);
+        Task<bool> ChangeState(int id);
     }
 }

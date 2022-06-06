@@ -16,30 +16,27 @@ namespace MainAPI.Services.Implementations
 
         public async Task<SensorTypeDTO> Create(SensorType sensorType)
         {
-            SensorTypeDTO sensorTypeDTO = new SensorTypeDTO();
-            sensorTypeDTO.Name = sensorType.Name;
-
-            await _sensorTypeRepository.Create(sensorType);
-            return sensorTypeDTO;
+            SensorType tempSensorType = await _sensorTypeRepository.Create(sensorType);
+            return SensorTypeDTO.ToDto(tempSensorType);
         }
 
         public async Task<SensorTypeDTO> Get(int id)
         {
-            SensorType sensorTypeDto = await _sensorTypeRepository.Get(id);
-            return SensorTypeDTO.ToDto(sensorTypeDto);
+            SensorType tempSensorType = await _sensorTypeRepository.Get(id);
+            return SensorTypeDTO.ToDto(tempSensorType);
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> ChangeState(int id)
         {
-            return await _sensorTypeRepository.Delete(id);
+            return await _sensorTypeRepository.ChangeState(id);
         }
 
-        public async Task<SensorTypeDTO> Edit(SensorType sensorType)
+        public async Task<SensorTypeDTO> Edit(int id, string name, string description)
         {
 
-            SensorType sensorTypeDto = await _sensorTypeRepository.Edit(sensorType);
+            SensorType tempSensorType = await _sensorTypeRepository.Edit(id, name, description);
 
-            return SensorTypeDTO.ToDto(sensorTypeDto);
+            return SensorTypeDTO.ToDto(tempSensorType);
         }
 
     }

@@ -13,14 +13,14 @@ namespace MainAPI.Repositories.Implementations
             _db = db;
         }
 
-        public async Task<bool> Create(Role role)
+        public async Task<Role> Create(Role role)
         {
             if (role == null)
-                return false;
+                return role;
 
             await _db.Roles.AddAsync(role);
             await _db.SaveChangesAsync();
-            return true;
+            return role;
         }
 
         public async Task<Role> Get(int id)
@@ -32,23 +32,24 @@ namespace MainAPI.Repositories.Implementations
             return role;
         }
 
-        public async Task<Role> Edit(Role role)
+        public async Task<Role> Edit(int id, string name, string description)
         {
-            _db.Roles.Update(role);
+            _db.Roles.Update(await Get(id)).Property(r => r.Name).CurrentValue = name;
+            _db.Roles.Update(await Get(id)).Property(r => r.Description).CurrentValue = description;
             await _db.SaveChangesAsync();
-            return role;
+            return await Get(id);
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> ChangeState(int id)
         {
             Role? role;
 
-            role = await _db.Roles.FindAsync();
+            role = await _db.Roles.FindAsync(id);
 
             if (role == null)
                 return false;
 
-            _db.Roles.Update(role).Property(u => u.Active).CurrentValue = false;
+            role.Active ^= true;
             await _db.SaveChangesAsync();
             return true;
         }

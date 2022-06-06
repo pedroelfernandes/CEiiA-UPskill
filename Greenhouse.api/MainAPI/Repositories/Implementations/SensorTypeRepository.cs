@@ -14,14 +14,14 @@ namespace MainAPI.Repositories.Implementations
             _db = db;
         }
 
-        public async Task<bool> Create(SensorType sensorType)
+        public async Task<SensorType> Create(SensorType sensorType)
         {
             if (sensorType == null)
-                return false;
+                return sensorType;
 
             await _db.SensorTypes.AddAsync(sensorType);
             await _db.SaveChangesAsync();
-            return true;
+            return sensorType;
         }
 
         public async Task<SensorType> Get(int id)
@@ -33,23 +33,24 @@ namespace MainAPI.Repositories.Implementations
             return sensorType;
         }
 
-        public async Task<SensorType> Edit(SensorType sensorType)
+        public async Task<SensorType> Edit(int id, string name, string description)
         {
-            _db.SensorTypes.Update(sensorType);
+            _db.SensorTypes.Update(await Get(id)).Property(r => r.Name).CurrentValue = name;
+            _db.SensorTypes.Update(await Get(id)).Property(r => r.Description).CurrentValue = description;
             await _db.SaveChangesAsync();
-            return sensorType;
+            return await Get(id);
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> ChangeState(int id)
         {
             SensorType? sensorType;
 
-            sensorType = await _db.SensorTypes.FindAsync();
+            sensorType = await _db.SensorTypes.FindAsync(id);
 
             if (sensorType == null)
                 return false;
 
-            _db.SensorTypes.Update(sensorType).Property(u => u.Active).CurrentValue = false;
+            sensorType.Active ^= true;
             await _db.SaveChangesAsync();
             return true;
         }

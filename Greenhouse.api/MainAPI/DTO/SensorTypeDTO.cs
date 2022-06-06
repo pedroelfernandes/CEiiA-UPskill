@@ -7,7 +7,9 @@ namespace MainAPI.DTO
         public int Id { get; set; }
 
         public string? Name { get; set; }
-        
+
+        public string? Description { get; set; }
+
         public bool Active { get; set; }
 
         public static SensorTypeDTO ToDto(SensorType sensorType)
@@ -16,6 +18,7 @@ namespace MainAPI.DTO
             {
                 Id = sensorType.Id,
                 Name = sensorType.Name,
+                Description = sensorType.Description,
                 Active = sensorType.Active,
             };
         }

@@ -5,12 +5,13 @@ namespace MainAPI.Services.Interfaces
 {
     public interface ISensorService
     {
-        Task<SensorDTO> Create(Sensor sensor);
+        //Task<SensorDTO> Create(Sensor sensor);
 
         Task<SensorDTO> Get(int id);
 
-        Task<SensorDTO> Edit(Sensor sensor);
+        Task<SensorDTO> Edit(int id, string name, string description,
+            string unit, int urlId, string company, DateTime activeSince, bool active, int sensorTypeId);
 
-        Task<bool> Delete(int id);
+        Task<bool> ChangeState(int id);
     }
 }
