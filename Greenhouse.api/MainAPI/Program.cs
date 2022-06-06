@@ -19,6 +19,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(
     builder.Configuration.GetConnectionString("MainAPIConnection")));
 
+
+
+//Dependency injection - instanciates class through IClass
+builder.Services.AddScoped<IAssetRepository, AssetRepository>();
+builder.Services.AddScoped<IAssetService, AssetService>();
+builder.Services.AddScoped<IAssetTypeRepository, AssetTypeRepository>();
+builder.Services.AddScoped<IAssetTypeService, AssetTypeService>();
+
 builder.Services.AddScoped<IAPIUserRepository, APIUserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<ISensorRepository, SensorRepository>();
@@ -28,6 +36,7 @@ builder.Services.AddScoped<IAPIUserService, APIUserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<ISensorService, SensorService>();    
 builder.Services.AddScoped<ISensorTypeService, SensorTypeService>();
+
 
 var app = builder.Build();
 

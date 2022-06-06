@@ -1,83 +1,74 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MainAPI.Data;
+using MainAPI.DTO;
+using MainAPI.HttpClientHelper;
+using MainAPI.Models;
+using MainAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MainAPI.Controllers
 {
+    //connect to swagger
+    [ApiController]
+    [Route("api/[controller]/[Action]")]
+
     public class AssetController : Controller
     {
-        // GET: AssetController
-        public ActionResult Index()
+
+        private readonly IAssetService _assetService;
+        public AssetController(IAssetService assetService)
         {
-            return View();
+            _assetService = assetService;
         }
 
-        // GET: AssetController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
-        // GET: AssetController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
 
-        // POST: AssetController/Create
+        //Get Assets List
+        [HttpGet]
+        public async Task<IEnumerable<AssetDTO>> GetAssets() => await _assetService.GetAssets(Enumerables.SortItem.ASC, Enumerables.OrderItem.Id);
+
+
+
+        //GetAsset ById
+        [HttpGet("id")]
+        public async Task<AssetDTO> GetAssetById(int Id) => await _assetService.GetAssetById(Id);
+
+
+
+        //Create new asset
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<AssetDTO> CreateAsset(int id, string name, string company, string location, DateTime creationDate, int assetTypeId, bool active )
         {
-            try
+            Asset? asset = new()
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+                Id = id,
+                Name = name,
+                Company = company,
+                Location = location,
+                CreationDate = creationDate,
+                AssetTypeId = assetTypeId,
+                Active = active,
+            };
+
+            return await _assetService.CreateAsset(asset);
         }
 
-        // GET: AssetController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: AssetController/Edit/5
+
+        //Edit asset
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+        public async Task<AssetDTO> EditAsset(Asset asset)
+        { 
+            return await _assetService.EditAsset(asset);
         }
 
-        // GET: AssetController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: AssetController/Delete/5
+
+        //Delete Asset
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<bool> ChangeState(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return await _assetService.ChangeState(id);
         }
+
     }
 }

@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MainAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
     [ApiController]
+    [Route("api/[controller]/[action]")]
+
     public class MainController : Controller
     {
         private readonly IConfiguration _configuration;
