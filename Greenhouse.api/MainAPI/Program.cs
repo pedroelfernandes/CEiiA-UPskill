@@ -23,6 +23,8 @@ options.UseSqlServer(
 //Dependency injection - instanciates class through IClass
 builder.Services.AddScoped<IAssetRepository, AssetRepository>();
 builder.Services.AddScoped<IAssetService, AssetService>();
+builder.Services.AddScoped<IAssetTypeRepository, AssetTypeRepository>();
+builder.Services.AddScoped<IAssetTypeService, AssetTypeService>();
 
 var app = builder.Build();
 

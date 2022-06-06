@@ -9,7 +9,6 @@ namespace MainAPI.Services.Implementations
     public class AssetService: IAssetService
     {
         private readonly IAssetRepository _assetRepository;
-        private bool tempAsset;
 
         public AssetService(IAssetRepository assetRepository)
         {
@@ -50,13 +49,19 @@ namespace MainAPI.Services.Implementations
             return AssetDTO.ToDto(tempAsset);
         }
 
+        ////Edit
+        //public async Task<AssetDTO> EditAsset(int id, string name, string company, string location, DateTime creationDate, AssetTypeId assetTypeId, bool active)
+        //{
+        //    Asset tempAsset = await _assetRepository.EditAsset(id, name, company, location, creationDate, assetTypeId, active);
+        //    return AssetDTO.ToDto(tempAsset);
+        //}
+
         //Edit
-        public async Task<AssetDTO> EditAsset(int id, string name, string company, string location, DateTime creationDate, AssetType assetType, bool active)
+        public async Task<AssetDTO> EditAsset(Asset asset)
         {
-            Asset tempAsset = await _assetRepository.EditAsset(id, name, company, location, creationDate, assetType, active);
+            Asset tempAsset = await _assetRepository.EditAsset(asset);
             return AssetDTO.ToDto(tempAsset);
         }
-
 
         //Inactivate Asset
         public async Task<bool> ChangeState(int id)

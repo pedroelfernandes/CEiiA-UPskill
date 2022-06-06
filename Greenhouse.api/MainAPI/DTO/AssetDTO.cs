@@ -15,8 +15,6 @@ namespace MainAPI.DTO
 
         public int AssetTypeId { get; set; }
 
-        public AssetType? AssetType { get; set; }
-
         public bool Active { get; set; }
 
         public ICollection<AssetSensor>? Sensors { get; set; }
@@ -30,7 +28,7 @@ namespace MainAPI.DTO
                 Company = asset.Company,
                 Location = asset.Location,
                 CreationDate = asset.CreationDate,
-                AssetType = asset.AssetType,
+                AssetTypeId = asset.AssetTypeId,
                 Active = asset.Active,
             };
         }

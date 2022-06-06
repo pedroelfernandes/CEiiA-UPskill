@@ -56,9 +56,9 @@ namespace MainAPI.Controllers
 
         //Edit asset
         [HttpPost]
-        public async Task<AssetDTO> EditAsset(int id, string name, string company, string location, DateTime creationDate, AssetType assetType, bool active)
-        {
-            return await _assetService.EditAsset(id, name, company, location, creationDate, assetType, active);
+        public async Task<AssetDTO> EditAsset(Asset asset)
+        { 
+            return await _assetService.EditAsset(asset);
         }
 
 

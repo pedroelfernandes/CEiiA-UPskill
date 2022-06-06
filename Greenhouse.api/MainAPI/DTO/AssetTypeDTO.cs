@@ -1,21 +1,12 @@
-﻿using MainAPI.DTO;
-using System.ComponentModel.DataAnnotations;
+﻿using MainAPI.Models;
 
-namespace MainAPI.Models
+namespace MainAPI.DTO
 {
-    public class AssetTypeId
+    public class AssetTypeDTO
     {
-        [Key]
-        [Required]
         public int Id { get; set; }
-
-        [Required]
         public string? Name { get; set; }
-
-        [Required]
         public string? Description { get; set; }
-
-        [Required]
         public bool Active { get; set; }
 
         public static AssetTypeDTO ToDto(AssetTypeId assetType)

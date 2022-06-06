@@ -8,7 +8,7 @@ namespace MainAPI.Repositories.Interfaces
 
         Task<IEnumerable<Asset>> GetAssets(Enumerables.SortItem sort, Enumerables.OrderItem order);
         Task<Asset> GetAssetById(int Id);
-        Task<Asset> EditAsset(int id, string name, string company, string location, DateTime creationDate, AssetType assetType, bool active);
+        Task<Asset> EditAsset(Asset asset);
         Task<Asset> CreateAsset(Asset asset);
         Task<bool> ChangeState(int id);
     }

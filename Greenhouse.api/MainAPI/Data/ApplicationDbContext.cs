@@ -21,7 +21,7 @@ namespace MainAPI.Data
 
         public DbSet<Asset>? Assets { get; set; }
 
-        public DbSet<AssetType>? AssetTypes { get; set; }
+        public DbSet<AssetTypeId>? AssetTypes { get; set; }
 
         public DbSet<AssetSensor> AssetSensors { get; set; }
 
