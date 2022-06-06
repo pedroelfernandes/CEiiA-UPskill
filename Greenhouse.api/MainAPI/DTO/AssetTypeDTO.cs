@@ -9,7 +9,7 @@ namespace MainAPI.DTO
         public string? Description { get; set; }
         public bool Active { get; set; }
 
-        public static AssetTypeDTO ToDto(AssetTypeId assetType)
+        public static AssetTypeDTO ToDto(AssetType assetType)
         {
             return new AssetTypeDTO()
             {

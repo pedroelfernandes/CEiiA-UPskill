@@ -8,7 +8,7 @@ namespace MainAPI.Services.Interfaces
     {
         Task<IEnumerable<AssetTypeDTO>> GetAssetTypes(Enumerables.SortItem sort, Enumerables.OrderItem order);
         Task<AssetTypeDTO> GetAssetTypeById(int Id);
-        Task<AssetTypeDTO> CreateAssetType(AssetTypeId assetType);
+        Task<AssetTypeDTO> CreateAssetType(AssetType assetType);
         Task<AssetTypeDTO> EditAssetType(int id, string name, string description, bool active);
         Task<bool> ChangeStateAssetType(int Id);
     }

@@ -4,7 +4,6 @@
     {
         public int AssetId { get; set; }
         public int SensorId { get; set; }
-
         public Asset? Asset { get; set; }
         public Sensor? Sensor { get; set; }
     }

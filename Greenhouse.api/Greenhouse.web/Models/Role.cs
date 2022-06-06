@@ -2,9 +2,9 @@
 
 namespace Greenhouse.web.Models
 {
-    public class AssetType
+    public class Role
     {
-        [Required]
+        [Required, Key]
         public int Id { get; set; }
 
         [Required]
@@ -15,6 +15,5 @@ namespace Greenhouse.web.Models
 
         [Required]
         public bool Active { get; set; }
-
     }
 }

@@ -20,7 +20,7 @@ namespace MainAPI.Services.Implementations
         //Creates list of AsssetTypes and send it to DTO
         public async Task<IEnumerable<AssetTypeDTO>> GetAssetTypes(Enumerables.SortItem sort, Enumerables.OrderItem order)
         {
-            IEnumerable<AssetTypeId> assetTypes = new List<AssetTypeId>();
+            IEnumerable<AssetType> assetTypes = new List<AssetType>();
             IEnumerable<AssetTypeDTO> assetTypesDTO = new List<AssetTypeDTO>();
 
             assetTypes = await _assetTypeRepository.GetAssetTypes(sort, order);
@@ -35,22 +35,22 @@ namespace MainAPI.Services.Implementations
         {
 
             //transfer the Asset with the specific Id from the repository to DTO
-            AssetTypeId tempassetType = await _assetTypeRepository.GetAssetTypeById(Id);
+            AssetType tempassetType = await _assetTypeRepository.GetAssetTypeById(Id);
             return AssetTypeDTO.ToDto(tempassetType);
         }
 
 
         //Transfer the CreateAsset content to DTO
-        public async Task<AssetTypeDTO> CreateAssetType(AssetTypeId assetType)
+        public async Task<AssetTypeDTO> CreateAssetType(AssetType assetType)
         {
-            AssetTypeId tempAssetType = await _assetTypeRepository.CreateAssetType(assetType);
+            AssetType tempAssetType = await _assetTypeRepository.CreateAssetType(assetType);
             return AssetTypeDTO.ToDto(tempAssetType);
         }
 
         //Edit
         public async Task<AssetTypeDTO> EditAssetType(int id, string name, string description, bool active)
         {
-            AssetTypeId tempAssetType = await _assetTypeRepository.EditAssetType(id, name, description, active);
+            AssetType tempAssetType = await _assetTypeRepository.EditAssetType(id, name, description, active);
             return AssetTypeDTO.ToDto(tempAssetType);
         }
 
