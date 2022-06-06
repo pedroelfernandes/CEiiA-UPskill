@@ -29,7 +29,7 @@ namespace MainAPI.Models
         public AssetType? AssetType { get; set; }
 
         [Required]
-        public bool Active { get; set; }
+        public bool IsActive { get; set; }
 
         public ICollection<AssetSensor>? Sensors { get; set; }
 

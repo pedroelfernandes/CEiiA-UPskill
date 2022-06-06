@@ -18,12 +18,12 @@ namespace MainAPI.Services.Implementations
 
 
         //Creates list of AsssetTypes and send it to DTO
-        public async Task<IEnumerable<AssetTypeDTO>> GetAssetTypes(Enumerables.SortItem sort, Enumerables.OrderItem order)
+        public async Task<IEnumerable<AssetTypeDTO>> GetAssetTypes()
         {
             IEnumerable<AssetType> assetTypes = new List<AssetType>();
             IEnumerable<AssetTypeDTO> assetTypesDTO = new List<AssetTypeDTO>();
 
-            assetTypes = await _assetTypeRepository.GetAssetTypes(sort, order);
+            assetTypes = await _assetTypeRepository.GetAssetTypes();
 
             assetTypesDTO = assetTypes.Select(assetType => AssetTypeDTO.ToDto(assetType)).ToList();
 

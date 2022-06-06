@@ -16,7 +16,7 @@ namespace MainAPI.Repositories.Implementations
         public async Task<Role> Create(Role role)
         {
             if (role == null)
-                return role;
+                throw new Exception("Role not defined.");
 
             await _db.Roles.AddAsync(role);
             await _db.SaveChangesAsync();
@@ -25,10 +25,11 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<Role> Get(int id)
         {
-            Role? role;
+            Role role = await _db.Roles.FindAsync(id);
 
-            // get the role
-            role = await _db.Roles.FindAsync(id);
+            if (role == null)
+                throw new Exception("Role not found.");
+
             return role;
         }
 
@@ -42,14 +43,12 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<bool> ChangeState(int id)
         {
-            Role? role;
-
-            role = await _db.Roles.FindAsync(id);
+            Role role = await _db.Roles.FindAsync(id);
 
             if (role == null)
                 return false;
 
-            role.Active ^= true;
+            role.IsActive ^= true;
             await _db.SaveChangesAsync();
             return true;
         }

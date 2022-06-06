@@ -27,7 +27,7 @@ namespace MainAPI.Models
         public DateTime ActiveSince { get; set; }
 
         [Required]
-        public bool Active { get; set; }
+        public bool IsActive { get; set; }
 
         [Required, ForeignKey("SensorType")]
         public int SensorTypeId { get; set; }

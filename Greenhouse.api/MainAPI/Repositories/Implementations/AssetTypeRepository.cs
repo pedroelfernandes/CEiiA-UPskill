@@ -15,23 +15,28 @@ namespace MainAPI.Repositories.Implementations
             _db = db;
         }
 
-        public async Task<IEnumerable<AssetType>> GetAssetTypes(Enumerables.SortItem sort, Enumerables.OrderItem order)
+        public async Task<IEnumerable<AssetType>> GetAssetTypes()
         {
-            var assetTypes = new List<AssetType>();
-            assetTypes = await _db.AssetTypes.ToListAsync();
+            var assetTypes =  await _db.AssetTypes.ToListAsync();
             return assetTypes;
         }
 
 
         public async Task<AssetType> GetAssetTypeById(int id)
         {
-            AssetType assetType;
-            assetType = await _db.AssetTypes.FindAsync(id);
+            AssetType assetType = await _db.AssetTypes.FindAsync(id);
+
+            if (assetType == null)
+                throw new Exception("AssetTypep not found.");
+
             return assetType;
         }
 
         public async Task<AssetType> CreateAssetType(AssetType assetType)
         {
+            if (assetType == null)
+                throw new Exception("AssetType not defined.");
+
             await _db.AssetTypes.AddAsync(assetType);
             await _db.SaveChangesAsync();
             return assetType;
@@ -41,7 +46,7 @@ namespace MainAPI.Repositories.Implementations
         {
             _db.AssetTypes.Update(await GetAssetTypeById(id)).Property(a => a.Name).CurrentValue = name;
             _db.AssetTypes.Update(await GetAssetTypeById(id)).Property(a => a.Description).CurrentValue = description;
-            _db.AssetTypes.Update(await GetAssetTypeById(id)).Property(a => a.Active).CurrentValue = active;
+            _db.AssetTypes.Update(await GetAssetTypeById(id)).Property(a => a.IsActive).CurrentValue = active;
 
             await _db.SaveChangesAsync();
             return await GetAssetTypeById(id);
@@ -50,13 +55,12 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<bool> ChangeStateAssetType(int id)
         {
-            AssetType? assetType;
-            assetType = await _db.AssetTypes.FindAsync(id);
+            AssetType? assetType = await _db.AssetTypes.FindAsync(id);
 
             if (assetType == null)
                 return false;
 
-            assetType.Active ^= true;
+            assetType.IsActive ^= true;
             await _db.SaveChangesAsync();
             return true;
         }

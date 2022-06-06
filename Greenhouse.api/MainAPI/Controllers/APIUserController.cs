@@ -36,7 +36,7 @@ namespace MainAPI.Controllers
                 Username = username,
                 Password = password,
                 Email = email,
-                Active = active,
+                IsActive = active,
                 RoleId = roleId
             };
             return await _apiUserService.Create(apiUser);

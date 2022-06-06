@@ -22,7 +22,7 @@ namespace MainAPI.DTO
                 Id = user.Id,
                 Username = user.Username,
                 Email = user.Email,
-                Active = user.Active,
+                Active = user.IsActive,
                 RoleId = user.RoleId,
             };
         }

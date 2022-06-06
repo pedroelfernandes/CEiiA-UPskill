@@ -9,8 +9,6 @@ namespace MainAPI.Data
         : base(options)
         { }
 
-        public DbSet<API>? APIs { get; set; }
-
         public DbSet<APIUser>? APIUsers { get; set; }
 
         public DbSet<Role>? Roles { get; set; }

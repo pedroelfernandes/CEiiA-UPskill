@@ -36,7 +36,7 @@ namespace MainAPI.DTO
                 //URLId = sensor.URLId,
                 Company = sensor.Company,
                 ActiveSince = sensor.ActiveSince,
-                Active = sensor.Active,
+                Active = sensor.IsActive,
                 //SensorTypeId = sensor.SensorTypeId,
                 SensorType = SensorTypeDTO.ToDto(sensor.SensorType)
             };

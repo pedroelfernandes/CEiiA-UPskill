@@ -19,7 +19,7 @@ namespace MainAPI.Controllers
 
         //Get AssetTypes List
         [HttpGet]
-        public async Task<IEnumerable<AssetTypeDTO>> GetAssetTypes() => await _assetTypeService.GetAssetTypes(Enumerables.SortItem.ASC, Enumerables.OrderItem.Id);
+        public async Task<IEnumerable<AssetTypeDTO>> GetAssetTypes() => await _assetTypeService.GetAssetTypes();
 
 
 
@@ -38,7 +38,7 @@ namespace MainAPI.Controllers
                 Id = id,
                 Name = name,
                 Description = description,
-                Active = active,
+                IsActive = active,
             };
 
             return await _assetTypeService.CreateAssetType(assetType);
