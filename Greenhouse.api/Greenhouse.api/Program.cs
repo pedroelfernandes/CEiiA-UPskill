@@ -15,8 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<GreenhouseDatabaseSettings>(
     builder.Configuration.GetSection(GreenhouseDatabaseSettings.Name));
 
-builder.Services.AddSingleton<ReadingService>();
-builder.Services.AddSingleton<SensorService>();
+//builder.Services.AddSingleton<ReadingService>();
+//builder.Services.AddSingleton<SensorService>();
 
 builder.Services.AddScoped<IReadingRepository, ReadingRepository>();
 builder.Services.AddScoped<ISensorRepository, SensorRepository>();

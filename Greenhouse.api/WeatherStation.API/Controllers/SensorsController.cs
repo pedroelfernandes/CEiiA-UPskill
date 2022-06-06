@@ -17,7 +17,13 @@ namespace WeatherStation.api.Controllers
         }
 
 
+        [HttpGet]
         public async Task<SensorDTO> GetSensorById(string id) =>
             await _sensorService.GetSensorById(id);
+
+
+        [HttpGet]
+        public async Task<IReadOnlyList<SensorDTO>> GetAllSensors() =>
+            await _sensorService.GetAllSensors();
     }
 }

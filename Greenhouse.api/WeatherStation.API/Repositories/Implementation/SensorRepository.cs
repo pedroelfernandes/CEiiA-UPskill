@@ -18,9 +18,13 @@ namespace WeatherStation.api.Repositories.Implementation
 
             _sensorsCollection = mongoDatabase.GetCollection<Sensor>("Sensors");
         }
-
+        
 
         public async Task<Sensor> GetSensorById(string id) => 
             await _sensorsCollection.Find(s => s.Id == id).FirstOrDefaultAsync();
+
+
+        public async Task<IReadOnlyList<Sensor>> GetAllSensors() =>
+            await _sensorsCollection.Find(_ => true).ToListAsync();
     }
 }
