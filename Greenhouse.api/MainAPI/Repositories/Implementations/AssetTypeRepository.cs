@@ -15,9 +15,11 @@ namespace MainAPI.Repositories.Implementations
             _db = db;
         }
 
+
         public async Task<IEnumerable<AssetType>> GetAssetTypes()
         {
             var assetTypes =  await _db.AssetTypes.ToListAsync();
+
             return assetTypes;
         }
 
@@ -31,6 +33,7 @@ namespace MainAPI.Repositories.Implementations
 
             return assetType;
         }
+        
 
         public async Task<AssetType> CreateAssetType(AssetType assetType)
         {
@@ -41,6 +44,7 @@ namespace MainAPI.Repositories.Implementations
             await _db.SaveChangesAsync();
             return assetType;
         }
+
 
         public async Task<AssetType> EditAssetType(int id, string name, string description, bool active)
         {
