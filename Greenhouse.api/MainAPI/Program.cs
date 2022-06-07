@@ -35,6 +35,7 @@ builder.Services.AddScoped<ISensorTypeService, SensorTypeService>();
 builder.Services.AddScoped<IAssetService, AssetService>();
 builder.Services.AddScoped<IAssetTypeService, AssetTypeService>();
 builder.Services.AddScoped<ILayerAPISensorService, LayerAPISensorSevice>();
+builder.Services.AddScoped<IReadingService, ReadingService>();
 
 
 var app = builder.Build();
