@@ -1,61 +1,25 @@
 ﻿using Greenhouse.web.Models;
+using Greenhouse.web.Services.Interfaces;
 
 namespace Greenhouse.web.Services.Implementations
 {
-    public class AssetTypeServices
+    public class AssetTypeServices: IAssetTypeServices
     {
-        public static async Task<List<AssetType>> Get(string assetTypeId, IConfiguration configuration)
+
+        private readonly IConfiguration _configuration;
+
+        public AssetTypeServices(IConfiguration configuration)
         {
-            List<AssetType> assetTypes = new();
-
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
-
-            HttpResponseMessage response = await client.GetAsync($"getapisensors?id={assetTypeId}");
-
-            response.EnsureSuccessStatusCode();
-
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadFromJsonAsync<List<AssetType>>();
-
-                if (res != null)
-                {
-                    assetTypes = res;
-                }
-            }
-            return assetTypes;
+            _configuration = configuration;
         }
 
-        public static async Task<List<AssetType>> Create(string assetTypeId, IConfiguration configuration)
+        public async Task<IEnumerable<AssetType>> GetAssetTypes()
         {
             List<AssetType> assetTypes = new();
 
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+            HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
 
-            HttpResponseMessage response = await client.GetAsync($"getapisensors?id={assetTypeId}");
-
-            response.EnsureSuccessStatusCode();
-
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadFromJsonAsync<List<AssetType>>();
-
-                if (res != null)
-                {
-                    assetTypes = res;
-                }
-            }
-            return assetTypes;
-        }
-
-
-        public static async Task<List<AssetType>> Edit(string assetTypeId, IConfiguration configuration)
-        {
-            List<AssetType> assetTypes = new();
-
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
-
-            HttpResponseMessage response = await client.GetAsync($"getapisensors?id={assetTypeId}");
+            HttpResponseMessage response = await client.GetAsync("AssetType/GetAssetTypes");
 
             response.EnsureSuccessStatusCode();
 
@@ -72,26 +36,75 @@ namespace Greenhouse.web.Services.Implementations
         }
 
 
-        public static async Task<List<AssetType>> ChangeState(string assetTypeId, IConfiguration configuration)
-        {
-            List<AssetType> assetTypes = new();
 
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
 
-            HttpResponseMessage response = await client.GetAsync($"getapisensors?id={assetTypeId}");
 
-            response.EnsureSuccessStatusCode();
+        //public static async Task<List<AssetType>> Create(string assetTypeId, IConfiguration configuration)
+        //{
+        //    List<AssetType> assetTypes = new();
 
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadFromJsonAsync<List<AssetType>>();
+        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
 
-                if (res != null)
-                {
-                    assetTypes = res;
-                }
-            }
-            return assetTypes;
-        }
+        //    HttpResponseMessage response = await client.GetAsync($"getapisensors?id={assetTypeId}");
+
+        //    response.EnsureSuccessStatusCode();
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var res = await response.Content.ReadFromJsonAsync<List<AssetType>>();
+
+        //        if (res != null)
+        //        {
+        //            assetTypes = res;
+        //        }
+        //    }
+        //    return assetTypes;
+        //}
+
+
+        //public static async Task<List<AssetType>> Edit(string assetTypeId, IConfiguration configuration)
+        //{
+        //    List<AssetType> assetTypes = new();
+
+        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+
+        //    HttpResponseMessage response = await client.GetAsync($"getapisensors?id={assetTypeId}");
+
+        //    response.EnsureSuccessStatusCode();
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var res = await response.Content.ReadFromJsonAsync<List<AssetType>>();
+
+        //        if (res != null)
+        //        {
+        //            assetTypes = res;
+        //        }
+        //    }
+        //    return assetTypes;
+        //}
+
+
+        //public static async Task<List<AssetType>> ChangeState(string assetTypeId, IConfiguration configuration)
+        //{
+        //    List<AssetType> assetTypes = new();
+
+        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+
+        //    HttpResponseMessage response = await client.GetAsync($"getapisensors?id={assetTypeId}");
+
+        //    response.EnsureSuccessStatusCode();
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var res = await response.Content.ReadFromJsonAsync<List<AssetType>>();
+
+        //        if (res != null)
+        //        {
+        //            assetTypes = res;
+        //        }
+        //    }
+        //    return assetTypes;
+        //}
     }
 }

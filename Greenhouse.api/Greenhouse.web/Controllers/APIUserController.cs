@@ -15,7 +15,7 @@ namespace Greenhouse.web.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Get(string apiUserId)
+        public async Task<ActionResult> Get(string apiUserId)
         {
             return View(await APIUserServices.Get(apiUserId, _configuration));
         }
