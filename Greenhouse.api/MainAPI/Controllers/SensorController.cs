@@ -10,29 +10,27 @@ namespace MainAPI.Controllers
     {
         private readonly ISensorService _sensorService;
 
+
         public SensorController(ISensorService sensorService)
         {
             _sensorService = sensorService;
         }
 
-        [HttpGet]
 
+        [HttpGet]
         public async Task<SensorDTO> Get(int id) => await _sensorService.Get(id);
+
 
         // Edit sensor information
         [HttpPut]
         public async Task<SensorDTO> Edit(int id, string name, string description,
-            string unit, int urlId, string company, DateTime activeSince, bool active, int sensorTypeId)
-        {
-            return await _sensorService.Edit(id, name, description, unit, urlId, company, active, sensorTypeId);
-        }
+            string unit, int urlId, string company, int sensorTypeId) =>
+            await _sensorService.Edit(id, name, description, unit, urlId, company, sensorTypeId);
 
 
-        // Change state from active to inactive
+        // Change state between active and inactive
         [HttpPut]
-        public async Task<bool> ChangeState(int id)
-        {
-            return await _sensorService.ChangeState(id);
-        }
+        public async Task<bool> ChangeState(int id) =>
+            await _sensorService.ChangeState(id);
     }
 }
