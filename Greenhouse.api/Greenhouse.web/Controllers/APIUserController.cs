@@ -1,26 +1,30 @@
-﻿using Greenhouse.web.Services.Implementations;
+﻿using Greenhouse.web.Models;
+using Greenhouse.web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Greenhouse.web.Controllers
 {
-    [Route("api/[action]")]
+  
+    [Route("[controller]/[action]")]
     public class APIUserController : Controller
     {
-        private readonly IConfiguration _configuration;
+        private readonly IAPIUserServices _apiUserServices;
 
-        public APIUserController (IConfiguration configuration)
+        public APIUserController (IAPIUserServices apiUserServices)
         {
-            _configuration = configuration;
+            _apiUserServices = apiUserServices;
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> Get(string apiUserId)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
         {
-            return View(await APIUserServices.Get(apiUserId, _configuration));
+            return View(new List<APIUser> { await _apiUserServices.Get(id) });
         }
-        public IActionResult Index()
+        
+        public IActionResult Get()
         {
+            //var users = _apiUserServices.Get.Result;
             return View();
         }
     }

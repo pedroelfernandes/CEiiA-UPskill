@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Greenhouse.web.Models.APIUser>
+
+@{
+	Layout = "_MainLayout";
+}
+
+<table class="table table-hover">
+	<thead>
+		<tr class="table-info">
+			<th>User Id</th>
+			<th>Username</th>
+			<th>Email Address</th>
+			<th>Status</th>
+			<th>Role</th>
+		</tr>
+	</thead>
+	<tbody>
+
+		@foreach (APIUser apiUser in Model)
+		{
+			<tr class="table-info">
+				<th>@apiUser.Id</th>
+				<th>@apiUser.Username</th>
+				<th>@apiUser.Email</th>
+				<th>@apiUser.Active</th>
+				<th>@apiUser.Role</th>
+			</tr>
+		}
+	</tbody>
+</table>

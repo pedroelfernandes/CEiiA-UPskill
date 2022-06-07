@@ -1,24 +1,30 @@
 ﻿using Greenhouse.web.Models;
+using Greenhouse.web.Services.Interfaces;
 
 namespace Greenhouse.web.Services.Implementations
 {
-    public class APIUserServices
+    public class APIUserServices : IAPIUserServices
     {
-       
+        private readonly IConfiguration _configuration;
 
-        public static async Task<List<APIUser>> Get(string apiUserId, IConfiguration configuration)
+        public APIUserServices(IConfiguration configuration)
         {
-            List<APIUser> apiUsers = new();
+            _configuration = configuration;
+        }
 
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+        public async Task<APIUser> Get(int id)
+        {
+            APIUser apiUsers = new();
 
-            HttpResponseMessage response = await client.GetAsync($"getapisensors?id={apiUserId}");
+            HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
+
+            HttpResponseMessage response = await client.GetAsync($"apiuser/get?id={id}");
 
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
             {
-                var res = await response.Content.ReadFromJsonAsync<List<APIUser>>();
+                var res = await response.Content.ReadFromJsonAsync<APIUser>();
 
                 if (res != null)
                 {
@@ -28,72 +34,72 @@ namespace Greenhouse.web.Services.Implementations
             return apiUsers;
         }
 
-        public static async Task<List<APIUser>> Create(string apiUserId, IConfiguration configuration)
-        {
-            List<APIUser> apiUsers = new();
+        //public async Task<List<APIUser>> Create()
+        //{
+        //    List<APIUser> apiUsers = new();
 
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+        //    HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
 
-            HttpResponseMessage response = await client.GetAsync($"getapisensors?id={apiUserId}");
+        //    HttpResponseMessage response = await client.GetAsync($"create");
 
-            response.EnsureSuccessStatusCode();
+        //    response.EnsureSuccessStatusCode();
 
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadFromJsonAsync<List<APIUser>>();
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var res = await response.Content.ReadFromJsonAsync<List<APIUser>>();
 
-                if (res != null)
-                {
-                    apiUsers = res;
-                }
-            }
-            return apiUsers;
-        }
-
-
-        public static async Task<List<APIUser>> Edit(string apiUserId, IConfiguration configuration)
-        {
-            List<APIUser> apiUsers = new();
-
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
-
-            HttpResponseMessage response = await client.GetAsync($"getapisensors?id={apiUserId}");
-
-            response.EnsureSuccessStatusCode();
-
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadFromJsonAsync<List<APIUser>>();
-
-                if (res != null)
-                {
-                    apiUsers = res;
-                }
-            }
-            return apiUsers;
-        }
+        //        if (res != null)
+        //        {
+        //            apiUsers = res;
+        //        }
+        //    }
+        //    return apiUsers;
+        //}
 
 
-        public static async Task<List<APIUser>> ChangeState(string apiUserId, IConfiguration configuration)
-        {
-            List<APIUser> apiUsers = new();
+        //public async Task<List<APIUser>> Edit()
+        //{
+        //    List<APIUser> apiUsers = new();
 
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+        //    HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
 
-            HttpResponseMessage response = await client.GetAsync($"getapisensors?id={apiUserId}");
+        //    HttpResponseMessage response = await client.GetAsync($"edit");
 
-            response.EnsureSuccessStatusCode();
+        //    response.EnsureSuccessStatusCode();
 
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadFromJsonAsync<List<APIUser>>();
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var res = await response.Content.ReadFromJsonAsync<List<APIUser>>();
 
-                if (res != null)
-                {
-                    apiUsers = res;
-                }
-            }
-            return apiUsers;
-        }
+        //        if (res != null)
+        //        {
+        //            apiUsers = res;
+        //        }
+        //    }
+        //    return apiUsers;
+        //}
+
+
+        //public async Task<List<APIUser>> ChangeState()
+        //{
+        //    List<APIUser> apiUsers = new();
+
+        //    HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
+
+        //    HttpResponseMessage response = await client.GetAsync($"changestate");
+
+        //    response.EnsureSuccessStatusCode();
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var res = await response.Content.ReadFromJsonAsync<List<APIUser>>();
+
+        //        if (res != null)
+        //        {
+        //            apiUsers = res;
+        //        }
+        //    }
+        //    return apiUsers;
+        //}
     }
 }
