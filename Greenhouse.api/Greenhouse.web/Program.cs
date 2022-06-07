@@ -13,7 +13,10 @@ builder.Services.AddControllersWithViews();
 //options.UseSqlServer(
 //    builder.Configuration.GetConnectionString("GreenhouseDBConnection")));
 
+
+builder.Services.AddScoped<IAssetTypeServices, AssetTypeServices>();
 builder.Services.AddScoped<IAPIUserServices, APIUserServices>();
+
 
 var app = builder.Build();
 

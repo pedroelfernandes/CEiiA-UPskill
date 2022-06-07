@@ -31,14 +31,14 @@ namespace MainAPI.Controllers
 
         //Create new assetType
         [HttpPost]
-        public async Task<AssetTypeDTO> CreateAssetType(int id, string name, string description, bool active)
+        public async Task<AssetTypeDTO> CreateAssetType(int id, string name, string description, bool isactive)
         {
             AssetType? assetType = new()
             {
                 Id = id,
                 Name = name,
                 Description = description,
-                IsActive = active,
+                IsActive = isactive,
             };
 
             return await _assetTypeService.CreateAssetType(assetType);
@@ -48,9 +48,9 @@ namespace MainAPI.Controllers
 
         //Edit assetType
         [HttpPut]
-        public async Task<AssetTypeDTO> EditAssetType(int id, string name, string description, bool active)
+        public async Task<AssetTypeDTO> EditAssetType(int id, string name, string description, bool isactive)
         {
-            return await _assetTypeService.EditAssetType(id, name, description, active);
+            return await _assetTypeService.EditAssetType(id, name, description, isactive);
         }
 
 
