@@ -7,6 +7,9 @@ namespace WeatherStation.api.DTOs
         public string Id { get; set; } = null!;
 
 
+        public string SensorId { get; set; } = null!;
+
+
         public DateTime ReadDate { get; set; }
 
 
@@ -18,6 +21,7 @@ namespace WeatherStation.api.DTOs
             return new ReadingDTO()
             {
                 Id = reading.Id,
+                SensorId = reading.SensorId,
                 ReadDate = reading.ReadDate,
                 Value = reading.Value
             };
