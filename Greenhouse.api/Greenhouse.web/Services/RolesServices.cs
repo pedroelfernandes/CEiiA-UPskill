@@ -1,4 +1,6 @@
-﻿namespace Greenhouse.web.Services
+﻿using Greenhouse.web.Models;
+
+namespace Greenhouse.web.Services
 {
     public class RolesServices
     {
