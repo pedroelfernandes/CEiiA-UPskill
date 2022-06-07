@@ -5,10 +5,10 @@ namespace MainAPI.Models
     [NotMapped]
     public class Reading
     {
+        public string? Id { get; init; }
+
+
         public string? SensorId { get; set; }
-
-
-        public string? SensorType { get; set; }
 
 
         public DateTime? ReadDate { get; set; }
