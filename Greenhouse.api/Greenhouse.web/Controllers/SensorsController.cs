@@ -7,15 +7,6 @@ namespace Greenhouse.web.Controllers
     {
 
 
-        private readonly IConfiguration _configuration;
-
-        public SensorsController(IConfiguration configuration)
-        {
-
-            _configuration = configuration;
-        }
-
-
         // HTTP Method: GET       
         public IActionResult Get()
         {

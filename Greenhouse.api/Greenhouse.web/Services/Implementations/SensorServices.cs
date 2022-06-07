@@ -1,6 +1,6 @@
 ﻿using Greenhouse.web.Models;
 
-namespace Greenhouse.web.Services
+namespace Greenhouse.web.Services.Implementations
 {
     public class SensorServices
     {
