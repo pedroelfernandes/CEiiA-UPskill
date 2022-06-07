@@ -1,6 +1,6 @@
 ﻿using Greenhouse.web.Models;
 
-namespace Greenhouse.web.Services
+namespace Greenhouse.web.Services.Implementations
 {
     public class RolesServices
     {
@@ -29,7 +29,7 @@ namespace Greenhouse.web.Services
 
         public async Task<List<Role>> Create(string roleId, IConfiguration configuration)
         {
-             List<Role> roles = new();
+            List<Role> roles = new();
 
             HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
 

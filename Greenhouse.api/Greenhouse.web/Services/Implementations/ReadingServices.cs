@@ -1,7 +1,7 @@
 ﻿using Greenhouse.web.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Greenhouse.web.Services
+namespace Greenhouse.web.Services.Implementations
 {
     public class ReadingServices
     {
@@ -56,7 +56,7 @@ namespace Greenhouse.web.Services
             HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
 
             HttpResponseMessage response = await client.GetAsync($"getlastvaluesbysensorid?id={apiId}&sensorId={sensorId}&limit={limit}");
-            
+
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)

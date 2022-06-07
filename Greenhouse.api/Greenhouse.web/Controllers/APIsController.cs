@@ -1,6 +1,6 @@
 ﻿
 using Greenhouse.web.Models;
-using Greenhouse.web.Services;
+using Greenhouse.web.Services.Implementations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

@@ -1,9 +1,11 @@
 ﻿using Greenhouse.web.Models;
 
-namespace Greenhouse.web.Services
+namespace Greenhouse.web.Services.Implementations
 {
     public class APIUserServices
     {
+       
+
         public static async Task<List<APIUser>> Get(string apiUserId, IConfiguration configuration)
         {
             List<APIUser> apiUsers = new();
