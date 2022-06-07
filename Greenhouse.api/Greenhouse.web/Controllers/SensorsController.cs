@@ -24,10 +24,10 @@ namespace Greenhouse.web.Controllers
 
 
         // Method that retrives the list of every sensor recorded within an API from wich the user selected through its "apiId" 
-        public async Task<IActionResult> GetAPISensors(string apiId)
-        {
-            ViewBag.apiId = apiId;
-            return View(await Greenhouse.web.Services.SensorServices.GetAPISensors("2", _configuration));
-        }
+        //public async Task<IActionResult> GetAPISensors(string apiId)
+        //{
+        //    ViewBag.apiId = apiId;
+        //    return View(await Greenhouse.web.Services.SensorServices.GetAPISensors("2", _configuration));
+        //}
     }
 }
