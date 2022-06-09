@@ -13,6 +13,7 @@ namespace Greenhouse.web.Services.Implementations
             _configuration = configuration;
         }
 
+
         public async Task<IEnumerable<AssetType>> GetAssetTypes()
         {
             List<AssetType> assetTypes = new();
