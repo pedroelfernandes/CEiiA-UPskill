@@ -174,7 +174,6 @@ namespace MainAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IdInAPI")
@@ -191,11 +190,11 @@ namespace MainAPI.Migrations
                     b.Property<int>("SensorTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("URLId")
+                    b.Property<int?>("URLId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Unit")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

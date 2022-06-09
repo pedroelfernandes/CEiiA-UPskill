@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MainAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220607152906_schema_test")]
-    partial class schema_test
+    [Migration("20220609100518_Schema_2022_06_09")]
+    partial class Schema_2022_06_09
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -176,7 +176,6 @@ namespace MainAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IdInAPI")
@@ -193,11 +192,11 @@ namespace MainAPI.Migrations
                     b.Property<int>("SensorTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("URLId")
+                    b.Property<int?>("URLId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Unit")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
