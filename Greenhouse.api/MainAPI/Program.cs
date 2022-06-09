@@ -34,7 +34,7 @@ builder.Services.AddScoped<ISensorService, SensorService>();
 builder.Services.AddScoped<ISensorTypeService, SensorTypeService>();
 builder.Services.AddScoped<IAssetService, AssetService>();
 builder.Services.AddScoped<IAssetTypeService, AssetTypeService>();
-builder.Services.AddScoped<ILayerAPISensorService, LayerAPISensorSevice>();
+builder.Services.AddScoped<ILayerAPISensorService, LayerAPISensorService>();
 builder.Services.AddScoped<IReadingService, ReadingService>();
 
 

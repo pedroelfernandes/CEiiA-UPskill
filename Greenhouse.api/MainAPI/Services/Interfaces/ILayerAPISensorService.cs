@@ -4,6 +4,9 @@ namespace MainAPI.Services.Interfaces
 {
     public interface ILayerAPISensorService
     {
-        Task<IReadOnlyList<LayerSensor>> GetSensors();
+        Task<IReadOnlyList<Sensor>> GetSensors();
+
+
+        Task<List<Sensor>> GetAPISensors(StoredURL storedURL);
     }
 }

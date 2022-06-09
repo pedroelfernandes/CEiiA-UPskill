@@ -10,23 +10,25 @@ namespace MainAPI.Models
 
 
         [Required]
-        public string IdInAPI { get; set; }
+        public string? IdInAPI { get; set; }
 
 
         [Required]
         public string? Name { get; set; }
 
 
+        //change to not be required
         [Required]
         public string? Description { get; set; }
 
 
+        //not required as of object creation, but admin should set unit
         [Required]
         public string? Unit { get; set; }
 
 
         [Required]
-        public int URLId { get; set; }
+        public int? URLId { get; set; }
 
 
         [Required]
@@ -34,20 +36,31 @@ namespace MainAPI.Models
 
 
         [Required]
-        public DateTime ActiveSince { get; set; }
+        public DateTime ActiveSince { get; set; } = DateTime.Now;
 
 
         [Required]
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
 
 
         [Required, ForeignKey("SensorType")]
-        public int SensorTypeId { get; set; }
+        public int SensorTypeId { get; set; } = 1;
 
 
         public SensorType? SensorType { get; set; }
 
 
         public ICollection<AssetSensor>? Assets { get; set; }
+
+        
+        public static Sensor ToSensor(LayerSensor layerSensor)
+        {
+            return new()
+            {
+                IdInAPI = layerSensor.Id,
+                Name = layerSensor.Name,
+                Company = layerSensor.Company
+            };
+        }
     }
 }
