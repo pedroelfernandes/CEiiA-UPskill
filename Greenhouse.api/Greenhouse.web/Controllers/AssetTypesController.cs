@@ -25,6 +25,5 @@ namespace Greenhouse.web.Controllers
         {
             return View(await _assetTypeServices.GetAssetTypes());
         }
-
     }
 }
