@@ -9,10 +9,12 @@ namespace MainAPI.Services.Implementations
     public class APIUserService : IAPIUserService
     {
         private readonly IAPIUserRepository _apiUserRepository;
+        private readonly IRoleRepository _roleRepository;
 
-        public APIUserService(IAPIUserRepository apiUserRepository)
+        public APIUserService(IAPIUserRepository apiUserRepository, IRoleRepository roleRepository)
         {
             _apiUserRepository = apiUserRepository;
+            _roleRepository = roleRepository;
         }
 
         public async Task<APIUserDTO> Create(APIUser apiUser)
@@ -21,10 +23,16 @@ namespace MainAPI.Services.Implementations
             return APIUserDTO.ToDto(tempUser);
         }
 
-        public async Task<APIUserDTO> Get(int id)
+        public async Task<List<APIUserDTO>> Get()
         {
-            APIUser user = await _apiUserRepository.Get(id);
-            return APIUserDTO.ToDto(user);
+            List<APIUser> users = await _apiUserRepository.Get();
+
+            foreach (APIUser user in users)
+            {
+                user.Role = await _roleRepository.Get(user.RoleId);
+            }
+
+            return users.Select(u => APIUserDTO.ToDto(u)).ToList();
         }
 
         public async Task<bool> ChangeState(int id)
@@ -32,10 +40,10 @@ namespace MainAPI.Services.Implementations
             return await _apiUserRepository.ChangeState(id);
         }
 
-        public async Task<APIUserDTO> Edit(int id, string username, string email, int roleId)
+        public async Task<APIUserDTO> Edit(APIUser apiUser)
         {
 
-            APIUser tempUser = await _apiUserRepository.Edit(id, username, email, roleId);
+            APIUser tempUser = await _apiUserRepository.Edit(apiUser);
 
             return APIUserDTO.ToDto(tempUser);
         }

@@ -7,9 +7,9 @@ namespace MainAPI.Services.Interfaces
     {
         Task<APIUserDTO> Create(APIUser apiUser);
 
-        Task<APIUserDTO> Get(int id);
+        Task<List<APIUserDTO>> Get();
 
-        Task<APIUserDTO> Edit(int id, string username, string email, int roleId);
+        Task<APIUserDTO> Edit(APIUser apiUser);
 
         Task<bool> ChangeState(int id);
     }
