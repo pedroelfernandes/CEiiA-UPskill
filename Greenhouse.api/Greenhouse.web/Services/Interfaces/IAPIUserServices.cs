@@ -8,7 +8,7 @@ namespace Greenhouse.web.Services.Interfaces
 
         //Task<APIUser> Create(APIUser apiUser);
 
-        Task<APIUser> Get(int id);
+        Task<List<APIUser>> Get();
 
         //Task<APIUser> Edit(APIUser apiUser);
 

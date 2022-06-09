@@ -3,7 +3,7 @@ using Greenhouse.web.Services.Interfaces;
 
 namespace Greenhouse.web.Services.Implementations
 {
-    public class AssetServices: IAssetServices
+    public class AssetServices : IAssetServices
     {
         private readonly IConfiguration _configuration;
 
@@ -103,3 +103,4 @@ namespace Greenhouse.web.Services.Implementations
         //    }
         //}
     }
+}

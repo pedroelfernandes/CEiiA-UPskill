@@ -9,24 +9,24 @@ namespace Greenhouse.web.Controllers
     public class APIUserController : Controller
     {
         private readonly IAPIUserServices _apiUserServices;
+        private readonly IRolesServices _rolesServices;
 
-        public APIUserController (IAPIUserServices apiUserServices)
+        public APIUserController (IAPIUserServices apiUserServices, IRolesServices rolesServices)
         {
             _apiUserServices = apiUserServices;
+            _rolesServices = rolesServices;
         }
 
 
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        [HttpGet]
+        public async Task<IActionResult> Get()
         {
-            return View(new List<APIUser> { await _apiUserServices.Get(id) });
+            List<APIUser> users = await _apiUserServices.Get();
+            
+            return View(users);
         }
         
-        public IActionResult Get()
-        {
-            //var users = _apiUserServices.Get.Result;
-            return View();
-        }
+        
     }
 }

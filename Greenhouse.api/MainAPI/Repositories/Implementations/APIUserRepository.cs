@@ -24,24 +24,32 @@ namespace MainAPI.Repositories.Implementations
             return apiUser;
         }
 
-        public async Task<APIUser> Get(int id)
+        public async Task<List<APIUser>> Get()
         {
             // get the user
-            APIUser? apiUser = await _db.APIUsers.FindAsync(id);
+            List<int> index = _db.APIUsers.Select(u=>u.Id).ToList();
 
-            if (apiUser == null)
+            List<APIUser> apiUsers = new();
+
+            foreach (int id in index)
+            {
+                apiUsers.Add(await _db.APIUsers.FindAsync(id));
+            }
+
+            if (apiUsers == null)
                 throw new Exception("User not found.");
 
-            return apiUser;
+            return apiUsers;
         }
 
-        public async Task<APIUser> Edit(int id, string username, string email, int roleId)
+        public async Task<APIUser> Edit(APIUser apiUser)
         {
-            _db.APIUsers.Update(await Get(id)).Property(r => r.Username).CurrentValue = username;
-            _db.APIUsers.Update(await Get(id)).Property(r => r.Email).CurrentValue = email;
-            _db.APIUsers.Update(await Get(id)).Property(r => r.RoleId).CurrentValue = roleId;
+            if (apiUser == null)
+                throw new Exception("APIUser not defined.");
+
+            _db.APIUsers.Update(apiUser);
             await _db.SaveChangesAsync();
-            return await Get(id);
+            return apiUser;
         }
 
         public async Task<bool> ChangeState(int id)

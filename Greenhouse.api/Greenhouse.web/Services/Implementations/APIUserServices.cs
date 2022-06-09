@@ -12,19 +12,19 @@ namespace Greenhouse.web.Services.Implementations
             _configuration = configuration;
         }
 
-        public async Task<APIUser> Get(int id)
+        public async Task<List<APIUser>> Get()
         {
-            APIUser apiUsers = new();
+            List<APIUser> apiUsers = new();
 
             HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
 
-            HttpResponseMessage response = await client.GetAsync($"apiuser/get?id={id}");
+            HttpResponseMessage response = await client.GetAsync($"apiuser/get");
 
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
             {
-                var res = await response.Content.ReadFromJsonAsync<APIUser>();
+                List<APIUser> res = await response.Content.ReadFromJsonAsync<List<APIUser>>();
 
                 if (res != null)
                 {
