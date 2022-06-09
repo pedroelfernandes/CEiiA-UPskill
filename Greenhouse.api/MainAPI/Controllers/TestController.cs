@@ -10,12 +10,14 @@ namespace MainAPI.Controllers
     {
         private readonly ILayerAPISensorService _layerAPISensorService;
         private readonly IReadingService _readingService;
+        private readonly ISensorService _sensorService;
 
 
-        public TestController(ILayerAPISensorService layerAPISensorService, IReadingService readingService)
+        public TestController(ILayerAPISensorService layerAPISensorService, IReadingService readingService, ISensorService sensorService)
         {
             _layerAPISensorService = layerAPISensorService;
             _readingService = readingService;
+            _sensorService = sensorService;
         }
 
 
@@ -44,6 +46,11 @@ namespace MainAPI.Controllers
 
         [HttpGet]
         public async Task<IReadOnlyList<Reading>> GetReadingsBetweenDatesBySensorId(int urlId, string sensorId, DateTime startDate, DateTime endDate) =>
-            await _readingService.GetBetweenDatesBySensorId(urlId, sensorId, startDate, endDate); 
+            await _readingService.GetBetweenDatesBySensorId(urlId, sensorId, startDate, endDate);
+
+
+        [HttpGet]
+        public async Task<bool> CheckForSensors() =>
+            await _sensorService.CheckForNewSensors();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using MainAPI.Data;
 using MainAPI.Models;
 using MainAPI.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MainAPI.Repositories.Implementations
 {
@@ -64,5 +65,9 @@ namespace MainAPI.Repositories.Implementations
 
             return true;
         }
+
+
+        public bool FindInDb(Sensor sensor) =>
+            _db.Sensors.Any(s => s.IdInAPI == sensor.IdInAPI && s.URLId == sensor.URLId);
     }
 }
