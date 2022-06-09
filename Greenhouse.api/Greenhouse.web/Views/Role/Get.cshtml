@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Greenhouse.web.Models.Role>
+
+@{
+	Layout = "_MainLayout";
+}
+
+<table class="table table-hover">
+	<thead>
+		<tr class="table-info">
+			<th>Role Id</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Active Status</th>
+		</tr>
+	</thead>
+	<tbody>
+
+		@foreach (Role role in Model)
+		{
+			<tr class="table-info">
+				<th>@role.Id</th>
+				<th>@role.Name</th>
+				<th>@role.Description</th>
+				<th>@role.Active</th>
+			</tr>
+		}
+	</tbody>
+</table>

@@ -18,7 +18,7 @@ namespace MainAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<RoleDTO> Get(int id) => await _roleService.Get(id);
+        public async Task<List<RoleDTO>> Get() => await _roleService.Get();
 
 
         // Create a new role
@@ -37,9 +37,9 @@ namespace MainAPI.Controllers
 
         // Edit role information
         [HttpPut]
-        public async Task<RoleDTO> Edit(int id, string name, string description)
+        public async Task<RoleDTO> Edit(Role role)
         {
-            return await _roleService.Edit(id, name, description);
+            return await _roleService.Edit(role);
         }
 
 

@@ -21,10 +21,16 @@ namespace MainAPI.Services.Implementations
             return RoleDTO.ToDto(tempRole);
         }
 
-        public async Task<RoleDTO> Get(int id)
+        public async Task<List<RoleDTO>> Get()
         {
-            Role tempRole = await _roleRepository.Get(id);
-            return RoleDTO.ToDto(tempRole);
+            List<Role> roles = await _roleRepository.Get();
+
+            return roles.Select(u => RoleDTO.ToDto(u)).ToList();
+        }
+
+        public async Task<Role> GetRole(int id)
+        {
+            return await _roleRepository.GetRole(id);
         }
 
         public async Task<bool> ChangeState(int id)
@@ -32,10 +38,10 @@ namespace MainAPI.Services.Implementations
             return await _roleRepository.ChangeState(id);
         }
 
-        public async Task<RoleDTO> Edit(int id, string name, string description)
+        public async Task<RoleDTO> Edit(Role role)
         {
 
-            Role tempRole = await _roleRepository.Edit(id, name, description);
+            Role tempRole = await _roleRepository.Edit(role);
 
             return RoleDTO.ToDto(tempRole);
         }

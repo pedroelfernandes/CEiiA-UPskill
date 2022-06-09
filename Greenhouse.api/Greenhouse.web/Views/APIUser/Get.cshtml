@@ -10,8 +10,9 @@
 			<th>User Id</th>
 			<th>Username</th>
 			<th>Email Address</th>
-			<th>Status</th>
+			<th>Active Status</th>
 			<th>Role</th>
+			<th>Role Permissions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -23,7 +24,8 @@
 				<th>@apiUser.Username</th>
 				<th>@apiUser.Email</th>
 				<th>@apiUser.Active</th>
-				<th>@ViewBag["role"]</th>
+				<th>@apiUser.Role.Name</th>
+				<th>@apiUser.Role.Description</th>
 			</tr>
 		}
 	</tbody>

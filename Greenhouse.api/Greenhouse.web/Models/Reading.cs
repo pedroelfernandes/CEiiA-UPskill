@@ -1,6 +1,4 @@
-﻿using Greenhouse.web.Models;
-using MyHttpClient = Greenhouse.web.Helpers;
-
+﻿
 namespace Greenhouse.web.Models
 {
     public class Reading
