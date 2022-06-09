@@ -17,13 +17,9 @@ namespace MainAPI.Models
         public string? Name { get; set; }
 
 
-        //change to not be required
-        [Required]
         public string? Description { get; set; }
 
 
-        //not required as of object creation, but admin should set unit
-        [Required]
         public string? Unit { get; set; }
 
 
