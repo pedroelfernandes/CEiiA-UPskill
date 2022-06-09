@@ -4,9 +4,9 @@ namespace MainAPI.Services.Interfaces
 {
     public interface IReadingService
     {
-        Task<IReadOnlyList<Reading>> GetBySensorId(string urlId, string sensorId, int size);
+        Task<IReadOnlyList<Reading>> GetBySensorId(int urlId, string sensorId, int size);
 
 
-        Task<IReadOnlyList<Reading>> GetBetweenDatesBySensorId(string urlId, string sensorId, DateTime startDate, DateTime endDate);
+        Task<IReadOnlyList<Reading>> GetBetweenDatesBySensorId(int urlId, string sensorId, DateTime startDate, DateTime endDate);
     }
 }

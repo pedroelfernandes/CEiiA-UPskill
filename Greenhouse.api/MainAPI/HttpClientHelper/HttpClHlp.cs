@@ -17,7 +17,7 @@ namespace MainAPI.HttpClientHelper
         }
 
 
-        public static System.Uri GetAPIUrl(string id, IConfiguration configuration)
+        public static System.Uri GetAPIUrl(int id, IConfiguration configuration)
         {
             List<StoredURL> storedURLs = configuration.GetSection("URL-Section:URLs").Get<List<StoredURL>>();
 
