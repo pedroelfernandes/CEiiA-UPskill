@@ -16,6 +16,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IAssetTypeServices, AssetTypeServices>();
 builder.Services.AddScoped<IAPIUserServices, APIUserServices>();
+builder.Services.AddScoped<IAssetServices, AssetServices>();
 
 
 var app = builder.Build();

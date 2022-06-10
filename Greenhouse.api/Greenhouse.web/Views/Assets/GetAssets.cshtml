@@ -27,18 +27,17 @@
             <th>
                 @Html.DisplayNameFor(model => model.Location)
             </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.CreationDate)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AssetType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sensors)
+             <th>
+                @Html.DisplayNameFor(model => model.AssetTypeId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsActive)
             </th>
+
             <th></th>
         </tr>
     </thead>
@@ -54,21 +53,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <th>
+            <td>
                 @Html.DisplayFor(modelItem => item.Company)
-            </th>
-            <th>
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Location)
-            </th>
-            <th>
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.CreationDate)
-            </th>
-            <th>
-                @Html.DisplayFor(modelItem => item.AssetType)
-            </th>
-            <th>
-                @Html.DisplayFor(modelItem => item.Sensors)
-            </th>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssetType.Description)
+            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>

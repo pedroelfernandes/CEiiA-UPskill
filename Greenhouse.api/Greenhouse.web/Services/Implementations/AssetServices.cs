@@ -24,7 +24,7 @@ namespace Greenhouse.web.Services.Implementations
 
             if (response.IsSuccessStatusCode)
             {
-                var res = await response.Content.ReadFromJsonAsync<List<Asset>>();
+                List<Asset> res = await response.Content.ReadFromJsonAsync<List<Asset>>();
 
                 if (res != null)
                 {

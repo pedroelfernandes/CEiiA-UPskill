@@ -13,15 +13,5 @@ namespace Greenhouse.web.Controllers
             _sensorTypeServices = sensorTypeServices;
         }
 
-        //public async Task<IEnumerable<AssetType>> GetAssetTypes() => await _assetTypeServices.GetAssetTypes();
-
-        //Get Full List of AssetTypes
-
-        [HttpGet]
-        public async Task<IActionResult> GetSensorTypes()
-        {
-            return View(await _sensorTypeServices.GetSensorTypes());
-        }
-
     }
 }

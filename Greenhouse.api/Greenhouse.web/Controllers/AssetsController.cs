@@ -1,4 +1,5 @@
-﻿using Greenhouse.web.Services.Interfaces;
+﻿using Greenhouse.web.Models;
+using Greenhouse.web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Greenhouse.web.Controllers
@@ -8,16 +9,19 @@ namespace Greenhouse.web.Controllers
     {
 
         private readonly IAssetServices _assetServices;
-        public AssetsController(IAssetServices assetServices)
+        private readonly IAssetTypeServices _assetTypeServices;
+        public AssetsController(IAssetServices assetServices, IAssetTypeServices assetTypeServices)
         {
             _assetServices = assetServices;
+            _assetTypeServices = assetTypeServices;
         }
 
 
         [HttpGet]
         public async Task<IActionResult> GetAssets()
         {
-            return View(await _assetServices.GetAssets());
+            IEnumerable<Asset> assets = await _assetServices.GetAssets();
+            return View(assets);
         }
 
     }
