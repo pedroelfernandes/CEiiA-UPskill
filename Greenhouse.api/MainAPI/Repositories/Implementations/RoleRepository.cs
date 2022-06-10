@@ -23,22 +23,35 @@ namespace MainAPI.Repositories.Implementations
             return role;
         }
 
-        public async Task<Role> Get(int id)
+        public async Task<List<Role>> Get()
         {
-            Role role = await _db.Roles.FindAsync(id);
+            List<int> index = _db.Roles.Select(u=>u.Id).ToList();
 
-            if (role == null)
+            List<Role> roles = new();
+
+            foreach (int id in index)
+            {
+                roles.Add(await _db.Roles.FindAsync(id));
+            }
+
+            if (roles == null)
                 throw new Exception("Role not found.");
 
-            return role;
+            return roles;
         }
 
-        public async Task<Role> Edit(int id, string name, string description)
+        public async Task<Role> GetRole(int id)
         {
-            _db.Roles.Update(await Get(id)).Property(r => r.Name).CurrentValue = name;
-            _db.Roles.Update(await Get(id)).Property(r => r.Description).CurrentValue = description;
+            return await _db.Roles.FindAsync(id);
+        }
+
+        public async Task<Role> Edit(Role role)
+        {
+            if (role == null)
+                throw new Exception("Role not defined.");
+            _db.Roles.Update(role);
             await _db.SaveChangesAsync();
-            return await Get(id);
+            return role;
         }
 
         public async Task<bool> ChangeState(int id)

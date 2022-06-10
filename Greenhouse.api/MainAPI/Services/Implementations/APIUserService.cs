@@ -9,12 +9,12 @@ namespace MainAPI.Services.Implementations
     public class APIUserService : IAPIUserService
     {
         private readonly IAPIUserRepository _apiUserRepository;
-        private readonly IRoleRepository _roleRepository;
+        private readonly IRoleService _roleService;
 
-        public APIUserService(IAPIUserRepository apiUserRepository, IRoleRepository roleRepository)
+        public APIUserService(IAPIUserRepository apiUserRepository, IRoleService roleService)
         {
             _apiUserRepository = apiUserRepository;
-            _roleRepository = roleRepository;
+            _roleService = roleService;
         }
 
         public async Task<APIUserDTO> Create(APIUser apiUser)
@@ -29,7 +29,7 @@ namespace MainAPI.Services.Implementations
 
             foreach (APIUser user in users)
             {
-                user.Role = await _roleRepository.Get(user.RoleId);
+                user.Role = await _roleService.GetRole(user.RoleId);
             }
 
             return users.Select(u => APIUserDTO.ToDto(u)).ToList();
