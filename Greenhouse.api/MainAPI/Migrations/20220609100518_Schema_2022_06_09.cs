@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MainAPI.Migrations
 {
-    public partial class schema_test : Migration
+    public partial class Schema_2022_06_09 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -110,8 +110,8 @@ namespace MainAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdInAPI = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Unit = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Unit = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     URLId = table.Column<int>(type: "int", nullable: false),
                     Company = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ActiveSince = table.Column<DateTime>(type: "datetime2", nullable: false),

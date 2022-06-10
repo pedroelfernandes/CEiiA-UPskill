@@ -8,11 +8,13 @@ namespace MainAPI.Services.Implementations
     public class SensorService : ISensorService
     {
         private readonly ISensorRepository _sensorRepository;
+        private readonly ILayerAPISensorService _layerAPISensorService;
 
 
-        public SensorService(ISensorRepository sensorRepository)
+        public SensorService(ISensorRepository sensorRepository, ILayerAPISensorService layerAPISensorService)
         {
             _sensorRepository = sensorRepository;
+            _layerAPISensorService = layerAPISensorService;
         }
 
 
@@ -42,6 +44,24 @@ namespace MainAPI.Services.Implementations
             Sensor tempSensor = await _sensorRepository.Edit(id, name, description, unit, urlId, company, sensorTypeId);
 
             return SensorDTO.ToDto(tempSensor);
+        }
+
+
+        public async Task<bool> CheckForNewSensors()
+        {
+            bool updatedDb = false;
+            IReadOnlyList<Sensor> sensors = await _layerAPISensorService.GetSensors();
+
+            foreach (Sensor sensor in sensors)
+            {
+                if (!_sensorRepository.FindInDb(sensor))
+                {
+                    await _sensorRepository.Create(sensor);
+                    updatedDb = true;
+                }
+            }
+
+            return updatedDb;
         }
     }
 }

@@ -19,13 +19,13 @@ namespace Greenhouse.web.Controllers
 
 
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            List<APIUser> users = await _apiUserServices.Get();
+        //[HttpGet]
+        //public async Task<IActionResult> Get()
+        //{
+        //    List<APIUser> users = await _apiUserServices.Get();
             
-            return View(users);
-        }
+        //    return View(users);
+        //}
         
         
     }

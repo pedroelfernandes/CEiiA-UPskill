@@ -17,6 +17,7 @@ builder.Services.AddScoped<IAssetServices, AssetServices>();
 builder.Services.AddScoped<IAssetTypeServices, AssetTypeServices>();
 builder.Services.AddScoped<IAPIUserServices, APIUserServices>();
 builder.Services.AddScoped<IRolesServices, RolesServices>();
+builder.Services.AddScoped<IAssetServices, AssetServices>();
 
 
 var app = builder.Build();
