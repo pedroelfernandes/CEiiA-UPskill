@@ -3,16 +3,19 @@ using MainAPI.HttpClientHelper;
 using MainAPI.Models;
 using MainAPI.Repositories.Interfaces;
 using MainAPI.Services.Interfaces;
+using System.Linq;
 
 namespace MainAPI.Services.Implementations
 {
     public class AssetService: IAssetService
     {
         private readonly IAssetRepository _assetRepository;
+        private readonly IAssetTypeRepository _assetTypeRepository;
 
-        public AssetService(IAssetRepository assetRepository)
+        public AssetService(IAssetRepository assetRepository, IAssetTypeRepository assetTypeRepository)
         {
             _assetRepository = assetRepository;
+            _assetTypeRepository = assetTypeRepository;
         }
 
 
@@ -21,14 +24,14 @@ namespace MainAPI.Services.Implementations
         public async Task<IEnumerable<AssetDTO>> GetAssets()
         {
             //Creates a list of assets and send it to a DTO
-            IEnumerable<Asset> assets = new List<Asset>();
-            IEnumerable<AssetDTO> assetsDTO = new List<AssetDTO>();
+            IEnumerable<Asset> assets = await _assetRepository.GetAssets();
 
-            assets = await _assetRepository.GetAssets();
-
-            assetsDTO = assets.Select(asset => AssetDTO.ToDto(asset)).ToList();
-
-            return assetsDTO;
+            foreach (Asset asset in assets)
+            {
+                asset.AssetType = await _assetTypeRepository.GetAssetTypeById(asset.AssetTypeId);
+            }
+           
+            return assets.Select (x =>AssetDTO.ToDto(x)).ToList();
         }
 
 
