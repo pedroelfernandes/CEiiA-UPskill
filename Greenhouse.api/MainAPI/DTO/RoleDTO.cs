@@ -10,7 +10,7 @@ namespace MainAPI.DTO
 
         public string? Description { get; set; }
 
-        public bool Active { get; set; }
+        public bool IsActive { get; set; }
 
         public static RoleDTO ToDto(Role role)
         {
@@ -19,7 +19,7 @@ namespace MainAPI.DTO
                 Id = role.Id,
                 Name = role.Name,
                 Description = role.Description,
-                Active = role.IsActive,
+                IsActive = role.IsActive,
             };
         }
     }

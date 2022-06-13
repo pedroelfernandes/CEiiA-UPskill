@@ -10,12 +10,12 @@ namespace MainAPI.Services.Implementations
     public class AssetService: IAssetService
     {
         private readonly IAssetRepository _assetRepository;
-        private readonly IAssetTypeRepository _assetTypeRepository;
+        private readonly IAssetTypeService _assetTypeService;
 
-        public AssetService(IAssetRepository assetRepository, IAssetTypeRepository assetTypeRepository)
+        public AssetService(IAssetRepository assetRepository, IAssetTypeService assetTypeService)
         {
             _assetRepository = assetRepository;
-            _assetTypeRepository = assetTypeRepository;
+            _assetTypeService = assetTypeService;
         }
 
 
@@ -24,32 +24,35 @@ namespace MainAPI.Services.Implementations
         public async Task<IEnumerable<AssetDTO>> GetAssets()
         {
             //Creates a list of assets and send it to a DTO
-            IEnumerable<Asset> assets = await _assetRepository.GetAssets();
+            IEnumerable<AssetDTO> assets = (await _assetRepository.GetAssets()).ToList().Select(asset => AssetDTO.ToDto(asset));
 
-            foreach (Asset asset in assets)
-            {
-                asset.AssetType = await _assetTypeRepository.GetAssetTypeById(asset.AssetTypeId);
-            }
-           
-            return assets.Select (x =>AssetDTO.ToDto(x)).ToList();
+            foreach (AssetDTO asset in assets)
+                asset.AssetType = await _assetTypeService.GetAssetTypeById(asset.AssetTypeId);
+
+            return assets;
         }
 
 
         //transfer a specific Asset to DTO
         public async Task<AssetDTO> GetAssetById(int Id)
         {
-
             //transfer the Asset with the specific Id from the repository to DTO
-            Asset tempasset = await _assetRepository.GetAssetById(Id);
-            return AssetDTO.ToDto(tempasset);
+            AssetDTO tempAsset = AssetDTO.ToDto(await _assetRepository.GetAssetById(Id));
+
+            tempAsset.AssetType = await _assetTypeService.GetAssetTypeById(tempAsset.AssetTypeId);
+
+            return tempAsset;
         }
 
 
         //Transfer the CreateAsset content to DTO
         public async Task<AssetDTO> CreateAsset(Asset asset)
         {
-            Asset tempAsset = await _assetRepository.CreateAsset(asset);
-            return AssetDTO.ToDto(tempAsset);
+            AssetDTO tempAsset = AssetDTO.ToDto(await _assetRepository.CreateAsset(asset));
+            
+            tempAsset.AssetType = await _assetTypeService.GetAssetTypeById(tempAsset.AssetTypeId);
+            
+            return tempAsset;
         }
 
         ////Edit
@@ -62,8 +65,11 @@ namespace MainAPI.Services.Implementations
         //Edit
         public async Task<AssetDTO> EditAsset(Asset asset)
         {
-            Asset tempAsset = await _assetRepository.EditAsset(asset);
-            return AssetDTO.ToDto(tempAsset);
+            AssetDTO tempAsset = AssetDTO.ToDto(await _assetRepository.EditAsset(asset));
+            
+            tempAsset.AssetType = await _assetTypeService.GetAssetTypeById(tempAsset.AssetTypeId);
+            
+            return tempAsset;
         }
 
         //Inactivate Asset

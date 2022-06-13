@@ -7,7 +7,7 @@ namespace MainAPI.DTO
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public bool Active { get; set; }
+        public bool IsActive { get; set; }
 
         public static AssetTypeDTO ToDto(AssetType assetType)
         {
@@ -16,7 +16,7 @@ namespace MainAPI.DTO
                 Id = assetType.Id,
                 Name = assetType.Name,
                 Description = assetType.Description,
-                Active = assetType.IsActive,
+                IsActive = assetType.IsActive,
             };
         }
     }
