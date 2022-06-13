@@ -9,28 +9,34 @@ namespace MainAPI.Services.Implementations
     {
         private readonly ISensorRepository _sensorRepository;
         private readonly ILayerAPISensorService _layerAPISensorService;
+        private readonly ISensorTypeService _sensorTypeService;
 
 
-        public SensorService(ISensorRepository sensorRepository, ILayerAPISensorService layerAPISensorService)
+        public SensorService(ISensorRepository sensorRepository, ILayerAPISensorService layerAPISensorService, ISensorTypeService sensorTypeService)
         {
             _sensorRepository = sensorRepository;
             _layerAPISensorService = layerAPISensorService;
+            _sensorTypeService = sensorTypeService;
         }
 
 
         public async Task<SensorDTO> Create(Sensor sensor)
         {
-            Sensor tempSensor = await _sensorRepository.Create(sensor);
+            SensorDTO sensorDTO = SensorDTO.ToDto(await _sensorRepository.Create(sensor));
 
-            return SensorDTO.ToDto(tempSensor);
+            sensorDTO.SensorType = (await _sensorTypeService.Get(sensorDTO.SensorTypeId));
+
+            return sensorDTO;
         }
 
 
         public async Task<SensorDTO> Get(int id)
         {
-            Sensor tempSensor = await _sensorRepository.Get(id);
+            SensorDTO sensor = SensorDTO.ToDto(await _sensorRepository.Get(id));
 
-            return SensorDTO.ToDto(tempSensor);
+            sensor.SensorType = await _sensorTypeService.Get(sensor.SensorTypeId);
+
+            return sensor;
         }
 
 
@@ -41,9 +47,11 @@ namespace MainAPI.Services.Implementations
         public async Task<SensorDTO> Edit(int id, string name, string description,
             string unit, int urlId, string company, int sensorTypeId)
         {
-            Sensor tempSensor = await _sensorRepository.Edit(id, name, description, unit, urlId, company, sensorTypeId);
+            SensorDTO tempSensor = SensorDTO.ToDto(await _sensorRepository.Edit(id, name, description, unit, urlId, company, sensorTypeId));
 
-            return SensorDTO.ToDto(tempSensor);
+            tempSensor.SensorType = await _sensorTypeService.Get(tempSensor.SensorTypeId);
+
+            return tempSensor;
         }
 
 

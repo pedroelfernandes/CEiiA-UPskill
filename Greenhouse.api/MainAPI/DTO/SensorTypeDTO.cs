@@ -10,7 +10,7 @@ namespace MainAPI.DTO
 
         public string? Description { get; set; }
 
-        public bool? Active { get; set; }
+        public bool? IsActive { get; set; }
 
         public static SensorTypeDTO ToDto(SensorType sensorType)
         {
@@ -19,7 +19,7 @@ namespace MainAPI.DTO
                 Id = sensorType.Id,
                 Name = sensorType.Name,
                 Description = sensorType.Description,
-                Active = sensorType.IsActive,
+                IsActive = sensorType.IsActive,
             };
         }
     }

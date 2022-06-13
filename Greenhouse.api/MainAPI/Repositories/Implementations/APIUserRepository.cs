@@ -8,10 +8,12 @@ namespace MainAPI.Repositories.Implementations
     {
         private readonly ApplicationDbContext _db;
 
+
         public APIUserRepository(ApplicationDbContext db)
         {
             _db = db;
         }
+
 
         public async Task<APIUser> Create(APIUser apiUser)
         {
@@ -24,6 +26,7 @@ namespace MainAPI.Repositories.Implementations
             return apiUser;
         }
 
+
         public async Task<List<APIUser>> Get()
         {
             // get the user
@@ -33,7 +36,7 @@ namespace MainAPI.Repositories.Implementations
 
             foreach (int id in index)
             {
-                apiUsers.Add(await _db.APIUsers.FindAsync(id));
+                apiUsers.Add(await Get(id));
             }
 
             if (apiUsers == null)
@@ -41,6 +44,11 @@ namespace MainAPI.Repositories.Implementations
 
             return apiUsers;
         }
+
+
+        public async Task<APIUser> Get(int id) =>
+            await _db.APIUsers.FindAsync(id);
+
 
         public async Task<APIUser> Edit(APIUser apiUser)
         {
@@ -51,6 +59,7 @@ namespace MainAPI.Repositories.Implementations
             await _db.SaveChangesAsync();
             return apiUser;
         }
+
 
         public async Task<bool> ChangeState(int id)
         {

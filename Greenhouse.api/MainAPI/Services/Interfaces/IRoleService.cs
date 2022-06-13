@@ -9,7 +9,7 @@ namespace MainAPI.Services.Interfaces
 
         Task<List<RoleDTO>> Get();
 
-        Task<Role> GetRole(int id);
+        Task<RoleDTO> GetRole(int id);
 
         Task<RoleDTO> Edit(Role role);
 

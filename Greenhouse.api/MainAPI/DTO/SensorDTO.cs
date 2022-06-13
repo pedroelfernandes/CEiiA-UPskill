@@ -24,9 +24,10 @@ namespace MainAPI.DTO
 
 
         public bool IsActive { get; set; }
-
-
-        public SensorTypeDTO SensorType { get; set; }
+        
+        
+        public int SensorTypeId { get; set; }
+        public SensorTypeDTO? SensorType { get; set; }
 
 
         public static SensorDTO ToDto(Sensor sensor)
@@ -40,7 +41,7 @@ namespace MainAPI.DTO
                 Company = sensor.Company,
                 ActiveSince = sensor.ActiveSince,
                 IsActive = sensor.IsActive,
-                SensorType = SensorTypeDTO.ToDto(sensor.SensorType)
+                SensorTypeId = sensor.SensorTypeId
             };
         }
     }
