@@ -25,14 +25,12 @@ namespace MainAPI.Services.Implementations
 
         public async Task<List<APIUserDTO>> Get()
         {
-            List<APIUser> users = await _apiUserRepository.Get();
+            List<APIUserDTO> users = (await _apiUserRepository.Get()).Select(user => APIUserDTO.ToDto(user)).ToList();
 
-            foreach (APIUser user in users)
-            {
+            foreach (APIUserDTO user in users)            
                 user.Role = await _roleService.GetRole(user.RoleId);
-            }
 
-            return users.Select(u => APIUserDTO.ToDto(u)).ToList();
+            return users;
         }
 
         public async Task<bool> ChangeState(int id)
