@@ -6,7 +6,7 @@ namespace MainAPI.Services.Interfaces
 {
     public interface IAssetService
     {
-        Task<IEnumerable<AssetDTO>> GetAssets();
+        Task<List<AssetDTO>> GetAssets();
         Task<AssetDTO> GetAssetById(int Id);
         Task<AssetDTO> CreateAsset(Asset asset);
         //Task<AssetDTO> EditAsset(int id, string name, string company, string location, DateTime creationDate, AssetTypeId assetTypeId, bool active);

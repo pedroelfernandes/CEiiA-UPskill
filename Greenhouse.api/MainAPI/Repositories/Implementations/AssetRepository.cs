@@ -15,21 +15,8 @@ namespace MainAPI.Repositories.Implementations
             _db = db;
         }
 
-        public async Task<IEnumerable<Asset>> GetAssets()
-        {
-            return await _db.Assets.Include(a => a.AssetType).ToListAsync();
-
-            //List<int> index = _db.Assets.Select(x => x.Id).ToList();
-            //List<Asset> assets;
-
-            //foreach (int id in index)
-            //{
-            //    assets.Add(await _db.Assets.FindAsync(id));
-            //}
-            //if (assets == null) 
-            //    throw new Exception("Asset not found");
-            //return assets;
-        }
+        public async Task<List<Asset>> GetAssets() =>
+            await _db.Assets.ToListAsync();
 
 
         public async Task<Asset> GetAssetById(int id)

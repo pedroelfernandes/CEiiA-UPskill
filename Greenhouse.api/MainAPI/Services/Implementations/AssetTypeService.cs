@@ -8,34 +8,30 @@ namespace MainAPI.Services.Implementations
 {
     public class AssetTypeService : IAssetTypeService
     { 
-
         private readonly IAssetTypeRepository _assetTypeRepository;
 
-           public AssetTypeService (IAssetTypeRepository assetTypeRepository)
-           {
-                _assetTypeRepository = assetTypeRepository;
-           }
+
+        public AssetTypeService (IAssetTypeRepository assetTypeRepository)
+        {
+            _assetTypeRepository = assetTypeRepository;
+        }
 
 
         //Creates list of AsssetTypes and send it to DTO
-        public async Task<IEnumerable<AssetTypeDTO>> GetAssetTypes()
+        public async Task<List<AssetTypeDTO>> GetAssetTypes()
         {
-            IEnumerable<AssetType> assetTypes = new List<AssetType>();
-            IEnumerable<AssetTypeDTO> assetTypesDTO = new List<AssetTypeDTO>();
+            List<AssetType> assetTypes = await _assetTypeRepository.GetAssetTypes();
 
-            assetTypes = await _assetTypeRepository.GetAssetTypes();
-
-            assetTypesDTO = assetTypes.Select(assetType => AssetTypeDTO.ToDto(assetType)).ToList();
-
-            return assetTypesDTO;
+            return assetTypes.Select(assetType => AssetTypeDTO.ToDto(assetType)).ToList();
         }
+
 
         //transfer specific AssetType to DTO
         public async Task<AssetTypeDTO> GetAssetTypeById(int Id)
         {
-
             //transfer the Asset with the specific Id from the repository to DTO
             AssetType tempassetType = await _assetTypeRepository.GetAssetTypeById(Id);
+
             return AssetTypeDTO.ToDto(tempassetType);
         }
 
@@ -44,13 +40,16 @@ namespace MainAPI.Services.Implementations
         public async Task<AssetTypeDTO> CreateAssetType(AssetType assetType)
         {
             AssetType tempAssetType = await _assetTypeRepository.CreateAssetType(assetType);
+
             return AssetTypeDTO.ToDto(tempAssetType);
         }
+
 
         //Edit
         public async Task<AssetTypeDTO> EditAssetType(int id, string name, string description, bool active)
         {
             AssetType tempAssetType = await _assetTypeRepository.EditAssetType(id, name, description, active);
+
             return AssetTypeDTO.ToDto(tempAssetType);
         }
 
@@ -60,8 +59,5 @@ namespace MainAPI.Services.Implementations
         {
             return await _assetTypeRepository.ChangeStateAssetType(id);
         }
-
-
-
     }
-    }
+}
