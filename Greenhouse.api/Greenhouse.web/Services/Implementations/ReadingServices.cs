@@ -93,29 +93,29 @@ namespace Greenhouse.web.Services.Implementations
             return sensors;
         }
 
-        public static async Task<IEnumerable<API>> GetAPI(IConfiguration configuration)
-        {
-            IEnumerable<API> apis = new List<API>();
+        //public static async Task<IEnumerable<API>> GetAPI(IConfiguration configuration)
+        //{
+        //    IEnumerable<API> apis = new List<API>();
 
-            string apiId = configuration.GetValue<string>("URI");
+        //    string apiId = configuration.GetValue<string>("URI");
 
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URI"));
+        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URI"));
 
-            HttpResponseMessage response = await client.GetAsync("Main/GetAPIs");
+        //    HttpResponseMessage response = await client.GetAsync("Main/GetAPIs");
 
-            response.EnsureSuccessStatusCode();
+        //    response.EnsureSuccessStatusCode();
 
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadFromJsonAsync<List<API>>();
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var res = await response.Content.ReadFromJsonAsync<List<API>>();
 
-                if (res != null)
-                {
-                    apis = res;
-                }
-            }
-            return apis;
-        }
+        //        if (res != null)
+        //        {
+        //            apis = res;
+        //        }
+        //    }
+        //    return apis;
+        //}
 
     }
 }

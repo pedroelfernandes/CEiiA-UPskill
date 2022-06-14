@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Greenhouse.web.Models.AssetType>
+﻿@model IEnumerable<Greenhouse.web.Models.SensorType>
 
 
 <!DOCTYPE html>
@@ -6,16 +6,9 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>List of Asset Types</title>
+    <title>List of Sensor Types</title>
 </head>
 <body>
-
-    @*Create a new button to generate a New Asset Type*@
-	<div class="container text-end m-3">
-		<a asp-controller="AssetTypes" asp-action="CreateAssetType" class="btn btn-success btn-sm">
-			New Asset Type
-		</a>
-	</div>
 <table class="table">
     <thead>
         <tr>

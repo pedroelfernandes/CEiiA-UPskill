@@ -31,16 +31,9 @@ namespace MainAPI.Controllers
 
         //Create new assetType
         [HttpPost]
-        public async Task<AssetTypeDTO> CreateAssetType(int id, string name, string description, bool isactive)
+        public async Task<AssetTypeDTO> CreateAssetType(AssetType assetType)
         {
-            AssetType? assetType = new()
-            {
-                Id = id,
-                Name = name,
-                Description = description,
-                IsActive = isactive,
-            };
-
+            assetType.IsActive = true;
             return await _assetTypeService.CreateAssetType(assetType);
         }
 

@@ -13,5 +13,20 @@ namespace Greenhouse.web.Controllers
             _sensorTypeServices = sensorTypeServices;
         }
 
+        //Get Full List of SensorTypes
+
+        //[HttpGet]
+        //public async Task<IActionResult> Get()
+        //{
+        //    return View(await _sensorTypeServices.Get());
+        //}
+
+
+        //Get list of SensorTypes by Id
+        [HttpGet]
+        public async Task<IActionResult> Get(int Id)
+        {
+            return View(await _sensorTypeServices.Get(Id));
+        }
     }
 }
