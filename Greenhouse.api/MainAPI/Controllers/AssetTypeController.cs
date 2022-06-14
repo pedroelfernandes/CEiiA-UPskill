@@ -24,8 +24,8 @@ namespace MainAPI.Controllers
 
 
         //GetAssetType ById
-        [HttpGet("id")]
-        public async Task<AssetTypeDTO> GetAssetTypeById(int Id) => await _assetTypeService.GetAssetTypeById(Id);
+        [HttpGet]
+        public async Task<AssetTypeDTO> GetAssetTypeById(int id) => await _assetTypeService.GetAssetTypeById(id);
 
 
 
