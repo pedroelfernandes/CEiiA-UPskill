@@ -16,7 +16,7 @@ namespace MainAPI.Repositories.Implementations
         }
 
 
-        public async Task<IEnumerable<AssetType>> GetAssetTypes()
+        public async Task<List<AssetType>> GetAssetTypes()
         {
             var assetTypes =  await _db.AssetTypes.ToListAsync();
 

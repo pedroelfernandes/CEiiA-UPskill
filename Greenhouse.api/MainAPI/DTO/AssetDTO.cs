@@ -8,6 +8,8 @@ namespace MainAPI.DTO
 
         public string? Name { get; set; }
 
+        public string? Description { get; set; }
+
         public string? Company { get; set; }
 
         public string? Location { get; set; }
@@ -27,6 +29,7 @@ namespace MainAPI.DTO
             {
                 Id = asset.Id,
                 Name = asset.Name,
+                Description = asset.Description,
                 Company = asset.Company,
                 Location = asset.Location,
                 CreationDate = asset.CreationDate,
