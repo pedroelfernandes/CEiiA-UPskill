@@ -25,7 +25,7 @@ namespace Greenhouse.web.Models
         public AssetType? AssetType { get; set; }
 
         [Display(Name = "Active")]
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
 
         public ICollection<AssetSensor>? Sensors { get; set; }
 

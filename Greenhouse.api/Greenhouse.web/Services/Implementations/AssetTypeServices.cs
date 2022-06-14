@@ -1,5 +1,8 @@
 ﻿using Greenhouse.web.Models;
 using Greenhouse.web.Services.Interfaces;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace Greenhouse.web.Services.Implementations
 {
@@ -37,39 +40,35 @@ namespace Greenhouse.web.Services.Implementations
         }
 
 
-        //public static async Task<List<AssetType>> Create(string Id, IConfiguration configuration)
-        //{
-        //    List<AssetType> assetTypes = new();
+        //Create new AssetType
+        public async Task<AssetType> CreateAssetType(AssetType assetType)
+        {
+            string url = _configuration.GetValue<string>("URL");
 
-        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
 
-        //    HttpResponseMessage response = await client.GetAsync($"AssetType/Create?id={Id}");
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(assetType), Encoding.UTF8);
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-        //    response.EnsureSuccessStatusCode();
+            var response = await client.PostAsync(url + $"AssetType/CreateAssetType", httpContent);
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var res = await response.Content.ReadFromJsonAsync<List<AssetType>>();
+            response.EnsureSuccessStatusCode();
 
-        //        if (res != null)
-        //        {
-        //            assetTypes = res;
-        //        }
-        //    }
-        //    return assetTypes;
-        //}
-
-        //public async Task<AssetType> CreateAssetType(AssetType assetType, IConfiguration configuration)
-        //{
-        //    if (assetType == null)
-        //        throw new Exception("AssetType not defined.");
-
-        //    await _configuration.AssetTypes.AddAsync(assetType);
-        //    await _configuration.SaveChangesAsync();
-        //    return assetType;
-        //}
+            if (response.IsSuccessStatusCode)
+            {
+                var res = JsonConvert.DeserializeObject<AssetType>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
 
 
+                if (res != null)
+                {
+                    return res;
+                }
+            }
+
+            return new AssetType();
+        }
+
+       
 
 
         ////Get Asset Type by Id

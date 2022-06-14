@@ -1,16 +1,24 @@
 ﻿using Greenhouse.web.Models;
+using Greenhouse.web.Services.Interfaces;
 
 namespace Greenhouse.web.Services.Implementations
 {
-    public class SensorServices
+    public class SensorServices: ISensorServices
     {
-        public static async Task<List<Sensor>> Get(string sensorId, IConfiguration configuration)
+
+        private readonly IConfiguration _configuration;
+        public SensorServices(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public async Task<IEnumerable<Sensor>> GetSensors()
         {
             List<Sensor> sensors = new();
 
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+            HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
 
-            HttpResponseMessage response = await client.GetAsync($"getapisensors?id={sensorId}");
+            HttpResponseMessage response = await client.GetAsync($"Sensor/GetSensors");
 
             response.EnsureSuccessStatusCode();
 
@@ -27,72 +35,72 @@ namespace Greenhouse.web.Services.Implementations
         }
 
 
-        public static async Task<List<Sensor>> Create(string sensorId, IConfiguration configuration)
-        {
-            List<Sensor> sensors = new();
+        //public static async Task<List<Sensor>> Create(string sensorId, IConfiguration configuration)
+        //{
+        //    List<Sensor> sensors = new();
 
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
 
-            HttpResponseMessage response = await client.GetAsync($"getapisensors?id={sensorId}");
+        //    HttpResponseMessage response = await client.GetAsync($"getapisensors?id={sensorId}");
 
-            response.EnsureSuccessStatusCode();
+        //    response.EnsureSuccessStatusCode();
 
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadFromJsonAsync<List<Sensor>>();
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var res = await response.Content.ReadFromJsonAsync<List<Sensor>>();
 
-                if (res != null)
-                {
-                    sensors = res;
-                }
-            }
-            return sensors;
-        }
-
-
-        public static async Task<List<Sensor>> Edit(string sensorId, IConfiguration configuration)
-        {
-            List<Sensor> sensors = new();
-
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
-
-            HttpResponseMessage response = await client.GetAsync($"getapisensors?id={sensorId}");
-
-            response.EnsureSuccessStatusCode();
-
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadFromJsonAsync<List<Sensor>>();
-
-                if (res != null)
-                {
-                    sensors = res;
-                }
-            }
-            return sensors;
-        }
+        //        if (res != null)
+        //        {
+        //            sensors = res;
+        //        }
+        //    }
+        //    return sensors;
+        //}
 
 
-        public static async Task<List<Sensor>> ChangeState(string sensorId, IConfiguration configuration)
-        {
-            List<Sensor> sensors = new();
+        //public static async Task<List<Sensor>> Edit(string sensorId, IConfiguration configuration)
+        //{
+        //    List<Sensor> sensors = new();
 
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
 
-            HttpResponseMessage response = await client.GetAsync($"getapisensors?id={sensorId}");
+        //    HttpResponseMessage response = await client.GetAsync($"getapisensors?id={sensorId}");
 
-            response.EnsureSuccessStatusCode();
+        //    response.EnsureSuccessStatusCode();
 
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadFromJsonAsync<List<Sensor>>();
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var res = await response.Content.ReadFromJsonAsync<List<Sensor>>();
 
-                if (res != null)
-                {
-                    sensors = res;
-                }
-            }
-            return sensors;
-        }
+        //        if (res != null)
+        //        {
+        //            sensors = res;
+        //        }
+        //    }
+        //    return sensors;
+        //}
+
+
+        //public static async Task<List<Sensor>> ChangeState(string sensorId, IConfiguration configuration)
+        //{
+        //    List<Sensor> sensors = new();
+
+        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+
+        //    HttpResponseMessage response = await client.GetAsync($"getapisensors?id={sensorId}");
+
+        //    response.EnsureSuccessStatusCode();
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var res = await response.Content.ReadFromJsonAsync<List<Sensor>>();
+
+        //        if (res != null)
+        //        {
+        //            sensors = res;
+        //        }
+        //    }
+        //    return sensors;
+        //}
     }
 }

@@ -17,7 +17,7 @@ namespace Greenhouse.web.Models
 
         public DataType ActiveSince { get; set; }
 
-        public bool Active { get; set; }
+        public bool IsActive { get; set; }
 
         public int SensorTypeId { get; set; }
         public SensorType? SensorType { get; set; }

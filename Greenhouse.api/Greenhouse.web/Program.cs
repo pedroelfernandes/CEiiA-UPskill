@@ -1,7 +1,6 @@
 
 using Greenhouse.web.Services.Implementations;
 using Greenhouse.web.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +12,13 @@ builder.Services.AddControllersWithViews();
 //options.UseSqlServer(
 //    builder.Configuration.GetConnectionString("GreenhouseDBConnection")));
 
+builder.Services.AddScoped<ISensorServices, SensorServices>();
+builder.Services.AddScoped<ISensorTypeServices, SensorTypeServices>();
 builder.Services.AddScoped<IAssetServices, AssetServices>();
 builder.Services.AddScoped<IAssetTypeServices, AssetTypeServices>();
 builder.Services.AddScoped<IAPIUserServices, APIUserServices>();
 builder.Services.AddScoped<IRolesServices, RolesServices>();
-builder.Services.AddScoped<IAssetServices, AssetServices>();
+
 
 
 var app = builder.Build();

@@ -1,6 +1,4 @@
 ﻿using Greenhouse.web.Models;
-using Greenhouse.web.Services;
-using Greenhouse.web.Services.Implementations;
 using Greenhouse.web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +14,6 @@ namespace Greenhouse.web.Controllers
             _assetTypeServices = assetTypeServices;
         }
 
-        //public async Task<IEnumerable<AssetType>> GetAssetTypes() => await _assetTypeServices.GetAssetTypes();
 
         //Get Full List of AssetTypes
 
@@ -24,6 +21,33 @@ namespace Greenhouse.web.Controllers
         public async Task<IActionResult> GetAssetTypes()
         {
             return View(await _assetTypeServices.GetAssetTypes());
+        }
+
+
+        //Create new AssetType
+
+        public IActionResult CreateAssetType()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAssetType(AssetType assetType)
+        {
+            AssetType assetTypeResult;
+
+            if (ModelState.IsValid)
+            {
+                assetTypeResult = await _assetTypeServices.CreateAssetType(assetType);
+
+                if (assetTypeResult != null)
+                {
+                    return RedirectToAction("GetAssetTypes", assetType);
+                }
+            }
+
+            return View(assetType);
         }
     }
 }
