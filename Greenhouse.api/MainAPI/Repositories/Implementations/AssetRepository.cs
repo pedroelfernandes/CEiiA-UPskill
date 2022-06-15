@@ -16,12 +16,12 @@ namespace MainAPI.Repositories.Implementations
         }
 
         public async Task<List<Asset>> GetAssets() =>
-            await _db.Assets.ToListAsync();
+            await _db.Assets.Include(a => a.AssetType).ToListAsync();
 
 
         public async Task<Asset> GetAssetById(int id)
         {
-            Asset asset = await _db.Assets.FindAsync(id);
+            Asset asset = await _db.Assets.Include(a => a.AssetType).FirstAsync(a => a.Id == id);
 
             if (asset == null)
                 throw new Exception("Asset not found.");

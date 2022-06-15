@@ -22,31 +22,18 @@ namespace MainAPI.Services.Implementations
         {
             APIUserDTO tempUser = APIUserDTO.ToDto(await _apiUserRepository.Create(apiUser));
 
-            tempUser.Role = await _roleService.GetRole(tempUser.RoleId);
+            //tempUser.Role = await _roleService.GetRole(tempUser.RoleId);
 
             return tempUser;
         }
 
 
-        public async Task<List<APIUserDTO>> Get()
-        {
-            List<APIUserDTO> users = (await _apiUserRepository.Get()).Select(user => APIUserDTO.ToDto(user)).ToList();
-
-            foreach (APIUserDTO user in users)            
-                user.Role = await _roleService.GetRole(user.RoleId);
-
-            return users;
-        }
+        public async Task<List<APIUserDTO>> Get() =>
+            (await _apiUserRepository.Get()).Select(user => APIUserDTO.ToDto(user)).ToList();
 
 
-        public async Task<APIUserDTO> Get(int id)
-        {
-            APIUserDTO user = APIUserDTO.ToDto(await _apiUserRepository.Get(id));
-
-            user.Role = await _roleService.GetRole(user.RoleId);
-
-            return user;
-        }
+        public async Task<APIUserDTO> Get(int id) =>
+            APIUserDTO.ToDto(await _apiUserRepository.Get(id));
 
 
         public async Task<bool> ChangeState(int id)
@@ -59,7 +46,7 @@ namespace MainAPI.Services.Implementations
         {
             APIUserDTO tempUser = APIUserDTO.ToDto(await _apiUserRepository.Edit(apiUser));
 
-            tempUser.Role = await _roleService.GetRole(tempUser.RoleId);
+            //tempUser.Role = await _roleService.GetRole(tempUser.RoleId);
 
             return tempUser;
         }
