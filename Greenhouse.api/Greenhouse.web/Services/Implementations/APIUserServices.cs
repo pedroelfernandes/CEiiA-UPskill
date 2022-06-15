@@ -1,5 +1,8 @@
 ﻿using Greenhouse.web.Models;
 using Greenhouse.web.Services.Interfaces;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace Greenhouse.web.Services.Implementations
 {
@@ -34,27 +37,32 @@ namespace Greenhouse.web.Services.Implementations
             return apiUsers;
         }
 
-        //public async Task<List<APIUser>> Create()
-        //{
-        //    List<APIUser> apiUsers = new();
 
-        //    HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
+        // Create a new user
+        public async Task<APIUser> Create(APIUser apiUser)
+        {
+            string url = _configuration.GetValue<string>("URL");
 
-        //    HttpResponseMessage response = await client.GetAsync($"create");
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
 
-        //    response.EnsureSuccessStatusCode();
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(apiUser), Encoding.UTF8);
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var res = await response.Content.ReadFromJsonAsync<List<APIUser>>();
+            var response = await client.PostAsync(url + $"apiuser/create", httpContent);
 
-        //        if (res != null)
-        //        {
-        //            apiUsers = res;
-        //        }
-        //    }
-        //    return apiUsers;
-        //}
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var res = JsonConvert.DeserializeObject<APIUser>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
+
+                if (res != null)
+                {
+                    return res;
+                }
+            }
+            return new APIUser();
+        }
 
 
         //public async Task<List<APIUser>> Edit()

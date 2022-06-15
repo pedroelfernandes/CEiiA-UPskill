@@ -6,7 +6,7 @@ namespace Greenhouse.web.Services.Interfaces
     {
         Task<IEnumerable<Sensor>> GetSensors();
         //Task<AssetType> GetAssetTypeById(int Id);
-        //Task<AssetType> CreateAssetType(AssetType assetType);
+        Task<Sensor> Create(Sensor sensor);
         //Task<AssetType> EditAssetType(int id, string name, string description, bool active);
         //Task<bool> ChangeStateAssetType(int Id);
     }
