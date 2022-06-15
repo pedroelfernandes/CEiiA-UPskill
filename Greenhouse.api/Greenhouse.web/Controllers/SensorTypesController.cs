@@ -1,4 +1,5 @@
-﻿using Greenhouse.web.Services.Interfaces;
+﻿using Greenhouse.web.Models;
+using Greenhouse.web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Greenhouse.web.Controllers
@@ -15,18 +16,37 @@ namespace Greenhouse.web.Controllers
 
         //Get Full List of SensorTypes
 
-        //[HttpGet]
-        //public async Task<IActionResult> Get()
-        //{
-        //    return View(await _sensorTypeServices.Get());
-        //}
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            List<SensorType> sensorTypes = await _sensorTypeServices.Get();
+            return View(sensorTypes);
+        }
 
 
         //Get list of SensorTypes by Id
         [HttpGet]
         public async Task<IActionResult> Get(int Id)
         {
-            return View(await _sensorTypeServices.Get(Id));
+            return View(await _sensorTypeServices.GetById(Id));
+        }
+
+
+        // Crete a new type of sensor
+        public async Task<IActionResult> Create (SensorType sensorType)
+        {
+            SensorType sensorTypeResult;
+
+            if (ModelState.IsValid)
+            {
+                sensorTypeResult = await _sensorTypeServices.Create(sensorType);
+
+                if(sensorTypeResult != null)
+                {
+                    return RedirectToAction("Get", sensorType);
+                }
+            }
+            return View(sensorType);
         }
     }
 }
