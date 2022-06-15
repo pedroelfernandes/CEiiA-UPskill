@@ -1,4 +1,4 @@
-﻿using MainAPI.DTO;
+﻿    using MainAPI.DTO;
 using MainAPI.HttpClientHelper;
 using MainAPI.Models;
 using MainAPI.Repositories.Interfaces;
@@ -26,9 +26,8 @@ namespace MainAPI.Services.Implementations
 
 
         //transfer a specific Asset to DTO
-        public async Task<AssetDTO> GetAssetById(int Id) => 
-            AssetDTO.ToDto(await _assetRepository.GetAssetById(Id));
-
+        public async Task<AssetDTO> GetAssetById(int id) => 
+            AssetDTO.ToDto(await _assetRepository.GetAssetById(id));
 
 
         //Transfer the CreateAsset content to DTO

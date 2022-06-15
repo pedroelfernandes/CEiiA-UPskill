@@ -1,4 +1,5 @@
 ﻿using MainAPI.DTO;
+using MainAPI.Models;
 using MainAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,8 +18,14 @@ namespace MainAPI.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<SensorDTO> Create(Sensor sensor) =>
+            await _sensorService.Create(sensor);
+
+
         [HttpGet]
-        public async Task<SensorDTO> Get(int id) => await _sensorService.Get(id);
+        public async Task<SensorDTO> Get(int id) =>
+            await _sensorService.Get(id);
 
 
         // Edit sensor information
@@ -32,5 +39,10 @@ namespace MainAPI.Controllers
         [HttpPut]
         public async Task<bool> ChangeState(int id) =>
             await _sensorService.ChangeState(id);
+
+
+        [HttpGet]
+        public async Task<bool> CheckForNewSensors() =>
+            await _sensorService.CheckForNewSensors();
     }
 }

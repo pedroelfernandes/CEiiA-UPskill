@@ -27,10 +27,10 @@ namespace MainAPI.Services.Implementations
 
 
         //transfer specific AssetType to DTO
-        public async Task<AssetTypeDTO> GetAssetTypeById(int Id)
+        public async Task<AssetTypeDTO> GetAssetTypeById(int id)
         {
             //transfer the Asset with the specific Id from the repository to DTO
-            AssetType tempassetType = await _assetTypeRepository.GetAssetTypeById(Id);
+            AssetType tempassetType = await _assetTypeRepository.GetAssetTypeById(id);
 
             return AssetTypeDTO.ToDto(tempassetType);
         }
@@ -55,9 +55,7 @@ namespace MainAPI.Services.Implementations
 
 
         //Inactivate Asset
-        public async Task<bool> ChangeStateAssetType(int id)
-        {
-            return await _assetTypeRepository.ChangeStateAssetType(id);
-        }
+        public async Task<bool> ChangeStateAssetType(int id) =>
+            await _assetTypeRepository.ChangeStateAssetType(id);
     }
 }

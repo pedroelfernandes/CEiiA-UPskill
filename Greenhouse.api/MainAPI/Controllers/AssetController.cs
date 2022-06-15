@@ -13,25 +13,25 @@ namespace MainAPI.Controllers
 
     public class AssetController : Controller
     {
-
         private readonly IAssetService _assetService;
+
+
         public AssetController(IAssetService assetService)
         {
             _assetService = assetService;
         }
 
 
-
         //Get Assets List
         [HttpGet]
-        public async Task<IEnumerable<AssetDTO>> GetAssets() => await _assetService.GetAssets();
-
+        public async Task<List<AssetDTO>> GetAssets() =>
+            await _assetService.GetAssets();
 
 
         //GetAsset ById
         [HttpGet("id")]
-        public async Task<AssetDTO> GetAssetById(int Id) => await _assetService.GetAssetById(Id);
-
+        public async Task<AssetDTO> GetAssetById(int id) =>
+            await _assetService.GetAssetById(id);
 
 
         //Create new asset
@@ -53,22 +53,15 @@ namespace MainAPI.Controllers
         }
 
 
-
         //Edit asset
         [HttpPut]
-        public async Task<AssetDTO> EditAsset(Asset asset)
-        { 
-            return await _assetService.EditAsset(asset);
-        }
-
+        public async Task<AssetDTO> EditAsset(Asset asset) =>
+            await _assetService.EditAsset(asset);
 
 
         //Delete Asset
         [HttpPut]
-        public async Task<bool> ChangeState(int id)
-        {
-            return await _assetService.ChangeState(id);
-        }
-
+        public async Task<bool> ChangeState(int id) =>
+            await _assetService.ChangeState(id);
     }
 }
