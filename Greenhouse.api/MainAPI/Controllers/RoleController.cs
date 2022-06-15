@@ -31,16 +31,8 @@ namespace MainAPI.Controllers
 
         // Create a new role
         [HttpPost]
-        public async Task<RoleDTO> Create(string name, bool active)
-        {
-            Role? role = new()
-            {
-                Name = name,
-                IsActive = active
-            };
-
-            return await _roleService.Create(role);
-        }
+        public async Task<RoleDTO> Create(Role role) =>
+            await _roleService.Create(role);
 
 
         // Edit role information

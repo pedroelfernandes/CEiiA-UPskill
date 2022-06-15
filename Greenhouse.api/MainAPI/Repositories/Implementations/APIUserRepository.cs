@@ -23,7 +23,6 @@ namespace MainAPI.Repositories.Implementations
 
             await _db.APIUsers.AddAsync(apiUser);
             await _db.SaveChangesAsync();
-
             return apiUser;
         }
 

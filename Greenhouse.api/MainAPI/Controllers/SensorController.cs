@@ -18,11 +18,6 @@ namespace MainAPI.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<SensorDTO> Create(Sensor sensor) =>
-            await _sensorService.Create(sensor);
-
-
         [HttpGet]
         public async Task<SensorDTO> Get(int id) =>
             await _sensorService.Get(id);
@@ -30,9 +25,8 @@ namespace MainAPI.Controllers
 
         // Edit sensor information
         [HttpPut]
-        public async Task<SensorDTO> Edit(int id, string name, string description,
-            string unit, int urlId, string company, int sensorTypeId) =>
-            await _sensorService.Edit(id, name, description, unit, urlId, company, sensorTypeId);
+        public async Task<SensorDTO> Edit(Sensor sensor) =>
+            await _sensorService.Edit(sensor);
 
 
         // Change state between active and inactive

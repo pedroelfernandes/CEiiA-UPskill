@@ -6,13 +6,14 @@ namespace MainAPI.Repositories.Implementations
 {
     public class SensorTypeRepository : ISensorTypeRepository
     {
-
         private readonly ApplicationDbContext _db;
+
 
         public SensorTypeRepository(ApplicationDbContext db)
         {
             _db = db;
         }
+
 
         public async Task<SensorType> Create(SensorType sensorType)
         {
@@ -24,6 +25,7 @@ namespace MainAPI.Repositories.Implementations
             return sensorType;
         }
 
+
         public async Task<SensorType> Get(int id)
         {
             SensorType? sensorType = await _db.SensorTypes.FindAsync(id);
@@ -34,13 +36,17 @@ namespace MainAPI.Repositories.Implementations
             return sensorType;
         }
 
-        public async Task<SensorType> Edit(int id, string name, string description)
+
+        public async Task<SensorType> Edit(SensorType sensorType)
         {
-            _db.SensorTypes.Update(await Get(id)).Property(r => r.Name).CurrentValue = name;
-            _db.SensorTypes.Update(await Get(id)).Property(r => r.Description).CurrentValue = description;
+            if (sensorType == null)
+                throw new Exception("SensorType not found.");
+
+            _db.SensorTypes.Update(sensorType);
             await _db.SaveChangesAsync();
-            return await Get(id);
+            return sensorType;
         }
+
 
         public async Task<bool> ChangeState(int id)
         {

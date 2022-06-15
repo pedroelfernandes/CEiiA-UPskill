@@ -23,18 +23,8 @@ namespace MainAPI.Controllers
 
         // Create a new user
         [HttpPost]
-        public async Task<APIUserDTO> Create(string username, string password, string email, bool active, int roleId)
-        {
-            APIUser? apiUser = new()
-            {
-                Username = username,
-                Password = password,
-                Email = email,
-                IsActive = active,
-                RoleId = roleId
-            };
-            return await _apiUserService.Create(apiUser);
-        }
+        public async Task<APIUserDTO> Create(APIUser apiUser) =>
+            await _apiUserService.Create(apiUser);
 
 
         [HttpGet]

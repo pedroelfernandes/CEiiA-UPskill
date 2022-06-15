@@ -18,40 +18,24 @@ namespace MainAPI.Services.Implementations
 
 
         //Creates list of AsssetTypes and send it to DTO
-        public async Task<List<AssetTypeDTO>> GetAssetTypes()
-        {
-            List<AssetType> assetTypes = await _assetTypeRepository.GetAssetTypes();
-
-            return assetTypes.Select(assetType => AssetTypeDTO.ToDto(assetType)).ToList();
-        }
+        public async Task<List<AssetTypeDTO>> GetAssetTypes() =>
+            (await _assetTypeRepository.GetAssetTypes()).Select(assetType => AssetTypeDTO.ToDto(assetType)).ToList();
 
 
         //transfer specific AssetType to DTO
-        public async Task<AssetTypeDTO> GetAssetTypeById(int id)
-        {
+        public async Task<AssetTypeDTO> GetAssetTypeById(int id) =>
             //transfer the Asset with the specific Id from the repository to DTO
-            AssetType tempassetType = await _assetTypeRepository.GetAssetTypeById(id);
-
-            return AssetTypeDTO.ToDto(tempassetType);
-        }
+            AssetTypeDTO.ToDto(await _assetTypeRepository.GetAssetTypeById(id));
 
 
         //Transfer the CreateAsset content to DTO
-        public async Task<AssetTypeDTO> CreateAssetType(AssetType assetType)
-        {
-            AssetType tempAssetType = await _assetTypeRepository.CreateAssetType(assetType);
-
-            return AssetTypeDTO.ToDto(tempAssetType);
-        }
+        public async Task<AssetTypeDTO> CreateAssetType(AssetType assetType) =>
+            AssetTypeDTO.ToDto(await _assetTypeRepository.CreateAssetType(assetType));
 
 
         //Edit
-        public async Task<AssetTypeDTO> EditAssetType(int id, string name, string description, bool active)
-        {
-            AssetType tempAssetType = await _assetTypeRepository.EditAssetType(id, name, description, active);
-
-            return AssetTypeDTO.ToDto(tempAssetType);
-        }
+        public async Task<AssetTypeDTO> EditAssetType(AssetType assetType) =>
+            AssetTypeDTO.ToDto(await _assetTypeRepository.EditAssetType(assetType));
 
 
         //Inactivate Asset

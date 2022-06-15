@@ -29,28 +29,15 @@ namespace MainAPI.Controllers
 
 
         //GetAsset ById
-        [HttpGet("id")]
+        [HttpGet]
         public async Task<AssetDTO> GetAssetById(int id) =>
             await _assetService.GetAssetById(id);
 
 
         //Create new asset
         [HttpPost]
-        public async Task<AssetDTO> CreateAsset(int id, string name, string company, string location, DateTime creationDate, int assetTypeId, bool active )
-        {
-            Asset? asset = new()
-            {
-                Id = id,
-                Name = name,
-                Company = company,
-                Location = location,
-                CreationDate = creationDate,
-                AssetTypeId = assetTypeId,
-                IsActive = active,
-            };
-
-            return await _assetService.CreateAsset(asset);
-        }
+        public async Task<AssetDTO> CreateAsset(Asset asset) =>
+            await _assetService.CreateAsset(asset);
 
 
         //Edit asset

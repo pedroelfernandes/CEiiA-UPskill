@@ -25,22 +25,14 @@ namespace MainAPI.Controllers
 
         // Create a new sensor type
         [HttpPost]
-        public async Task<SensorTypeDTO> Create(string name, bool active)
-        {
-            SensorType? sensorType = new()
-            {
-                Name = name,
-                IsActive = active
-            };
-
-            return await _sensorTypeService.Create(sensorType);
-        }
+        public async Task<SensorTypeDTO> Create(SensorType sensorType) =>
+            await _sensorTypeService.Create(sensorType);
 
 
         // Edit sensor type information
         [HttpPut]
-        public async Task<SensorTypeDTO> Edit(int id, string name, string description) =>
-            await _sensorTypeService.Edit(id, name, description);
+        public async Task<SensorTypeDTO> Edit(SensorType sensorType) =>
+            await _sensorTypeService.Edit(sensorType);
 
 
         // Change state from active to inactive
