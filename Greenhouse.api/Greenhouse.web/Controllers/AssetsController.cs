@@ -9,11 +9,12 @@ namespace Greenhouse.web.Controllers
     {
 
         private readonly IAssetServices _assetServices;
-        private readonly IAssetTypeServices _assetTypeServices;
-        public AssetsController(IAssetServices assetServices, IAssetTypeServices assetTypeServices)
+        //private readonly IAssetTypeServices _assetTypeServices;
+        public AssetsController(IAssetServices assetServices)
+        //public AssetsController(IAssetServices assetServices, IAssetTypeServices assetTypeServices)
         {
             _assetServices = assetServices;
-            _assetTypeServices = assetTypeServices;
+           // _assetTypeServices = assetTypeServices;
         }
 
 
@@ -23,6 +24,31 @@ namespace Greenhouse.web.Controllers
             IEnumerable<Asset> assets = await _assetServices.GetAssets();
             return View(assets);
         }
+
+        ////Create new Asset
+
+        //public IActionResult CreateAsset()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> CreateAsset(Asset asset)
+        //{
+        //    Asset assetResult;
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        assetResult = await _assetServices.CreateAsset(asset);
+
+        //        if (assetResult != null)
+        //        {
+        //            return RedirectToAction("GetAsset", asset);
+        //        }
+        //    }
+
+        //    return View(asset);
+        //}
 
     }
 }

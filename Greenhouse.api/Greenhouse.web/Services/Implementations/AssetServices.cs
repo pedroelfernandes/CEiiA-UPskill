@@ -1,5 +1,8 @@
 ﻿using Greenhouse.web.Models;
 using Greenhouse.web.Services.Interfaces;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace Greenhouse.web.Services.Implementations
 {
@@ -34,27 +37,33 @@ namespace Greenhouse.web.Services.Implementations
             return assets;
         }
 
-        //    public static async Task<List<Asset>> Create(string assetId, IConfiguration configuration)
+        ////Create new Asset
+        //public async Task<Asset> CreateAsset(Asset asset)
+        //{
+        //    string url = _configuration.GetValue<string>("URL");
+
+        //    HttpClient client = Helpers.Helpers.GetHttpClient(url);
+
+        //    HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(asset), Encoding.UTF8);
+        //    httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+        //    var response = await client.PostAsync(url + $"Asset/CreateAsset", httpContent);
+
+        //    response.EnsureSuccessStatusCode();
+
+        //    if (response.IsSuccessStatusCode)
         //    {
-        //        List<Asset> assets = new();
+        //        var res = JsonConvert.DeserializeObject<Asset>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
 
-        //        HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
-
-        //        HttpResponseMessage response = await client.GetAsync($"getapisensors?id={assetId}");
-
-        //        response.EnsureSuccessStatusCode();
-
-        //        if (response.IsSuccessStatusCode)
+        //        if (res != null)
         //        {
-        //            var res = await response.Content.ReadFromJsonAsync<List<Asset>>();
-
-        //            if (res != null)
-        //            {
-        //                assets = res;
-        //            }
+        //            return res;
         //        }
-        //        return assets;
         //    }
+        //    return new Asset();
+        //}
+
+
 
 
         //    public static async Task<List<Asset>> Edit(string assetId, IConfiguration configuration)
