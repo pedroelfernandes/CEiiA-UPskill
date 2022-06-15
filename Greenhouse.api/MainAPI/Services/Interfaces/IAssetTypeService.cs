@@ -7,9 +7,17 @@ namespace MainAPI.Services.Interfaces
     public interface IAssetTypeService
     {
         Task<List<AssetTypeDTO>> GetAssetTypes();
-        Task<AssetTypeDTO> GetAssetTypeById(int Id);
+
+
+        Task<AssetTypeDTO> GetAssetTypeById(int id);
+
+
         Task<AssetTypeDTO> CreateAssetType(AssetType assetType);
-        Task<AssetTypeDTO> EditAssetType(int id, string name, string description, bool active);
-        Task<bool> ChangeStateAssetType(int Id);
+
+
+        Task<AssetTypeDTO> EditAssetType(AssetType assetType);
+
+
+        Task<bool> ChangeStateAssetType(int id);
     }
 }

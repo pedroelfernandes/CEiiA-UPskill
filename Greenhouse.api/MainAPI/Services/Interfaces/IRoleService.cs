@@ -7,11 +7,15 @@ namespace MainAPI.Services.Interfaces
     {
         Task<RoleDTO> Create(Role role);
 
+
         Task<List<RoleDTO>> Get();
+
 
         Task<RoleDTO> GetRole(int id);
 
+
         Task<RoleDTO> Edit(Role role);
+
 
         Task<bool> ChangeState(int id);
     }

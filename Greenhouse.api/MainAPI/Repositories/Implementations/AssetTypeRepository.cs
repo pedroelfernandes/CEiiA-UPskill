@@ -10,26 +10,23 @@ namespace MainAPI.Repositories.Implementations
     {
         private readonly ApplicationDbContext _db;
 
+
         public AssetTypeRepository(ApplicationDbContext db)
         {
             _db = db;
         }
 
 
-        public async Task<List<AssetType>> GetAssetTypes()
-        {
-            var assetTypes =  await _db.AssetTypes.ToListAsync();
-
-            return assetTypes;
-        }
+        public async Task<List<AssetType>> GetAssetTypes() =>
+            await _db.AssetTypes.ToListAsync();
 
 
         public async Task<AssetType> GetAssetTypeById(int id)
         {
-            AssetType assetType = await _db.AssetTypes.FindAsync(id);
+            AssetType assetType = await _db.AssetTypes.FirstAsync(a => a.Id == id);
 
             if (assetType == null)
-                throw new Exception("AssetTypep not found.");
+                throw new Exception("AssetType not found.");
 
             return assetType;
         }
@@ -46,14 +43,14 @@ namespace MainAPI.Repositories.Implementations
         }
 
 
-        public async Task<AssetType> EditAssetType(int id, string name, string description, bool active)
+        public async Task<AssetType> EditAssetType(AssetType assetType)
         {
-            _db.AssetTypes.Update(await GetAssetTypeById(id)).Property(a => a.Name).CurrentValue = name;
-            _db.AssetTypes.Update(await GetAssetTypeById(id)).Property(a => a.Description).CurrentValue = description;
-            _db.AssetTypes.Update(await GetAssetTypeById(id)).Property(a => a.IsActive).CurrentValue = active;
+            if (assetType == null)
+                throw new Exception("AssetType not found.");
 
+            _db.AssetTypes.Update(assetType);
             await _db.SaveChangesAsync();
-            return await GetAssetTypeById(id);
+            return assetType;
         }
 
 

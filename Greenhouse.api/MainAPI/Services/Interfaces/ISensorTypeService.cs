@@ -7,9 +7,12 @@ namespace MainAPI.Services.Interfaces
     {
         Task<SensorTypeDTO> Create(SensorType sensorType);
 
+
         Task<SensorTypeDTO> Get(int id);
 
-        Task<SensorTypeDTO> Edit(int id, string name, string description);
+
+        Task<SensorTypeDTO> Edit(SensorType sensorType);
+
 
         Task<bool> ChangeState(int id);
     }
