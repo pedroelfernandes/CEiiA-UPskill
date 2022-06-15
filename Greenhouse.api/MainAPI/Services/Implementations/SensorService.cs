@@ -24,20 +24,14 @@ namespace MainAPI.Services.Implementations
         {
             SensorDTO sensorDTO = SensorDTO.ToDto(await _sensorRepository.Create(sensor));
 
-            sensorDTO.SensorType = (await _sensorTypeService.Get(sensorDTO.SensorTypeId));
+            //sensorDTO.SensorType = (await _sensorTypeService.Get(sensorDTO.SensorTypeId));
 
             return sensorDTO;
         }
 
 
-        public async Task<SensorDTO> Get(int id)
-        {
-            SensorDTO sensor = SensorDTO.ToDto(await _sensorRepository.Get(id));
-
-            sensor.SensorType = await _sensorTypeService.Get(sensor.SensorTypeId);
-
-            return sensor;
-        }
+        public async Task<SensorDTO> Get(int id) =>
+            SensorDTO.ToDto(await _sensorRepository.Get(id));
 
 
         public async Task<bool> ChangeState(int id) =>
@@ -49,7 +43,7 @@ namespace MainAPI.Services.Implementations
         {
             SensorDTO tempSensor = SensorDTO.ToDto(await _sensorRepository.Edit(id, name, description, unit, urlId, company, sensorTypeId));
 
-            tempSensor.SensorType = await _sensorTypeService.Get(tempSensor.SensorTypeId);
+            //tempSensor.SensorType = await _sensorTypeService.Get(tempSensor.SensorTypeId);
 
             return tempSensor;
         }

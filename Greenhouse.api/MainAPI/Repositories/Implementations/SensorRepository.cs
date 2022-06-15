@@ -24,13 +24,13 @@ namespace MainAPI.Repositories.Implementations
             await _db.Sensors.AddAsync(sensor);
             await _db.SaveChangesAsync();
 
-            return sensor;
+            return sensor;  
         }
 
 
         public async Task<Sensor> Get(int id)
         {
-            Sensor sensor = await _db.Sensors.FindAsync(id);
+            Sensor sensor = await _db.Sensors.Include(s => s.SensorType).FirstAsync(s => s.Id == id);
 
             if (sensor == null)
                 throw new Exception("Sensor not found.");

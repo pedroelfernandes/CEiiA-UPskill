@@ -21,28 +21,14 @@ namespace MainAPI.Services.Implementations
 
 
         //transform Assets list to a DTO object
-        public async Task<List<AssetDTO>> GetAssets()
-        {
-            //Creates a list of assets and send it to a DTO
-            List<AssetDTO> assets = (await _assetRepository.GetAssets()).ToList().Select(asset => AssetDTO.ToDto(asset)).ToList();
-
-            foreach (AssetDTO asset in assets)
-                asset.AssetType = await _assetTypeService.GetAssetTypeById(asset.AssetTypeId);
-
-            return assets;
-        }
+        public async Task<List<AssetDTO>> GetAssets() =>
+            (await _assetRepository.GetAssets()).ToList().Select(asset => AssetDTO.ToDto(asset)).ToList();
 
 
         //transfer a specific Asset to DTO
-        public async Task<AssetDTO> GetAssetById(int Id)
-        {
-            //transfer the Asset with the specific Id from the repository to DTO
-            AssetDTO tempAsset = AssetDTO.ToDto(await _assetRepository.GetAssetById(Id));
+        public async Task<AssetDTO> GetAssetById(int Id) => 
+            AssetDTO.ToDto(await _assetRepository.GetAssetById(Id));
 
-            tempAsset.AssetType = await _assetTypeService.GetAssetTypeById(tempAsset.AssetTypeId);
-
-            return tempAsset;
-        }
 
 
         //Transfer the CreateAsset content to DTO
@@ -50,7 +36,7 @@ namespace MainAPI.Services.Implementations
         {
             AssetDTO tempAsset = AssetDTO.ToDto(await _assetRepository.CreateAsset(asset));
             
-            tempAsset.AssetType = await _assetTypeService.GetAssetTypeById(tempAsset.AssetTypeId);
+            //tempAsset.AssetType = await _assetTypeService.GetAssetTypeById(tempAsset.AssetTypeId);
             
             return tempAsset;
         }
@@ -61,7 +47,7 @@ namespace MainAPI.Services.Implementations
         {
             AssetDTO tempAsset = AssetDTO.ToDto(await _assetRepository.EditAsset(asset));
             
-            tempAsset.AssetType = await _assetTypeService.GetAssetTypeById(tempAsset.AssetTypeId);
+            //tempAsset.AssetType = await _assetTypeService.GetAssetTypeById(tempAsset.AssetTypeId);
             
             return tempAsset;
         }

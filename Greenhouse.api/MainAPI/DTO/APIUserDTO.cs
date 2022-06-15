@@ -14,7 +14,9 @@ namespace MainAPI.DTO
         public bool IsActive { get; set; }
 
         public int RoleId { get; set; }
+
         public RoleDTO? Role { get; set; }
+
 
         public static APIUserDTO ToDto(APIUser user)
         {
@@ -24,7 +26,8 @@ namespace MainAPI.DTO
                 Username = user.Username,
                 Email = user.Email,
                 IsActive = user.IsActive,
-                RoleId = user.RoleId
+                RoleId = user.RoleId,
+                Role = RoleDTO.ToDto(user.Role)
             };
         }
     }

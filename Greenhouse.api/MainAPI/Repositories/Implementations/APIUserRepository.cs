@@ -1,6 +1,7 @@
 ﻿using MainAPI.Data;
 using MainAPI.Models;
 using MainAPI.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MainAPI.Repositories.Implementations
 {
@@ -27,27 +28,12 @@ namespace MainAPI.Repositories.Implementations
         }
 
 
-        public async Task<List<APIUser>> Get()
-        {
-            // get the user
-            List<int> index = _db.APIUsers.Select(u=>u.Id).ToList();
-
-            List<APIUser> apiUsers = new();
-
-            foreach (int id in index)
-            {
-                apiUsers.Add(await Get(id));
-            }
-
-            if (apiUsers == null)
-                throw new Exception("User not found.");
-
-            return apiUsers;
-        }
+        public async Task<List<APIUser>> Get() =>
+            await _db.APIUsers.Include(u => u.Role).ToListAsync();
 
 
         public async Task<APIUser> Get(int id) =>
-            await _db.APIUsers.FindAsync(id);
+            await _db.APIUsers.Include(u => u.Role).FirstAsync(u => u.Id == id);
 
 
         public async Task<APIUser> Edit(APIUser apiUser)
