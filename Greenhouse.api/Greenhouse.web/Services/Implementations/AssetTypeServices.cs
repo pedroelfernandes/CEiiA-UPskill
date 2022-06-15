@@ -59,17 +59,13 @@ namespace Greenhouse.web.Services.Implementations
             {
                 var res = JsonConvert.DeserializeObject<AssetType>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
 
-
                 if (res != null)
                 {
                     return res;
                 }
             }
-
             return new AssetType();
         }
-
-
 
 
         //Get Asset Type by Id
@@ -91,39 +87,38 @@ namespace Greenhouse.web.Services.Implementations
                 if (assetType == null)
                 {
                     throw new Exception("AssetType not found.");
-                }
-
-                
+                } 
             }
-
             return assetType;
         }
 
-        
 
+        //Edit a specific Asset Type
+        public async Task<AssetType> EditAssetType(AssetType assetType)
+        {
+            string url = _configuration.GetValue<string>("URL");
 
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
 
-        //public static async Task<List<AssetType>> Edit(string assetTypeId, IConfiguration configuration)
-        //{
-        //    List<AssetType> assetTypes = new();
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(assetType), Encoding.UTF8);
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+            var response = await client.PostAsync(url + $"AssetType/EditAssetType", httpContent);
 
-        //    HttpResponseMessage response = await client.GetAsync($"getapisensors?id={assetTypeId}");
+            response.EnsureSuccessStatusCode();
 
-        //    response.EnsureSuccessStatusCode();
+            if (response.IsSuccessStatusCode)
+            {
+                var res = JsonConvert.DeserializeObject<AssetType>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var res = await response.Content.ReadFromJsonAsync<List<AssetType>>();
+                if (res != null)
+                {
+                    return res;
+                }
+            }
+            return new AssetType();
 
-        //        if (res != null)
-        //        {
-        //            assetTypes = res;
-        //        }
-        //    }
-        //    return assetTypes;
-        //}
+        }
 
 
         //public static async Task<List<AssetType>> ChangeState(string assetTypeId, IConfiguration configuration)

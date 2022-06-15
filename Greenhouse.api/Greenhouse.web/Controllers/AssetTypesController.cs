@@ -31,7 +31,6 @@ namespace Greenhouse.web.Controllers
             return View();
         }
 
-
         [HttpPost]
         public async Task<IActionResult> CreateAssetType(AssetType assetType)
         {
@@ -58,6 +57,29 @@ namespace Greenhouse.web.Controllers
         {
             var assetType = await _assetTypeServices.GetAssetTypeById(id);
             return assetType == null ? NotFound(): View(assetType);
+        }
+
+
+        //Edit AssetType
+        public IActionResult EditAssetType()
+        {
+            return View();
+        }
+
+        [HttpPut("id")]
+        public async Task<IActionResult> EditAssetType(AssetType assetType)
+        {
+            AssetType assetTypeResult;
+            if (ModelState.IsValid)
+            {
+                assetTypeResult = await _assetTypeServices.EditAssetType(assetType);
+
+                if (assetTypeResult != null)
+                {
+                    return RedirectToAction("GetAssetTypes", assetType);
+                }
+            }
+            return View(assetType);
         }
     }
 }
