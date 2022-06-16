@@ -52,5 +52,9 @@ namespace MainAPI.Services.Implementations
 
             return updatedDb;
         }
+
+
+        public async Task<bool> CheckForGenericSensors() =>
+            await _sensorRepository.CheckForGenericSensors();
     }
 }

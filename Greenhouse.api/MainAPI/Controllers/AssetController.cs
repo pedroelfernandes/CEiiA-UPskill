@@ -9,8 +9,7 @@ namespace MainAPI.Controllers
 {
     //connect to swagger
     [ApiController]
-    [Route("api/[controller]/[Action]")]
-
+    [Route("api/[controller]/[action]")]
     public class AssetController : Controller
     {
         private readonly IAssetService _assetService;

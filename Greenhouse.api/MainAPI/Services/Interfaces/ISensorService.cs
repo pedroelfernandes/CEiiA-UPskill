@@ -17,6 +17,9 @@ namespace MainAPI.Services.Interfaces
         Task<bool> ChangeState(int id);
 
 
+        Task<bool> CheckForGenericSensors();
+
+
         Task<bool> CheckForNewSensors();
     }
 }

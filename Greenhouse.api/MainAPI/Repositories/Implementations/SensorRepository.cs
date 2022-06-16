@@ -62,6 +62,17 @@ namespace MainAPI.Repositories.Implementations
         }
 
 
+        public async Task<bool> CheckForGenericSensors()
+        {
+            Sensor sensor = await _db.Sensors.FirstAsync(s => s.SensorTypeId == 1);
+
+            if (sensor == null)
+                return false;
+
+            return true;
+        }
+
+
         public bool FindInDb(Sensor sensor) =>
             _db.Sensors.Any(s => s.IdInAPI == sensor.IdInAPI && s.URLId == sensor.URLId);
     }

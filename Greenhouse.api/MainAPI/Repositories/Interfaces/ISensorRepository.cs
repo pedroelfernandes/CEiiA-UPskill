@@ -16,6 +16,9 @@ namespace MainAPI.Repositories.Interfaces
         public Task<bool> ChangeState(int id);
 
 
+        public Task<bool> CheckForGenericSensors();
+
+
         public bool FindInDb(Sensor sensor);
     }
 }
