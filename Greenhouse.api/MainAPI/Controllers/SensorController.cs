@@ -38,5 +38,10 @@ namespace MainAPI.Controllers
         [HttpGet]
         public async Task<bool> CheckForNewSensors() =>
             await _sensorService.CheckForNewSensors();
+
+
+        [HttpGet]
+        public async Task<bool> CheckForGenericSensors() =>
+            await _sensorService.CheckForGenericSensors();
     }
 }
