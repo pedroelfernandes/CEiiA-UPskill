@@ -28,14 +28,12 @@ namespace MainAPI.Controllers
 
 
         [HttpGet]
-        //public async Task<bool> AuthenticateAPIUser(string username, string password)
-        //    => true;
         public async Task<List<APIUserDTO>> Get() =>
             await _apiUserService.Get();
 
 
         [HttpGet]
-        public async Task<APIUserDTO> Get(int id) =>
+        public async Task<APIUserDTO> GetUser(int id) =>
             await _apiUserService.Get(id);
 
 

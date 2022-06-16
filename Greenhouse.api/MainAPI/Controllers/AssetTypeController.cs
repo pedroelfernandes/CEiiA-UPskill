@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MainAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/[Action]")]
-
+    [Route("api/[controller]/[action]")]
     public class AssetTypeController : Controller
     {
         private readonly IAssetTypeService _assetTypeService;
