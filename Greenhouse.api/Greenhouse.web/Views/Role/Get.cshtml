@@ -4,6 +4,16 @@
 	Layout = "_MainLayout";
 }
 
+<h1>
+    List of Roles
+</h1>
+
+<div class="container text-end">
+    <a asp-controller="Role" asp-action="Create" class="btn btn-primary">
+        Create New Role
+    </a>
+</div>
+
 <table class="table table-hover">
 	<thead>
 		<tr class="table-info">
@@ -11,6 +21,8 @@
 			<th>Name</th>
 			<th>Description</th>
 			<th>Active Status</th>
+			<th></th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -18,10 +30,16 @@
 		@foreach (Role role in Model)
 		{
 			<tr class="table-info">
-				<th>@role.Id</th>
-				<th>@role.Name</th>
-				<th>@role.Description</th>
-				<th>@role.Active</th>
+				<td>@role.Id</td>
+				<td>@role.Name</td>
+				<td>@role.Description</td>
+				<td>@role.IsActive</td>
+				<th>
+					<a asp-controller="Role" asp-action="GetRoleById" asp-route-id="@role.Id">Details</a>
+				</th>
+				<th>
+					<a asp-controller="Role" asp-action="ChangeState" asp-route-id="@role.Id">ChangeState</a>
+				</th>
 			</tr>
 		}
 	</tbody>

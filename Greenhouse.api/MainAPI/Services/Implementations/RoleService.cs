@@ -28,9 +28,10 @@ namespace MainAPI.Services.Implementations
             return roles.Select(u => RoleDTO.ToDto(u)).ToList();
         }
 
-        public async Task<RoleDTO> GetRole(int id)
+        public async Task<RoleDTO> GetRoleById(int id)
         {
-            return RoleDTO.ToDto(await _roleRepository.GetRole(id));
+            Role tempRole = await _roleRepository.GetRoleById(id);
+            return RoleDTO.ToDto(tempRole);
         }
 
         public async Task<bool> ChangeState(int id)

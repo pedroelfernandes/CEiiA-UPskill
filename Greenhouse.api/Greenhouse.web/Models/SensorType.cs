@@ -1,9 +1,12 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace Greenhouse.web.Models
 {
     public class SensorType
     {
-        public int Id {get; set;}
+        [Key]
+        public int Id {get; set;} = 0;
 
         public string? Name { get; set; }
 

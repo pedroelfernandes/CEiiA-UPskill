@@ -20,17 +20,14 @@ namespace MainAPI.Controllers
         [HttpGet]
         public async Task<List<RoleDTO>> Get() => await _roleService.Get();
 
+        [HttpGet]
+        public async Task<RoleDTO> GetRoleById(int id) => await _roleService.GetRoleById(id);
+
 
         // Create a new role
         [HttpPost]
-        public async Task<RoleDTO> Create (string name, bool active)
+        public async Task<RoleDTO> Create(Role role)
         {
-            Role? role = new()
-            {
-                Name = name,
-                IsActive = active
-            };
-
             return await _roleService.Create(role);
         }
 
@@ -47,7 +44,7 @@ namespace MainAPI.Controllers
         [HttpPut]
         public async Task<bool> ChangeState(int id)
         {
-           return await _roleService.ChangeState(id);
+            return await _roleService.ChangeState(id);
         }
     }
 }
