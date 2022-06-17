@@ -1,4 +1,4 @@
-﻿namespace MainAPI.HttpClientHelper
+﻿namespace MainAPI.Helpers.Interfaces
 {
     public interface IHttpClHlp
     {

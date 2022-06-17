@@ -1,5 +1,4 @@
 ﻿using MainAPI.Data;
-using MainAPI.HttpClientHelper;
 using MainAPI.Models;
 using MainAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;

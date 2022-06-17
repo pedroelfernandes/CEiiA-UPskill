@@ -18,5 +18,8 @@ namespace MainAPI.Repositories.Interfaces
 
 
         public Task<bool> ChangeState(int id);
+
+
+        public Task<bool> Authorized(string username, string password);
     }
 }

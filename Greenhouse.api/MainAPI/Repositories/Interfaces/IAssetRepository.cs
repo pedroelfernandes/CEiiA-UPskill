@@ -1,5 +1,4 @@
-﻿using MainAPI.HttpClientHelper;
-using MainAPI.Models;
+﻿using MainAPI.Models;
 
 namespace MainAPI.Repositories.Interfaces
 {

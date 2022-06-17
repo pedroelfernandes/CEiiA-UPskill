@@ -47,5 +47,10 @@ namespace MainAPI.Controllers
         [HttpPut]
         public async Task<APIUserDTO> Edit(APIUser apiUser) =>
             await _apiUserService.Edit(apiUser);
+
+
+        [HttpGet]
+        public async Task<IActionResult> Login(string username, string password) =>
+            new ObjectResult(await _apiUserService.Login(username, password));
     }
 }

@@ -1,8 +1,9 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using MainAPI.Helpers.Interfaces;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
-namespace Greenhouse.api.JwtHelper
+namespace MainAPI.Helpers.Implementations
 {
     public class JwtToken : IJwtToken
     {
@@ -10,7 +11,7 @@ namespace Greenhouse.api.JwtHelper
 
         private readonly IConfiguration _configuration;
 
-        private readonly SymmetricSecurityKey SIGNING_KEY;
+        private SymmetricSecurityKey SIGNING_KEY;
 
 
         public JwtToken(IConfiguration configuration)
@@ -18,12 +19,12 @@ namespace Greenhouse.api.JwtHelper
             _configuration = configuration;
 
             SECRET_KEY = _configuration.GetValue<string>("SECRET_KEY");
-            
+
             SIGNING_KEY = new(Encoding.UTF8.GetBytes(SECRET_KEY));
         }
 
 
-        public string GenerateJwtToken()
+        public string GenerateJwtToken(string username)
         {
             SigningCredentials credentials = new(SIGNING_KEY, SecurityAlgorithms.HmacSha256);
 
@@ -37,6 +38,7 @@ namespace Greenhouse.api.JwtHelper
 
             JwtPayload payload = new()
             {
+                { "username", username },
                 { "exp", ts },
                 { "iss", issAud },
                 { "aud", issAud }

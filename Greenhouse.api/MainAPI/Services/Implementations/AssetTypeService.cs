@@ -1,5 +1,4 @@
 ﻿using MainAPI.DTO;
-using MainAPI.HttpClientHelper;
 using MainAPI.Models;
 using MainAPI.Repositories.Interfaces;
 using MainAPI.Services.Interfaces;

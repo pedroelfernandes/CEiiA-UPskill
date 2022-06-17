@@ -1,9 +1,7 @@
-﻿    using MainAPI.DTO;
-using MainAPI.HttpClientHelper;
+﻿using MainAPI.DTO;
 using MainAPI.Models;
 using MainAPI.Repositories.Interfaces;
 using MainAPI.Services.Interfaces;
-using System.Linq;
 
 namespace MainAPI.Services.Implementations
 {

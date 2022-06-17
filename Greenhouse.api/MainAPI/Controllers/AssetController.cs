@@ -1,6 +1,4 @@
-﻿using MainAPI.Data;
-using MainAPI.DTO;
-using MainAPI.HttpClientHelper;
+﻿using MainAPI.DTO;
 using MainAPI.Models;
 using MainAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
