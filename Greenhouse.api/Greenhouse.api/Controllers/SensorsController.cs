@@ -1,5 +1,6 @@
 ﻿using Greenhouse.api.DTOs;
 using Greenhouse.api.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Greenhouse.api.Controllers
@@ -18,11 +19,13 @@ namespace Greenhouse.api.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public async Task<SensorDTO> GetSensorById(string id) =>
             await _sensorService.GetSensorById(id);
 
 
         [HttpGet]
+        [Authorize]
         public async Task<IReadOnlyList<SensorDTO>> GetAllSensors() =>
             await _sensorService.GetAllSensors();
     }
