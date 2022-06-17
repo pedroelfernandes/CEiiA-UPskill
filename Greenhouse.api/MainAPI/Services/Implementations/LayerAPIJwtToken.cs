@@ -1,4 +1,4 @@
-﻿using MainAPI.HttpClientHelper;
+﻿using MainAPI.Helpers.Interfaces;
 using MainAPI.Services.Interfaces;
 
 namespace MainAPI.Services.Implementations

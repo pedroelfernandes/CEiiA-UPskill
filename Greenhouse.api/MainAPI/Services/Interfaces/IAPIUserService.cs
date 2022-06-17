@@ -18,5 +18,8 @@ namespace MainAPI.Services.Interfaces
 
 
         Task<bool> ChangeState(int id);
+
+
+        Task<string> Login(string username, string password);
     }
 }

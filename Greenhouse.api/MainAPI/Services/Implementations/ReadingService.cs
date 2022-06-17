@@ -1,8 +1,8 @@
-﻿using MainAPI.HttpClientHelper;
+﻿using MainAPI.Helpers.Interfaces;
 using MainAPI.Models;
 using MainAPI.Services.Interfaces;
 using System.Net.Http.Headers;
-using MyHTTPClient = MainAPI.HttpClientHelper.HttpClHlp;
+using MyHTTPClient = MainAPI.Helpers.Implementations.HttpClHlp;
 
 namespace MainAPI.Services.Implementations
 {

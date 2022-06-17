@@ -1,7 +1,8 @@
-﻿using MainAPI.Models;
+﻿using MainAPI.Helpers.Interfaces;
+using MainAPI.Models;
 using System.Net.Http.Headers;
 
-namespace MainAPI.HttpClientHelper
+namespace MainAPI.Helpers.Implementations
 {
     public class HttpClHlp : IHttpClHlp
     {
