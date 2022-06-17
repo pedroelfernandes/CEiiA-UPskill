@@ -1,4 +1,5 @@
 using MainAPI.Data;
+using MainAPI.HttpClientHelper;
 using MainAPI.Repositories.Implementations;
 using MainAPI.Repositories.Interfaces;
 using MainAPI.Services.Implementations;
@@ -37,6 +38,8 @@ builder.Services.AddScoped<IAssetTypeService, AssetTypeService>();
 builder.Services.AddScoped<ILayerAPISensorService, LayerAPISensorService>();
 builder.Services.AddScoped<IReadingService, ReadingService>();
 
+builder.Services.AddScoped<IHttpClHlp, HttpClHlp>();
+builder.Services.AddScoped<ILayerAPIJwtToken, LayerAPIJwtToken>();
 
 var app = builder.Build();
 

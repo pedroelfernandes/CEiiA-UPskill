@@ -3,9 +3,18 @@ using System.Net.Http.Headers;
 
 namespace MainAPI.HttpClientHelper
 {
-    public class HttpClHlp
+    public class HttpClHlp : IHttpClHlp
     {
-        public static HttpClient GetHttpClient(Uri url)
+        private readonly IConfiguration _configuration;
+
+
+        public HttpClHlp(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+
+        public HttpClient GetHttpClient(Uri url)
         {
             HttpClient client = new();
 
@@ -17,11 +26,11 @@ namespace MainAPI.HttpClientHelper
         }
 
 
-        public static System.Uri GetAPIUrl(int id, IConfiguration configuration)
+        public Uri GetAPIUrl(int id)
         {
-            List<StoredURL> storedURLs = configuration.GetSection("URL-Section:URLs").Get<List<StoredURL>>();
+            List<StoredURL> storedURLs = _configuration.GetSection("URL-Section:URLs").Get<List<StoredURL>>();
 
-            System.Uri url = new(storedURLs.Find(url => url.Id == id).Url);
+            Uri url = new(storedURLs.Find(url => url.Id == id).Url);
 
             if (url == null)
                 throw new Exception("URL id not defined.");
