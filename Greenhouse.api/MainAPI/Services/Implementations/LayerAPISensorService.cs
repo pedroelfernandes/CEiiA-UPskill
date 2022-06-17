@@ -1,5 +1,7 @@
-﻿using MainAPI.Models;
+﻿using MainAPI.HttpClientHelper;
+using MainAPI.Models;
 using MainAPI.Services.Interfaces;
+using System.Net.Http.Headers;
 using MyHTTPClient = MainAPI.HttpClientHelper.HttpClHlp;
 
 namespace MainAPI.Services.Implementations
@@ -8,10 +10,16 @@ namespace MainAPI.Services.Implementations
     {
         private readonly IConfiguration _configuration;
 
+        private readonly IHttpClHlp _httpClHlp;
 
-        public LayerAPISensorService(IConfiguration configuration)
+        private readonly ILayerAPIJwtToken _layerAPIJwtToken;
+
+
+        public LayerAPISensorService(IConfiguration configuration, IHttpClHlp httpClHlp, ILayerAPIJwtToken layerAPIJwtToken)
         {
             _configuration = configuration;
+            _httpClHlp = httpClHlp;
+            _layerAPIJwtToken = layerAPIJwtToken;
         }
 
 
@@ -34,9 +42,17 @@ namespace MainAPI.Services.Implementations
         {
             List<LayerSensor> sensors = new();
 
-            HttpClient client = MyHTTPClient.GetHttpClient(new Uri(storedURL.Url));
+            HttpClient client = _httpClHlp.GetHttpClient(new Uri(storedURL.Url));
 
-            HttpResponseMessage response = await client.GetAsync("sensors/getallsensors");
+            string token = await _layerAPIJwtToken.GetToken(storedURL.Url);
+
+            string url = storedURL.Url + "sensors/getallsensors";
+
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
+
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
 
             response.EnsureSuccessStatusCode();
 
