@@ -74,7 +74,7 @@ namespace Greenhouse.web.Services.Implementations
             Asset asset = new();
             string url = _configuration.GetValue<string>("URL");
             HttpClient client = Helpers.Helpers.GetHttpClient(url);
-            HttpResponseMessage response = await client.GetAsync($"Asset/GetAssetById?id={id}");
+            HttpResponseMessage response = await client.GetAsync($"Asset/GetAsset?id={id}");
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -123,7 +123,7 @@ namespace Greenhouse.web.Services.Implementations
             HttpClient client = Helpers.Helpers.GetHttpClient(url);
             HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(asset), Encoding.UTF8);
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var response = await client.PutAsync(url + $"Asset/ChangeStateAsset?id={id}", httpContent);
+            var response = await client.PutAsync(url + $"Asset/ChangeState?id={id}", httpContent);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)

@@ -25,11 +25,8 @@ namespace MainAPI.Controllers
 
 
         [HttpGet]
-        public async Task<RoleDTO> GetRoleById(int id) =>
+        public async Task<RoleDTO> GetRole(int id) =>
             await _roleService.GetRole(id);
-
-        [HttpGet]
-        public async Task<RoleDTO> GetRoleById(int id) => await _roleService.GetRoleById(id);
 
 
         // Create a new role
