@@ -19,9 +19,13 @@ namespace MainAPI.Controllers
 
 
         [HttpGet]
-        public async Task<SensorTypeDTO> Get(int id) =>
-            await _sensorTypeService.Get(id);
+        public async Task<List<SensorTypeDTO>> Get() => 
+            await _sensorTypeService.Get();
 
+
+        [HttpGet]
+        public async Task<SensorTypeDTO> GetSensorTypeById(int id) => 
+            await _sensorTypeService.GetSensorTypeById(id);
 
         // Create a new sensor type
         [HttpPost]

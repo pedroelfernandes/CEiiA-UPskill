@@ -16,12 +16,22 @@ namespace MainAPI.Services.Implementations
         }
 
 
+        public async Task<List<SensorTypeDTO>> Get()
+        {
+            List<SensorType> sensorTypes = await _sensorTypeRepository.Get();
+            return sensorTypes.Select(u => SensorTypeDTO.ToDto(u)).ToList();
+        }
+
+
+        public async Task<SensorTypeDTO> GetSensorTypeById(int id)
+        {
+            SensorType tempSensorType = await _sensorTypeRepository.GetSensorTypeById(id);
+            return SensorTypeDTO.ToDto(tempSensorType);
+        }
+
+
         public async Task<SensorTypeDTO> Create(SensorType sensorType) =>
             SensorTypeDTO.ToDto(await _sensorTypeRepository.Create(sensorType));
-
-
-        public async Task<SensorTypeDTO> Get(int id) =>
-            SensorTypeDTO.ToDto(await _sensorTypeRepository.Get(id));
 
 
         public async Task<bool> ChangeState(int id) =>

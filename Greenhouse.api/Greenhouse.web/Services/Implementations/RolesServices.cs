@@ -42,6 +42,33 @@ namespace Greenhouse.web.Services.Implementations
 
 
 
+        // Get role by id
+
+        public async Task<Role> GetRoleById(int id)
+        {
+            Role role = new();
+            string url = _configuration.GetValue<string>("URL");
+
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+
+            HttpResponseMessage response = await client.GetAsync($"role/GetRoleById?id={id}");
+
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                role = await response.Content.ReadFromJsonAsync<Role>();
+
+                if (role == null)
+                {
+                    throw new Exception("Role not found.");
+                }
+            }
+            return role;
+        }
+
+
+
         // Create new role
 
         public async Task<Role> Create(Role role)
@@ -68,28 +95,36 @@ namespace Greenhouse.web.Services.Implementations
             }
             return new Role();
         }
+       
+        
+        
+        //Edit a specific Role 
+        public async Task<Role> Edit(Role role)
+        {
+            string url = _configuration.GetValue<string>("URL");
 
-        //public async Task<List<Role>> Edit(string roleId)
-        //{
-        //    List<Role> roles = new();
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+            //string json = "{" + $"id={role.Id}; name={role.Name}; description={role.Description}; isActive={role.IsActive}" + "}";
+            //string json2 = JsonConvert.SerializeObject(role);
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(role), Encoding.UTF8);
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            
+            var response = await client.PutAsync(url + $"role/edit", httpContent);
 
-        //    HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
+            response.EnsureSuccessStatusCode();
 
-        //    HttpResponseMessage response = await client.GetAsync($"get?id={roleId}");
+            if (response.IsSuccessStatusCode)
+            {
+                var res = JsonConvert.DeserializeObject<Role>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
 
-        //    response.EnsureSuccessStatusCode();
+                if (res != null)
+                {
+                    return res;
+                }
+            }
+            return new Role();
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var res = await response.Content.ReadFromJsonAsync<List<Role>>();
-
-        //        if (res != null)
-        //        {
-        //            roles = res;
-        //        }
-        //    }
-        //    return roles;
-        //}
+        }
 
 
         //public async Task<List<Role>> ChangeState(string roleId)

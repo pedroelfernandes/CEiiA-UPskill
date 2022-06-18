@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Greenhouse.web.Models.SensorType>
+
+@{
+    Layout = "_MainLayout";
+}
+
+
+<h1>List of SensorType</h1>
+
+
+<div class="container text-end">
+    <a asp-controller="SensorTypes" asp-action="Create" class="btn btn-primary">
+        Create New SensorType
+    </a>
+</div>
+
+<table class="table table-hover">
+	<thead>
+		<tr class="table-info">
+			<th>SensorType Id</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Active Status</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+
+		@foreach (SensorType sensorType in Model)
+		{
+			<tr class="table-info">
+				<td>@sensorType.Id</td>
+				<td>@sensorType.Name</td>
+				<td>@sensorType.Description</td>
+				<td>@sensorType.IsActive</td>
+				<th>
+					<a asp-controller="SensorTypes" asp-action="GetSensorTypeById" asp-route-id="@sensorType.Id">Details</a>
+				</th>
+				<th>
+					<a asp-controller="SensorTypes" asp-action="ChangeState" asp-route-id="@sensorType.Id">ChangeState</a>
+				</th>
+			</tr>
+		}
+	</tbody>
+</table>

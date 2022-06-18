@@ -1,6 +1,7 @@
 ﻿using MainAPI.Data;
 using MainAPI.Models;
 using MainAPI.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MainAPI.Repositories.Implementations
 {
@@ -28,19 +29,10 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<List<Role>> Get()
         {
-            List<int> index = _db.Roles.Select(u=>u.Id).ToList();
-
-            List<Role> roles = new();
-
-            foreach (int id in index)
-                roles.Add(await _db.Roles.FindAsync(id));
-
-            if (roles == null)
-                throw new Exception("Role not found.");
-
+            var roles = await _db.Roles.ToListAsync();
             return roles;
         }
-
+            
 
         public async Task<Role> GetRole(int id) =>
             await _db.Roles.FindAsync(id);

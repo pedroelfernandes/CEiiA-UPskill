@@ -14,7 +14,7 @@ namespace Greenhouse.web.Controllers
             _sensorTypeServices = sensorTypeServices;
         }
 
-        //Get Full List of SensorTypes
+        //Get Full List of SensorType
 
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -24,15 +24,23 @@ namespace Greenhouse.web.Controllers
         }
 
 
-        //Get list of SensorTypes by Id
-        [HttpGet]
-        public async Task<IActionResult> Get(int Id)
+        //Get SensorType by Id
+        [HttpGet ("id")]
+        public async Task<IActionResult> GetSensorTypeById(int id)
         {
-            return View(await _sensorTypeServices.GetById(Id));
+            var sensorType = await _sensorTypeServices.GetSensorTypeById(id);
+            return sensorType == null ? NotFound() : View(sensorType);
         }
 
 
-        // Crete a new type of sensor
+        // Create a new type of sensor
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Create (SensorType sensorType)
         {
             SensorType sensorTypeResult;
@@ -47,6 +55,37 @@ namespace Greenhouse.web.Controllers
                 }
             }
             return View(sensorType);
+        }
+
+
+        // Edit SensorType
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var sensorType = await _sensorTypeServices.GetSensorTypeById(id);
+            return View(sensorType);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, SensorType sensorType)
+        {
+            if(id != sensorType.Id)
+            {
+                return BadRequest();
+            }
+
+            SensorType sensorTypeResult;
+
+            if (ModelState.IsValid)
+            {
+                sensorTypeResult = await _sensorTypeServices.Edit(sensorType);
+
+                if (sensorTypeResult != null)
+                {
+                    return RedirectToAction("Get");
+                }
+            }
+            return View(await _sensorTypeServices.Get());
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using MainAPI.Data;
 using MainAPI.Models;
 using MainAPI.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MainAPI.Repositories.Implementations
 {
@@ -26,12 +27,21 @@ namespace MainAPI.Repositories.Implementations
         }
 
 
-        public async Task<SensorType> Get(int id)
+        public async Task<List<SensorType>> Get()
         {
-            SensorType? sensorType = await _db.SensorTypes.FindAsync(id);
+            var sensorTypes = await _db.SensorTypes.ToListAsync();
+            return sensorTypes;
+        }
 
-            if (sensorType == null)
-                throw new Exception("SensorType not found.");
+
+        public async Task<SensorType> GetSensorTypeById(int id)
+        {
+            SensorType sensorType = await _db.SensorTypes.FindAsync(id);
+
+            if(sensorType == null)
+            {
+                throw new Exception("SensorType note found.");
+            }
 
             return sensorType;
         }
@@ -39,8 +49,8 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<SensorType> Edit(SensorType sensorType)
         {
-            if (sensorType == null)
-                throw new Exception("SensorType not found.");
+            if(sensorType == null)
+                throw new Exception("SensorType not defined.");
 
             _db.SensorTypes.Update(sensorType);
             await _db.SaveChangesAsync();
