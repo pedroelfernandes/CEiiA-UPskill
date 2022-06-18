@@ -68,51 +68,69 @@ namespace Greenhouse.web.Services.Implementations
 
 
 
+        //Get Asset by Id
+        public async Task<Asset> GetAssetById(int id)
+        {
+            Asset asset = new();
+            string url = _configuration.GetValue<string>("URL");
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+            HttpResponseMessage response = await client.GetAsync($"Asset/GetAssetById?id={id}");
+            response.EnsureSuccessStatusCode();
 
-        //    public static async Task<List<Asset>> Edit(string assetId, IConfiguration configuration)
-        //    {
-        //        List<Asset> assets = new();
+            if (response.IsSuccessStatusCode)
+            {
+                asset = await response.Content.ReadFromJsonAsync<Asset>();
 
-        //        HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
-
-        //        HttpResponseMessage response = await client.GetAsync($"getapisensors?id={assetId}");
-
-        //        response.EnsureSuccessStatusCode();
-
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            var res = await response.Content.ReadFromJsonAsync<List<Asset>>();
-
-        //            if (res != null)
-        //            {
-        //                assets = res;
-        //            }
-        //        }
-        //        return assets;
-        //    }
+                if (asset == null)
+                {
+                    throw new Exception("Asset not found.");
+                }
+            }
+            return asset;
+        }
 
 
-        //    public static async Task<List<Asset>> ChangeState(string assetId, IConfiguration configuration)
-        //    {
-        //        List<Asset> assets = new();
 
-        //        HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+        //Edit a specific Asset
+        public async Task<Asset> EditAsset(Asset asset)
+        {
+            string url = _configuration.GetValue<string>("URL");
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(asset), Encoding.UTF8);
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var response = await client.PutAsync(url + $"Asset/EditAsset", httpContent);
+            response.EnsureSuccessStatusCode();
 
-        //        HttpResponseMessage response = await client.GetAsync($"getapisensors?id={assetId}");
+            if (response.IsSuccessStatusCode)
+            {
+                var res = JsonConvert.DeserializeObject<Asset>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
 
-        //        response.EnsureSuccessStatusCode();
+                if (res != null)
+                {
+                    return res;
+                }
+            }
+            return new Asset();
+        }
 
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            var res = await response.Content.ReadFromJsonAsync<List<Asset>>();
 
-        //            if (res != null)
-        //            {
-        //                assets = res;
-        //            }
-        //        }
-        //        return assets;
-        //    }
-        //}
+
+        //Delete-change status asset(bool)
+        public async Task<bool> ChangeStateAsset(int id)
+        {
+            Asset asset = new();
+            string url = _configuration.GetValue<string>("URL");
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(asset), Encoding.UTF8);
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var response = await client.PutAsync(url + $"Asset/ChangeStateAsset?id={id}", httpContent);
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<bool>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
+            }
+            return false;
+        }
     }
 }
