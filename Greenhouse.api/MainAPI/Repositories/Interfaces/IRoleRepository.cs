@@ -10,7 +10,7 @@ namespace MainAPI.Repositories.Interfaces
         public Task<List<Role>> Get();
 
 
-        public Task<Role> GetRoleById(int id);    
+        public Task<Role> GetRole(int id);    
       
 
         public Task<Role> Edit(Role role);

@@ -27,7 +27,7 @@ namespace MainAPI.Controllers
 
         //GetAsset ById
         [HttpGet]
-        public async Task<AssetDTO> GetAssetById(int id) =>
+        public async Task<AssetDTO> GetAsset(int id) =>
             await _assetService.GetAssetById(id);
 
 
