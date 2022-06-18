@@ -10,11 +10,13 @@ namespace MainAPI.Repositories.Interfaces
         public Task<Sensor> Get(int id);
 
 
-        public Task<Sensor> Edit(int id, string name, string description,
-            string unit, int urlId, string company, int sensorTypeId);
+        public Task<Sensor> Edit(Sensor sensor);
 
 
         public Task<bool> ChangeState(int id);
+
+
+        public Task<bool> CheckForGenericSensors();
 
 
         public bool FindInDb(Sensor sensor);

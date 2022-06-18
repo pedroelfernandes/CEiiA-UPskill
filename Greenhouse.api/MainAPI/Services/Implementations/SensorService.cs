@@ -20,39 +20,20 @@ namespace MainAPI.Services.Implementations
         }
 
 
-        public async Task<SensorDTO> Create(Sensor sensor)
-        {
-            SensorDTO sensorDTO = SensorDTO.ToDto(await _sensorRepository.Create(sensor));
-
-            sensorDTO.SensorType = (await _sensorTypeService.Get(sensorDTO.SensorTypeId));
-
-            return sensorDTO;
-        }
+        public async Task<SensorDTO> Create(Sensor sensor) =>
+            SensorDTO.ToDto(await _sensorRepository.Create(sensor));
 
 
-        public async Task<SensorDTO> Get(int id)
-        {
-            SensorDTO sensor = SensorDTO.ToDto(await _sensorRepository.Get(id));
-
-            sensor.SensorType = await _sensorTypeService.Get(sensor.SensorTypeId);
-
-            return sensor;
-        }
+        public async Task<SensorDTO> Get(int id) =>
+            SensorDTO.ToDto(await _sensorRepository.Get(id));
 
 
         public async Task<bool> ChangeState(int id) =>
             await _sensorRepository.ChangeState(id);
 
 
-        public async Task<SensorDTO> Edit(int id, string name, string description,
-            string unit, int urlId, string company, int sensorTypeId)
-        {
-            SensorDTO tempSensor = SensorDTO.ToDto(await _sensorRepository.Edit(id, name, description, unit, urlId, company, sensorTypeId));
-
-            tempSensor.SensorType = await _sensorTypeService.Get(tempSensor.SensorTypeId);
-
-            return tempSensor;
-        }
+        public async Task<SensorDTO> Edit(Sensor sensor) =>
+            SensorDTO.ToDto(await _sensorRepository.Edit(sensor));
 
 
         public async Task<bool> CheckForNewSensors()
@@ -71,5 +52,9 @@ namespace MainAPI.Services.Implementations
 
             return updatedDb;
         }
+
+
+        public async Task<bool> CheckForGenericSensors() =>
+            await _sensorRepository.CheckForGenericSensors();
     }
 }

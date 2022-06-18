@@ -19,14 +19,31 @@ namespace Greenhouse.web.Controllers
 
 
 
-        //[HttpGet]
-        //public async Task<IActionResult> Get()
-        //{
-        //    List<APIUser> users = await _apiUserServices.Get();
-            
-        //    return View(users);
-        //}
-        
-        
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            List<APIUser> users = await _apiUserServices.Get();
+
+            return View(users);
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create(APIUser apiUser)
+        {
+            APIUser apiUserResult;
+
+            if (ModelState.IsValid)
+            {
+                apiUserResult = await _apiUserServices.Create(apiUser);
+
+                if (apiUserResult != null)
+                {
+                    return RedirectToAction("Get", apiUser);
+                }
+            }
+            return View(apiUser);
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using MainAPI.Data;
 using MainAPI.Models;
 using MainAPI.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MainAPI.Repositories.Implementations
 {
@@ -22,32 +23,16 @@ namespace MainAPI.Repositories.Implementations
 
             await _db.APIUsers.AddAsync(apiUser);
             await _db.SaveChangesAsync();
-
             return apiUser;
         }
 
 
-        public async Task<List<APIUser>> Get()
-        {
-            // get the user
-            List<int> index = _db.APIUsers.Select(u=>u.Id).ToList();
-
-            List<APIUser> apiUsers = new();
-
-            foreach (int id in index)
-            {
-                apiUsers.Add(await Get(id));
-            }
-
-            if (apiUsers == null)
-                throw new Exception("User not found.");
-
-            return apiUsers;
-        }
+        public async Task<List<APIUser>> Get() =>
+            await _db.APIUsers.Include(u => u.Role).ToListAsync();
 
 
         public async Task<APIUser> Get(int id) =>
-            await _db.APIUsers.FindAsync(id);
+            await _db.APIUsers.Include(u => u.Role).FirstAsync(u => u.Id == id);
 
 
         public async Task<APIUser> Edit(APIUser apiUser)
@@ -71,6 +56,17 @@ namespace MainAPI.Repositories.Implementations
             apiUser.IsActive ^= true;
             await _db.SaveChangesAsync();
             return true;
+        }
+
+
+        public async Task<bool> Authorized(string username, string password)
+        {
+            APIUser apiUser = await _db.APIUsers.FirstAsync(u => u.Username == username && u.Password == password);
+
+            if (apiUser != null)
+                return true;
+
+            return false;
         }
     }
 }

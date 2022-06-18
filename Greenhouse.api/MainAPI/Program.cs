@@ -1,9 +1,13 @@
 using MainAPI.Data;
+using MainAPI.Helpers.Implementations;
+using MainAPI.Helpers.Interfaces;
 using MainAPI.Repositories.Implementations;
 using MainAPI.Repositories.Interfaces;
 using MainAPI.Services.Implementations;
 using MainAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +41,35 @@ builder.Services.AddScoped<IAssetTypeService, AssetTypeService>();
 builder.Services.AddScoped<ILayerAPISensorService, LayerAPISensorService>();
 builder.Services.AddScoped<IReadingService, ReadingService>();
 
+builder.Services.AddScoped<IHttpClHlp, HttpClHlp>();
+builder.Services.AddScoped<ILayerAPIJwtToken, LayerAPIJwtToken>();
+builder.Services.AddScoped<IJwtToken, JwtToken>();
+
+
+string SECRET_KEY = builder.Configuration.GetValue<string>("SECRET_KEY");
+
+SymmetricSecurityKey SIGNING_KEY = new(Encoding.UTF8.GetBytes(SECRET_KEY));
+
+string SSL_URL = builder.Configuration.GetValue<string>("SSL_URL");
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = "JwtBearer";
+    options.DefaultChallengeScheme = "JwtBearer";
+})
+    .AddJwtBearer("JwtBearer", jwtOptions =>
+    {
+        jwtOptions.TokenValidationParameters = new()
+        {
+            IssuerSigningKey = SIGNING_KEY,
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidIssuer = SSL_URL,
+            ValidAudience = SSL_URL,
+            ValidateLifetime = true
+        };
+    }
+);
 
 var app = builder.Build();
 
@@ -48,6 +81,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

@@ -17,11 +17,13 @@ namespace MainAPI.DTO
         public DateTime? CreationDate { get; set; }
 
         public int AssetTypeId { get; set; }
+
         public AssetTypeDTO? AssetType { get; set; }
 
         public bool IsActive { get; set; }
 
         public IReadOnlyCollection<AssetSensor>? Sensors { get; set; }
+
 
         public static AssetDTO ToDto(Asset asset)
         {
@@ -34,6 +36,7 @@ namespace MainAPI.DTO
                 Location = asset.Location,
                 CreationDate = asset.CreationDate,
                 AssetTypeId = asset.AssetTypeId,
+                AssetType = AssetTypeDTO.ToDto(asset.AssetType),
                 IsActive = asset.IsActive,
                 Sensors = (IReadOnlyCollection<AssetSensor>?) asset.Sensors
             };

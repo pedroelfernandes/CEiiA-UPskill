@@ -6,7 +6,7 @@ namespace Greenhouse.web.Services.Interfaces
     {
         //Task<IEnumerable<APIUser>> GetAllAPIUser();
 
-        //Task<APIUser> Create(APIUser apiUser);
+        Task<APIUser> Create(APIUser apiUser);
 
         Task<List<APIUser>> Get();
 
