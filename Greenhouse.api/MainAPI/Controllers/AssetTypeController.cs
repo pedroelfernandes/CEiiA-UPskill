@@ -41,9 +41,9 @@ namespace MainAPI.Controllers
 
         //Edit assetType
         [HttpPut]
-        public async Task<AssetTypeDTO> EditAssetType(int id, string name, string description, bool isactive)
+        public async Task<AssetTypeDTO> EditAssetType(AssetType assetType)
         {
-            return await _assetTypeService.EditAssetType(id, name, description, isactive);
+            return await _assetTypeService.EditAssetType(assetType.Id, assetType.Name, assetType.Description, assetType.IsActive);
         }
 
 

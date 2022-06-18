@@ -15,19 +15,19 @@ namespace Greenhouse.web.Services.Implementations
             _configuration = configuration;
         }
 
+
+
+        //Get list of AssetTypes
         public async Task<IEnumerable<Asset>> GetAssets()
         {
             List<Asset> assets = new();
-
             HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
-
             HttpResponseMessage response = await client.GetAsync("Asset/GetAssets");
-
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
             {
-                List<Asset> res = await response.Content.ReadFromJsonAsync<List<Asset>>();
+                var res = await response.Content.ReadFromJsonAsync<List<Asset>>();
 
                 if (res != null)
                 {
@@ -37,31 +37,34 @@ namespace Greenhouse.web.Services.Implementations
             return assets;
         }
 
-        ////Create new Asset
-        //public async Task<Asset> CreateAsset(Asset asset)
-        //{
-        //    string url = _configuration.GetValue<string>("URL");
 
-        //    HttpClient client = Helpers.Helpers.GetHttpClient(url);
 
-        //    HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(asset), Encoding.UTF8);
-        //    httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+        //Create new Asset
+        public async Task<Asset> CreateAsset(Asset asset)
+        {
+            string url = _configuration.GetValue<string>("URL");
 
-        //    var response = await client.PostAsync(url + $"Asset/CreateAsset", httpContent);
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
 
-        //    response.EnsureSuccessStatusCode();
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(asset), Encoding.UTF8);
+            
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var res = JsonConvert.DeserializeObject<Asset>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
+            var response = await client.PostAsync(url + $"Asset/CreateAsset", httpContent);
 
-        //        if (res != null)
-        //        {
-        //            return res;
-        //        }
-        //    }
-        //    return new Asset();
-        //}
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var res = JsonConvert.DeserializeObject<Asset>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
+
+                if (res != null)
+                {
+                    return res;
+                }
+            }
+            return new Asset();
+        }
 
 
 

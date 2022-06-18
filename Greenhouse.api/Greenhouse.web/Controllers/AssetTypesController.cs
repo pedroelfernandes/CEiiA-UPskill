@@ -1,6 +1,7 @@
 ﻿using Greenhouse.web.Models;
 using Greenhouse.web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Greenhouse.web.Controllers
 {
@@ -15,6 +16,7 @@ namespace Greenhouse.web.Controllers
         }
 
 
+
         //Get Full List of AssetTypes
 
         [HttpGet]
@@ -22,6 +24,7 @@ namespace Greenhouse.web.Controllers
         {
             return View(await _assetTypeServices.GetAssetTypes());
         }
+
 
 
         //Create new AssetType
@@ -39,47 +42,67 @@ namespace Greenhouse.web.Controllers
             if (ModelState.IsValid)
             {
                 assetTypeResult = await _assetTypeServices.CreateAssetType(assetType);
-
                 if (assetTypeResult != null)
                 {
                     return RedirectToAction("GetAssetTypes", assetType);
                 }
             }
-
             return View(assetType);
         }
+
 
 
         //Get AssetType by Id
 
         [HttpGet("id")]
-       public async Task<IActionResult> GetAssetTypeById(int id)
+        public async Task<IActionResult> GetAssetTypeById(int id)
         {
             var assetType = await _assetTypeServices.GetAssetTypeById(id);
-            return assetType == null ? NotFound(): View(assetType);
+            return assetType == null ? NotFound() : View(assetType);
         }
+
 
 
         //Edit AssetType
-        public IActionResult EditAssetType()
+        public async Task<IActionResult> EditAssetType(int id)
         {
-            return View();
+            var assetType = await _assetTypeServices.GetAssetTypeById(id);
+            return View(assetType);
         }
 
-        [HttpPut("id")]
-        public async Task<IActionResult> EditAssetType(AssetType assetType)
+        [HttpPost]
+        public async Task<IActionResult> EditAssetType(int id, AssetType assetType)
         {
+            if (id != assetType.Id)
+            {
+                return BadRequest();
+            }
+
             AssetType assetTypeResult;
             if (ModelState.IsValid)
             {
                 assetTypeResult = await _assetTypeServices.EditAssetType(assetType);
-
                 if (assetTypeResult != null)
                 {
-                    return RedirectToAction("GetAssetTypes", assetType);
+                    return RedirectToAction("GetAssetTypes");
                 }
             }
-            return View(assetType);
+            return View(await _assetTypeServices.GetAssetTypes());
+        }
+
+
+
+        //Change the status of the assetType(AssetType)
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeStateAssetType(int id)
+        {
+            bool res = await _assetTypeServices.ChangeStateAssetType(id);
+
+            if (!res)
+                ModelState.AddModelError("Error001", "Error while deleting the record");
+
+            return RedirectToAction("GetAssetTypes");
         }
     }
 }
