@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace Greenhouse.web.Models
 {
     public class AssetType
@@ -7,7 +9,7 @@ namespace Greenhouse.web.Models
         {
         }
 
-        public AssetType(int id, string name, string description, bool isActive)
+        public AssetType(int id, string name, string description, bool isActive=true)
         {
             Id = id;
             Name = name;
@@ -15,7 +17,8 @@ namespace Greenhouse.web.Models
             IsActive = isActive;
         }
 
-        public int Id { get; set; }
+        [Key]
+        public int? Id { get; set; } = 0;
 
         public string? Name { get; set; }
 

@@ -1,6 +1,8 @@
-﻿using MainAPI.Models;
+﻿using MainAPI.Helpers.Interfaces;
+using MainAPI.Models;
 using MainAPI.Services.Interfaces;
-using MyHTTPClient = MainAPI.HttpClientHelper.HttpClHlp;
+using System.Net.Http.Headers;
+using MyHTTPClient = MainAPI.Helpers.Implementations.HttpClHlp;
 
 namespace MainAPI.Services.Implementations
 {
@@ -8,10 +10,16 @@ namespace MainAPI.Services.Implementations
     {
         private readonly IConfiguration _configuration;
 
+        private readonly IHttpClHlp _httpClHlp;
 
-        public ReadingService(IConfiguration configuration)
+        private readonly ILayerAPIJwtToken _layerAPIJwtToken;
+
+
+        public ReadingService(IConfiguration configuration, IHttpClHlp httpClHlp, ILayerAPIJwtToken layerAPIJwtToken)
         {
             _configuration = configuration;
+            _httpClHlp = httpClHlp;
+            _layerAPIJwtToken = layerAPIJwtToken;
         }
 
 
@@ -19,10 +27,19 @@ namespace MainAPI.Services.Implementations
         {
             List<Reading> readings = new();
 
-            System.Uri url = MyHTTPClient.GetAPIUrl(urlId, _configuration);
-            HttpClient httpClient = MyHTTPClient.GetHttpClient(url);
+            Uri url = _httpClHlp.GetAPIUrl(urlId);
 
-            HttpResponseMessage response = await httpClient.GetAsync($"readings/getbysensorid?sensorid={sensorId}&size={size}");
+            HttpClient httpClient = _httpClHlp.GetHttpClient(url);
+
+            string token = await _layerAPIJwtToken.GetToken(url.ToString());
+
+            string urlString = url.ToString() + $"readings/getbysensorid?sensorid={sensorId}&size={size}";
+
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, urlString);
+
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            HttpResponseMessage response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
 
             response.EnsureSuccessStatusCode();
 
@@ -42,10 +59,19 @@ namespace MainAPI.Services.Implementations
         {
             List<Reading> readings = new();
 
-            System.Uri url = MyHTTPClient.GetAPIUrl(urlId, _configuration);
-            HttpClient httpClient = MyHTTPClient.GetHttpClient(url);
+            Uri url = _httpClHlp.GetAPIUrl(urlId);
 
-            HttpResponseMessage response = await httpClient.GetAsync($"readings/getbetweendatesbysensorid?sensorid={sensorId}&startdate={startDate}&enddate={endDate}");
+            HttpClient httpClient = _httpClHlp.GetHttpClient(url);
+
+            string token = await _layerAPIJwtToken.GetToken(url.ToString());
+
+            string urlString = url.ToString() + $"readings/getbetweendatesbysensorid?sensorid={sensorId}&startdate={startDate}&enddate={endDate}";
+
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, urlString);
+
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            HttpResponseMessage response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
 
             response.EnsureSuccessStatusCode();
 

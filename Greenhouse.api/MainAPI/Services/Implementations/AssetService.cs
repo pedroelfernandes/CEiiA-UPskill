@@ -1,9 +1,7 @@
 ﻿using MainAPI.DTO;
-using MainAPI.HttpClientHelper;
 using MainAPI.Models;
 using MainAPI.Repositories.Interfaces;
 using MainAPI.Services.Interfaces;
-using System.Linq;
 
 namespace MainAPI.Services.Implementations
 {
@@ -26,37 +24,22 @@ namespace MainAPI.Services.Implementations
 
 
         //transfer a specific Asset to DTO
-        public async Task<AssetDTO> GetAssetById(int Id) => 
-            AssetDTO.ToDto(await _assetRepository.GetAssetById(Id));
-
+        public async Task<AssetDTO> GetAssetById(int id) => 
+            AssetDTO.ToDto(await _assetRepository.GetAssetById(id));
 
 
         //Transfer the CreateAsset content to DTO
-        public async Task<AssetDTO> CreateAsset(Asset asset)
-        {
-            AssetDTO tempAsset = AssetDTO.ToDto(await _assetRepository.CreateAsset(asset));
-            
-            //tempAsset.AssetType = await _assetTypeService.GetAssetTypeById(tempAsset.AssetTypeId);
-            
-            return tempAsset;
-        }
+        public async Task<AssetDTO> CreateAsset(Asset asset) =>
+            AssetDTO.ToDto(await _assetRepository.CreateAsset(asset));
 
 
         //Edit
-        public async Task<AssetDTO> EditAsset(Asset asset)
-        {
-            AssetDTO tempAsset = AssetDTO.ToDto(await _assetRepository.EditAsset(asset));
-            
-            //tempAsset.AssetType = await _assetTypeService.GetAssetTypeById(tempAsset.AssetTypeId);
-            
-            return tempAsset;
-        }
+        public async Task<AssetDTO> EditAsset(Asset asset) =>
+            AssetDTO.ToDto(await _assetRepository.EditAsset(asset));
 
 
         //Inactivate Asset
-        public async Task<bool> ChangeState(int id)
-        {
-            return await _assetRepository.ChangeState(id);            
-        }
+        public async Task<bool> ChangeState(int id) =>
+            await _assetRepository.ChangeState(id);            
     }
 }

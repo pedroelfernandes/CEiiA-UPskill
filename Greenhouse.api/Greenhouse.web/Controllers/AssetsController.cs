@@ -9,46 +9,99 @@ namespace Greenhouse.web.Controllers
     {
 
         private readonly IAssetServices _assetServices;
-        //private readonly IAssetTypeServices _assetTypeServices;
         public AssetsController(IAssetServices assetServices)
-        //public AssetsController(IAssetServices assetServices, IAssetTypeServices assetTypeServices)
         {
             _assetServices = assetServices;
-           // _assetTypeServices = assetTypeServices;
         }
 
+
+        //Get full list of Assets
 
         [HttpGet]
         public async Task<IActionResult> GetAssets()
         {
-            IEnumerable<Asset> assets = await _assetServices.GetAssets();
-            return View(assets);
+            return View(await _assetServices.GetAssets());
         }
 
-        ////Create new Asset
 
-        //public IActionResult CreateAsset()
-        //{
-        //    return View();
-        //}
+        //Create new Asset
+        public IActionResult CreateAsset()
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> CreateAsset(Asset asset)
-        //{
-        //    Asset assetResult;
+        [HttpPost]
+        public async Task<IActionResult> CreateAsset(Asset asset)
+        {
+            Asset assetResult;
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        assetResult = await _assetServices.CreateAsset(asset);
+            if (ModelState.IsValid)
+            {
+                assetResult = await _assetServices.CreateAsset(asset);
 
-        //        if (assetResult != null)
-        //        {
-        //            return RedirectToAction("GetAsset", asset);
-        //        }
-        //    }
+                if (assetResult != null)
+                {
+                    return RedirectToAction("GetAssets", asset);
+                }
+            }
+            return View(asset);
+        }
 
-        //    return View(asset);
-        //}
 
+
+        //Get Asset by Id
+
+        [HttpGet("id")]
+        public async Task<IActionResult> GetAssetById(int id)
+        {
+            var asset = await _assetServices.GetAssetById(id);
+            return asset == null ? NotFound() : View(asset);
+        }
+
+
+
+
+        //Edit Asset
+        public async Task<IActionResult> EditAsset(int id)
+        {
+            var asset = await _assetServices.GetAssetById(id);
+            return View(asset);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditAsset(int id, Asset asset)
+        {
+            if (id != asset.Id)
+            {
+                return BadRequest();
+            }
+
+            Asset assetResult;
+            if (ModelState.IsValid)
+            {
+                assetResult = await _assetServices.EditAsset(asset);
+                if (assetResult != null)
+                {
+                    return RedirectToAction("GetAssets");
+                }
+            }
+            return View(await _assetServices.GetAssets());
+        }
+
+
+
+
+        //Change the status of the asset(Asset)
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeStateAsset(int id)
+        {
+            bool res = await _assetServices.ChangeStateAsset(id);
+
+            if (!res)
+                ModelState.AddModelError("Error001", "Error while deleting the record");
+
+            return RedirectToAction("GetAssets");
+        }
     }
 }

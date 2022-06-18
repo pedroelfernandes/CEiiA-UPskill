@@ -6,8 +6,8 @@ namespace Greenhouse.web.Services.Interfaces
     {
         Task<IEnumerable<AssetType>> GetAssetTypes();
         Task<AssetType> CreateAssetType(AssetType assetType);
-        Task<AssetType> GetAssetTypeById(int Id);
+        Task<AssetType> GetAssetTypeById(int id);
         Task<AssetType> EditAssetType(AssetType assetType);
-        //Task<bool> ChangeStateAssetType(int Id);
+        Task<bool> ChangeStateAssetType(int id);
     }
 }

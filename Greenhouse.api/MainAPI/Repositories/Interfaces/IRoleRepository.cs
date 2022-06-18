@@ -6,11 +6,15 @@ namespace MainAPI.Repositories.Interfaces
     {
         public Task<Role> Create(Role role);
 
+
         public Task<List<Role>> Get();
 
+
         public Task<Role> GetRoleById(int id);    
+      
 
         public Task<Role> Edit(Role role);
+
 
         public Task<bool> ChangeState(int id);
     }

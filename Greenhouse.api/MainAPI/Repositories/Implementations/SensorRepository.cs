@@ -23,7 +23,6 @@ namespace MainAPI.Repositories.Implementations
 
             await _db.Sensors.AddAsync(sensor);
             await _db.SaveChangesAsync();
-
             return sensor;  
         }
 
@@ -39,17 +38,14 @@ namespace MainAPI.Repositories.Implementations
         }
 
 
-        public async Task<Sensor> Edit(int id, string name, string description,
-            string unit, int urlId, string company, int sensorTypeId)
+        public async Task<Sensor> Edit(Sensor sensor)
         {
-            _db.Sensors.Update(await Get(id)).Property(r => r.Name).CurrentValue = name;
-            _db.Sensors.Update(await Get(id)).Property(r => r.Description).CurrentValue = description;
-            _db.Sensors.Update(await Get(id)).Property(r => r.Unit).CurrentValue = unit;
-            _db.Sensors.Update(await Get(id)).Property(r => r.URLId).CurrentValue = urlId;
-            _db.Sensors.Update(await Get(id)).Property(r => r.Company).CurrentValue = company;
-            _db.Sensors.Update(await Get(id)).Property(r => r.SensorTypeId).CurrentValue = sensorTypeId;
+            if (sensor == null)
+                throw new Exception("Sensor not found.");
+
+            _db.Sensors.Update(sensor);
             await _db.SaveChangesAsync();
-            return await Get(id);
+            return sensor;
         }
 
 
@@ -62,6 +58,16 @@ namespace MainAPI.Repositories.Implementations
 
             sensor.IsActive ^= true;
             await _db.SaveChangesAsync();
+            return true;
+        }
+
+
+        public async Task<bool> CheckForGenericSensors()
+        {
+            Sensor sensor = await _db.Sensors.FirstAsync(s => s.SensorTypeId == 1);
+
+            if (sensor == null)
+                return false;
 
             return true;
         }

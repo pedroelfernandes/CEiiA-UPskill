@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WeatherStation.api.DTOs;
 using WeatherStation.api.Services.Interfaces;
 
@@ -18,11 +19,13 @@ namespace WeatherStation.api.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public async Task<SensorDTO> GetSensorById(string id) =>
             await _sensorService.GetSensorById(id);
 
 
         [HttpGet]
+        [Authorize]
         public async Task<IReadOnlyList<SensorDTO>> GetAllSensors() =>
             await _sensorService.GetAllSensors();
     }

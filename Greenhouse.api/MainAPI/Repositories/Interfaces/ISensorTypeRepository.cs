@@ -6,10 +6,15 @@ namespace MainAPI.Repositories.Interfaces
     {
         public Task<SensorType> Create(SensorType sensorType);
 
+
         public Task<List<SensorType>> Get();
+      
+      
         public Task<SensorType> GetSensorTypeById(int id);
 
+      
         public Task<SensorType> Edit(SensorType sensorType);
+
 
         public Task<bool> ChangeState(int id);
     }

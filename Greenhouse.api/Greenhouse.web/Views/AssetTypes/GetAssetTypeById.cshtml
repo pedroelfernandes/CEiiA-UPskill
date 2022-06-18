@@ -14,7 +14,7 @@
 <body>
 
     <div class = "row pb-2">
-	<h4 class ="text-success text-left m-3">
+	<h4 class ="text-dark text-left m-3">
 		Details on Asset Types
 	</h4>
     </div>
@@ -48,10 +48,9 @@
         </dd>
     </dl>
 </div>
-<div>
-    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
-    <button asp-controller="AssetTypes" asp-action="EditAssetType" class="btn btn-outline-success btn-sm" >Edit</button>
-		<a asp-controller="AssetTypes" asp-action="GetAssetTypes" class="btn btn-outline-dark btn-sm" >Back to the list of Asset Types</a>
-</div>
+    <a asp-controller="AssetTypes" asp-action="EditAssetType" asp-route-id="@Model.Id" class="btn btn-outline-dark btn-sm">edit</a> 
+
+		<a asp-controller="AssetTypes" asp-action="GetAssetTypes" class="btn btn-outline-secondary  btn-sm" >Back to the list of Asset Types</a>
+
 </body>
 </html>

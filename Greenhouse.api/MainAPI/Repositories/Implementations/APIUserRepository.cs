@@ -23,7 +23,6 @@ namespace MainAPI.Repositories.Implementations
 
             await _db.APIUsers.AddAsync(apiUser);
             await _db.SaveChangesAsync();
-
             return apiUser;
         }
 
@@ -57,6 +56,17 @@ namespace MainAPI.Repositories.Implementations
             apiUser.IsActive ^= true;
             await _db.SaveChangesAsync();
             return true;
+        }
+
+
+        public async Task<bool> Authorized(string username, string password)
+        {
+            APIUser apiUser = await _db.APIUsers.FirstAsync(u => u.Username == username && u.Password == password);
+
+            if (apiUser != null)
+                return true;
+
+            return false;
         }
     }
 }

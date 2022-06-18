@@ -11,38 +11,37 @@ namespace MainAPI.Controllers
     {
         private readonly ISensorTypeService _sensorTypeService;
 
+
         public SensorTypeController(ISensorTypeService sensorTypeService)
         {
             _sensorTypeService = sensorTypeService;
         }
 
-        [HttpGet]
-        public async Task<List<SensorTypeDTO>> Get() => await _sensorTypeService.Get();
 
         [HttpGet]
-        public async Task<SensorTypeDTO> GetSensorTypeById(int id) => await _sensorTypeService.GetSensorTypeById(id);
+        public async Task<List<SensorTypeDTO>> Get() => 
+            await _sensorTypeService.Get();
+
+
+        [HttpGet]
+        public async Task<SensorTypeDTO> GetSensorTypeById(int id) => 
+            await _sensorTypeService.GetSensorTypeById(id);
 
         // Create a new sensor type
         [HttpPost]
-        public async Task<SensorTypeDTO> Create (SensorType sensorType)
-        {           
-            return await _sensorTypeService.Create(sensorType);
-        }
+        public async Task<SensorTypeDTO> Create(SensorType sensorType) =>
+            await _sensorTypeService.Create(sensorType);
 
 
         // Edit sensor type information
         [HttpPut]
-        public async Task<SensorTypeDTO> Edit(SensorType sensorType)
-        {
-            return await _sensorTypeService.Edit(sensorType);
-        }
+        public async Task<SensorTypeDTO> Edit(SensorType sensorType) =>
+            await _sensorTypeService.Edit(sensorType);
 
 
         // Change state from active to inactive
         [HttpPut]
-        public async Task<bool> ChangeState(int id)
-        {
-            return await _sensorTypeService.ChangeState(id);
-        }
+        public async Task<bool> ChangeState(int id) =>
+            await _sensorTypeService.ChangeState(id);
     }
 }

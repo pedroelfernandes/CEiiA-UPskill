@@ -7,13 +7,14 @@ namespace MainAPI.Repositories.Implementations
 {
     public class SensorTypeRepository : ISensorTypeRepository
     {
-
         private readonly ApplicationDbContext _db;
+
 
         public SensorTypeRepository(ApplicationDbContext db)
         {
             _db = db;
         }
+
 
         public async Task<SensorType> Create(SensorType sensorType)
         {
@@ -24,6 +25,7 @@ namespace MainAPI.Repositories.Implementations
             await _db.SaveChangesAsync();
             return sensorType;
         }
+
 
         public async Task<List<SensorType>> Get()
         {
@@ -49,10 +51,12 @@ namespace MainAPI.Repositories.Implementations
         {
             if(sensorType == null)
                 throw new Exception("SensorType not defined.");
+
             _db.SensorTypes.Update(sensorType);
             await _db.SaveChangesAsync();
             return sensorType;
         }
+
 
         public async Task<bool> ChangeState(int id)
         {

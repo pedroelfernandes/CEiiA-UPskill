@@ -5,8 +5,8 @@ namespace Greenhouse.web.Models
 {
     public class Asset
     {
-
-        public int Id { get; set; }
+        [Key]
+        public int Id { get; set; } = 0;
 
         public string? Name { get; set; }
 
