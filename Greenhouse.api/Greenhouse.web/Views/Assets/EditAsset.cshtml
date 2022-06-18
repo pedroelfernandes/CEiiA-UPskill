@@ -1,0 +1,76 @@
+﻿@model Greenhouse.web.Models.Asset
+
+
+@*<!DOCTYPE html>*@
+
+
+<head>
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>Edit Asset</title>
+</head>
+
+<body>
+
+<form method="post" asp-action="EditAsset">
+    @*<input type="hidden" name="number" asp-for="Id" />*@
+    <div class = "row pb-2">
+	<h4 class ="text-dark text-left m-3">
+            Edit Asset
+        </h4>
+    </div>
+    <div asp-validation-summary="All">
+        <div class="mb-3">
+            <label asp-for="Id" class="form-label"></label>
+            <input asp-for="Id" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label"></label>
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Company" class="form-label"></label>
+            <input asp-for="Company" class="form-control" />
+            <span asp-validation-for="Company" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Location" class="form-label"></label>
+            <input asp-for="Location" class="form-control" />
+            <span asp-validation-for="Location" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="CreationDate" class="form-label"></label>
+            <input asp-for="CreationDate" class="form-control" />
+            <span asp-validation-for="CreationDate" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="AssetType" class="form-label"></label>
+            <input asp-for="AssetType" class="form-control" />
+            <span asp-validation-for="AssetType" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Sensors" class="form-label"></label>
+            <input asp-for="Sensors" class="form-control" />
+            <span asp-validation-for="Sensors" class="text-danger"></span>
+        </div>
+@*        <div class="form-check mb-3">
+            <input asp-for="IsActive" class="form-check-input" />
+            <label asp-for="IsActive" class="form-check-label"></label>
+            <span asp-validation-for="IsActive" class="text-danger"></span>
+        </div>*@
+        <button input type="submit" value = "Save" class="btn btn-outline-dark">Submit</button>
+        <a asp-controller="Assets" asp-action="GetAssets" class="btn btn-outline-secondary">Back to List</a>
+    </div>
+</form>
+</body>
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+
+}
