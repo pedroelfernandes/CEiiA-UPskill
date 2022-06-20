@@ -8,13 +8,19 @@ namespace MainAPI.Services.Implementations
     public class AssetService: IAssetService
     {
         private readonly IAssetRepository _assetRepository;
+
         private readonly IAssetTypeService _assetTypeService;
 
+        private readonly IAssetSensorService _assetSensorService;
 
-        public AssetService(IAssetRepository assetRepository, IAssetTypeService assetTypeService)
+
+        public AssetService(IAssetRepository assetRepository, IAssetTypeService assetTypeService, IAssetSensorService assetSensorService)
         {
             _assetRepository = assetRepository;
+
             _assetTypeService = assetTypeService;
+
+            _assetSensorService = assetSensorService;
         }
 
 
@@ -24,8 +30,15 @@ namespace MainAPI.Services.Implementations
 
 
         //transfer a specific Asset to DTO
-        public async Task<AssetDTO> GetAssetById(int id) => 
-            AssetDTO.ToDto(await _assetRepository.GetAssetById(id));
+        public async Task<AssetDTO> GetAssetById(int id)
+        {
+            Asset asset = await _assetRepository.GetAssetById(id);
+
+            asset.Sensors = await _assetSensorService.GetAssetSensors(asset.Id);
+
+            return AssetDTO.ToDto(await _assetRepository.GetAssetById(id));
+        }
+            
 
 
         //Transfer the CreateAsset content to DTO

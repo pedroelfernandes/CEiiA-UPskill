@@ -25,7 +25,6 @@ namespace MainAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<AssetSensor>()
             .HasKey(c => new { c.AssetId, c.SensorId });
             modelBuilder.Entity<AssetSensor>()

@@ -8,12 +8,19 @@ using MainAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -31,6 +38,7 @@ builder.Services.AddScoped<ISensorRepository, SensorRepository>();
 builder.Services.AddScoped<ISensorTypeRepository, SensorTypeRepository>();
 builder.Services.AddScoped<IAssetRepository, AssetRepository>();
 builder.Services.AddScoped<IAssetTypeRepository, AssetTypeRepository>();
+builder.Services.AddScoped<IAssetSensorRepository, AssetSensorRepository>();
 
 builder.Services.AddScoped<IAPIUserService, APIUserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
@@ -40,6 +48,7 @@ builder.Services.AddScoped<IAssetService, AssetService>();
 builder.Services.AddScoped<IAssetTypeService, AssetTypeService>();
 builder.Services.AddScoped<ILayerAPISensorService, LayerAPISensorService>();
 builder.Services.AddScoped<IReadingService, ReadingService>();
+builder.Services.AddScoped<IAssetSensorService, AssetSensorService>();
 
 builder.Services.AddScoped<IHttpClHlp, HttpClHlp>();
 builder.Services.AddScoped<ILayerAPIJwtToken, LayerAPIJwtToken>();
