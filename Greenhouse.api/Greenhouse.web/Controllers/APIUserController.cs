@@ -18,7 +18,7 @@ namespace Greenhouse.web.Controllers
         }
 
 
-
+        //Get all users
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -28,6 +28,21 @@ namespace Greenhouse.web.Controllers
         }
 
 
+        //Get APIUser by Id
+
+        [HttpGet("id")]
+        public async Task<IActionResult> GetAPIUserById(int id)
+        {
+            var apiUser = await _apiUserServices.GetAPIUserById(id);
+            return apiUser == null ? NotFound() : View(apiUser);
+        }
+
+
+        // create new role
+        public IActionResult Create()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(APIUser apiUser)
@@ -44,6 +59,47 @@ namespace Greenhouse.web.Controllers
                 }
             }
             return View(apiUser);
+        }
+
+
+        //Edit APIUser
+        public async Task<IActionResult> Edit(int id)
+        {
+            var apiUser = await _apiUserServices.GetAPIUserById(id);
+            return View(apiUser);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, APIUser apiUser)
+        {
+            if (id != apiUser.Id)
+            {
+                return BadRequest();
+            }
+
+            APIUser apiUserResult;
+            if (ModelState.IsValid)
+            {
+                apiUserResult = await _apiUserServices.Edit(apiUser);
+
+                if (apiUserResult != null)
+                {
+                    return RedirectToAction("Get");
+                }
+            }
+            return View(await _apiUserServices.Get());
+        }
+
+        //Change state from true to false and vice versa for apiUsers
+        [HttpGet]
+        public async Task<IActionResult> ChangeState(int id)
+        {
+            bool res = await _apiUserServices.ChangeState(id);
+
+            if (!res)
+                ModelState.AddModelError("Error001", "Error while deleting the record");
+
+            return RedirectToAction("Get");
         }
     }
 }

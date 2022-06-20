@@ -12,6 +12,6 @@ namespace Greenhouse.web.Services.Interfaces
 
         Task<Role> Edit(Role role);
 
-        //Task<bool> ChangeState(int id);
+        Task<bool> ChangeState(int id);
     }
 }

@@ -4,14 +4,14 @@ namespace Greenhouse.web.Services.Interfaces
 {
     public interface IAPIUserServices
     {
-        //Task<IEnumerable<APIUser>> GetAllAPIUser();
+        Task<List<APIUser>> Get();
+
+        Task<APIUser> GetAPIUserById(int id);
 
         Task<APIUser> Create(APIUser apiUser);
 
-        Task<List<APIUser>> Get();
+        Task<APIUser> Edit(APIUser apiUser);
 
-        //Task<APIUser> Edit(APIUser apiUser);
-
-        //Task <bool> ChangeState(int id);
+        Task<bool> ChangeState(int id);
     }
 }

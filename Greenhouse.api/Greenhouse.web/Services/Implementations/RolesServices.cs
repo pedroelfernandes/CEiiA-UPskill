@@ -126,27 +126,27 @@ namespace Greenhouse.web.Services.Implementations
 
         }
 
+        // Change state from true to false and vice versa for roles
+        public async Task<bool> ChangeState(int id)
+        {
+            Role role = new();
 
-        //public async Task<List<Role>> ChangeState(string roleId)
-        //{
-        //    List<Role> roles = new();
+            string url = _configuration.GetValue<string>("URL");
 
-        //    HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(role), Encoding.UTF8);
 
-        //    HttpResponseMessage response = await client.GetAsync($"get?id={roleId}");
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-        //    response.EnsureSuccessStatusCode();
+            var response = await client.PutAsync(url + $"role/ChangeState?id={id}", httpContent);
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var res = await response.Content.ReadFromJsonAsync<List<Role>>();
+            response.EnsureSuccessStatusCode();
 
-        //        if (res != null)
-        //        {
-        //            roles = res;
-        //        }
-        //    }
-        //    return roles;
-        //}
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<bool>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
+            }
+            return false;
+        }
     }
 }

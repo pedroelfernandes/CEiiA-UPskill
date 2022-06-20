@@ -1,4 +1,4 @@
-﻿@model APIUser
+﻿@model Greenhouse.web.Models.APIUser
 
 @{
 	Layout = "_MainLayout";
@@ -6,44 +6,45 @@
 
 <h1>Users</h1>
 
-<form method="post" asp-controller="APIUser" asp-action="Edit">
-    <div class="border m-2 p-4">
-        <h2>
-            Edit User
-        </h2>
-        <div asp-validation-summary="All"></div>
-        <div class="mb-3">
-            <label asp-for="Id" class="form-label"></label>
-            <input asp-for="Id" class="form-control" disabled />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Username" class="form-label"></label>
-            <input asp-for="Username" class="form-control" />
-            <span asp-validation-for="Username" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Email" class="form-label"></label>
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="IsActive" class="form-label"></label>
-            <input asp-for="IsActive" class="form-control" />
-            <span asp-validation-for="IsActive" class="text-danger"></span>
-        </div>
-@*        <button type="submit" class="btn btn-primary" onclick="    <% ChangeState(); %>">Change State</button>
-*@        <div class="mb-3">
-            <label asp-for="Role" class="form-label"></label>
-            <input asp-for="Role" class="form-control" />
-            <span asp-validation-for="Role" class="text-danger"></span>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Return Home</a>
-    </div>
-</form>
+<head>
+	<title>Edit Role</title>
+</head>
+<body>
+	<form method="post" asp-controller="APIUser" asp-action="Edit">
+		@*<input type="hidden" name="number" asp-for="Id" />*@
+		<div class="row pb-2">
+			<h4 class="text-success text-left m-3">
+				Edit Role
+			</h4>
+		</div>
+		<div asp-validation-summary="All">
+			<div class="mb-3">
+				<label asp-for="Id" class="form-label"></label>
+				<input asp-for="Id" class="form-control" readonly />
+			</div>
+			<div class="mb-3">
+				<label asp-for="Username" class="form-label"></label>
+				<input asp-for="Username" class="form-control" />
+				<span asp-validation-for="Username" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Email" class="form-label"></label>
+				<input asp-for="Email" class="form-control" />
+				<span asp-validation-for="Email" class="text-danger"></span>
+			</div>
+			@*        <div class="form-check mb-3">
+			<input asp-for="IsActive" class="form-check-input" />
+			<label asp-for="IsActive" class="form-check-label"></label>
+			<span asp-validation-for="IsActive" class="text-danger"></span>
+			</div>*@
+			<button input type="submit" value="Save" class="btn btn-primary">Submit</button>
+			<a asp-controller="APIUser" asp-action="Get" class="btn btn-secondary">Back to List</a>
+		</div>
+	</form>
+</body>
 
 @section Scripts {
-    @{
-    <partial name="_ValidationScriptsPartial" />
-    }
-}
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+	}
