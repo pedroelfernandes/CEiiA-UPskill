@@ -10,14 +10,15 @@
 </head>
 
 <body>
-
 <form method="post" asp-action="EditAssetType">
+
     @*<input type="hidden" name="number" asp-for="Id" />*@
     <div class = "row pb-2">
-	<h4 class ="text-dark text-left m-3">
+	    <h4 class ="text-dark text-left m-3">
             Edit Asset Type
         </h4>
     </div>
+
     <div asp-validation-summary="All">
         <div class="mb-3">
             <label asp-for="Id" class="form-label"></label>
@@ -41,7 +42,9 @@
         <button input type="submit" value = "Save" class="btn btn-outline-dark">Submit</button>
         <a asp-controller="AssetTypes" asp-action="GetAssetTypes" class="btn btn-outline-secondary">Back to List</a>
     </div>
+
 </form>
+
 </body>
 @section Scripts {
 	@{

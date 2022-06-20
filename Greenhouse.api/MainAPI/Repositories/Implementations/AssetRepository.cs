@@ -9,10 +9,13 @@ namespace MainAPI.Repositories.Implementations
     {
         private readonly ApplicationDbContext _db;
 
+        private readonly IAssetTypeRepository _assetTypeRepository;
 
-        public AssetRepository(ApplicationDbContext db)
+
+        public AssetRepository(ApplicationDbContext db, IAssetTypeRepository assetTypeRepository)
         {
             _db = db;
+            _assetTypeRepository = assetTypeRepository;
         }
 
 
@@ -38,6 +41,9 @@ namespace MainAPI.Repositories.Implementations
 
             await _db.Assets.AddAsync(asset);
             await _db.SaveChangesAsync();
+
+            asset.AssetType = await _assetTypeRepository.GetAssetTypeById(asset.AssetTypeId);
+
             return asset;
         }
 
