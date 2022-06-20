@@ -3,52 +3,52 @@
 <!DOCTYPE html>
 
 <head>
-    @*<meta name="viewport" content="width=device-width" />*@
-    <title>CreateAssetType</title>
+	@*<meta name="viewport" content="width=device-width" />*@
+	<title>CreateAssetType</title>
 </head>
 
 <body>
-    <form method="post" asp-action="CreateAssetType">
-    <div class = "row pb-2">
-	    <h4 class ="text-dark text-left m-3">
-        Create a new Asset Type
-        </h4>
-     </div>
-    <div asp-validation-summary="All">
+	<form method="post" asp-action="CreateAssetType">
+		<div class="row pb-2">
+			<h4 class="text-dark text-left m-3">
+				Create a new Asset Type
+			</h4>
+		</div>
+		<div asp-validation-summary="All">
 
-@*            <div class="mb3">
-                <label asp-for="Id" class="control-label" ></label>
-                <input asp-for="Id" class="form-control" />  @Html.DisplayFor(model => model.Id)
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>*@
-            <div class="mb3">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="mb3">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            @*        <div class="form-check mb-3">
-            <input asp-for="IsActive" class="form-check-input" />
-            <label asp-for="IsActive" class="form-check-label"></label>
-            <span asp-validation-for="IsActive" class="text-danger"></span>
-            </div>*@
-                            </div>
-        </form>
+			@*            <div class="mb3">
+				<label asp-for="Id" class="control-label" ></label>
+				<input asp-for="Id" class="form-control" />  @Html.DisplayFor(model => model.Id)
+				<span asp-validation-for="Id" class="text-danger"></span>
+				</div>*@
+			<div class="mb3">
+				<label asp-for="Name" class="control-label"></label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="mb3">
+				<label asp-for="Description" class="control-label"></label>
+				<input asp-for="Description" class="form-control" />
+				<span asp-validation-for="Description" class="text-danger"></span>
+			</div>
+			@*        <div class="form-check mb-3">
+				<input asp-for="IsActive" class="form-check-input" />
+				<label asp-for="IsActive" class="form-check-label"></label>
+				<span asp-validation-for="IsActive" class="text-danger"></span>
+				</div>*@
+		</div>
+	</form>
 
-        <div>
-        <button input type="submit" value = "CreateAssetType" class="btn btn-outline-dark">Submit</button>
-        <a asp-controller="AssetTypes" asp-action="GetAssetTypes" class="btn btn-outline-secondary">Back to List</a>
-    </div>
+	<div>
+		<button input type="submit" value="CreateAssetType" class="btn btn-outline-dark">Submit</button>
+		<a asp-controller="AssetTypes" asp-action="GetAssetTypes" class="btn btn-outline-secondary">Back to List</a>
+	</div>
 
 
 </body>
 @section Scripts {
 	@{
-		<partial name="_ValidationScriptsPartial" />
+	<partial name="_ValidationScriptsPartial" />
 	}
 
 }

@@ -15,6 +15,7 @@ namespace Greenhouse.web.Controllers
         }
 
 
+
         //Get full list of Assets
 
         [HttpGet]
@@ -22,6 +23,7 @@ namespace Greenhouse.web.Controllers
         {
             return View(await _assetServices.GetAssets());
         }
+
 
 
         //Create new Asset
@@ -60,7 +62,6 @@ namespace Greenhouse.web.Controllers
 
 
 
-
         //Edit Asset
         public async Task<IActionResult> EditAsset(int id)
         {
@@ -87,7 +88,6 @@ namespace Greenhouse.web.Controllers
             }
             return View(await _assetServices.GetAssets());
         }
-
 
 
 
