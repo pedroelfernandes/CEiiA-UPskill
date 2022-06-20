@@ -6,11 +6,11 @@
 
 <!DOCTYPE html>
 
-<html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Asset Details</title>
 </head>
+
 <body>
 
     <div class = "row pb-2">
@@ -59,10 +59,10 @@
             @Html.DisplayFor(model => model.CreationDate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AssetType)
+            @Html.DisplayNameFor(model => model.AssetType.Description)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AssetType)
+            @Html.DisplayFor(model => model.AssetType.Description)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IsActive)
@@ -80,7 +80,6 @@
 </div>
     <a asp-controller="Assets" asp-action="EditAsset" asp-route-id="@Model.Id" class="btn btn-outline-dark btn-sm">edit</a> 
 
-		<a asp-controller="Assets" asp-action="GetAssets" class="btn btn-outline-secondary  btn-sm" >Back to the list of Asset Types</a>
-
+	<a asp-controller="Assets" asp-action="GetAssets" class="btn btn-outline-secondary  btn-sm" >Back to the list of Asset Types</a>
+      
 </body>
-</html>

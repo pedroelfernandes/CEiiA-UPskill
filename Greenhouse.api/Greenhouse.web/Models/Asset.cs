@@ -17,14 +17,13 @@ namespace Greenhouse.web.Models
         public string? Location { get; set; }
 
         [Display(Name = "Creation Date")]
-        public DateTime? CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; } = DateTime.Now;
 
         [Display(Name = "Asset Type")]
         public int AssetTypeId { get; set; }
 
         public AssetType? AssetType { get; set; }
 
-        [Display(Name = "Active")]
         public bool IsActive { get; set; } = true;
 
         public ICollection<AssetSensor>? Sensors { get; set; }

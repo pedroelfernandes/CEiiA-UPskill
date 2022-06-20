@@ -22,14 +22,14 @@ namespace MainAPI.Models
         public string? Location { get; set; }
 
         [Required]
-        public DateTime? CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; } = DateTime.Now;
 
         [Required, ForeignKey("AssetType")]
         public int AssetTypeId { get; set; }
         public AssetType? AssetType { get; set; }
 
         [Required]
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
 
         public ICollection<AssetSensor>? Sensors { get; set; }
 

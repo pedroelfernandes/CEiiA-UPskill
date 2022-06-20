@@ -9,63 +9,52 @@
 
 <body>
     <form method="post" asp-action="CreateAsset">
-    <div class = "row pb-2">
-	    <h4 class ="text-dark text-left m-3">
-        Create a new Asset Type
-        </h4>
-     </div>
+        <div class = "row pb-2">
+	        <h4 class ="text-dark text-left m-3">
+            Create a new Asset
+            </h4>
+        </div>
 
-    <div asp-validation-summary="All">
-@*            <div class="form-group">
-                <label asp-for="Id" class="control-label" ></label>
-                <input asp-for="Id" class="form-control" />  @Html.DisplayFor(model => model.Id)
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>*@
+        <div asp-validation-summary="All">
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Company" class="control-label"></label>
                 <input asp-for="Company" class="form-control" />
                 <span asp-validation-for="Company" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Location" class="control-label"></label>
                 <input asp-for="Location" class="form-control" />
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
-@*            <div class="form-group">
-                <label asp-for="CreationDate" class="control-label"></label>
-                <input asp-for="CreationDate" class="form-control" />
-                <span asp-validation-for="CreationDate" class="text-danger"></span>
-            </div>*@
+
             <div class="form-group">
                 <label asp-for="AssetTypeId" class="control-label"></label>
                 <input asp-for="AssetTypeId" class="form-control" />
                 <span asp-validation-for="AssetTypeId" class="text-danger"></span>
             </div>
-@*            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive==TRUE)
-                </label>
-            </div>*@
-     </div>
+         </div>
+
+         <div>
+            <button type="submit" value="CreateAsset" class="btn btn-outline-dark">Submit</button>
+            <a asp-controller="Assets" asp-action="GetAssets" class="btn btn-outline-secondary">Back to List</a>
+        </div>
+
      </form>
-
-    <div>
-        <button input type="submit" value="CreateAsset" class="btn btn-outline-dark">Submit</button>
-        <a asp-controller="Assets" asp-action="GetAssets" class="btn btn-outline-secondary">Back to List</a>
-    </div>
-
-
 </body>
+
 @section Scripts {
 	@{
 		<partial name="_ValidationScriptsPartial" />
