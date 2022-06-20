@@ -7,25 +7,40 @@ namespace Greenhouse.web.Controllers
     public class SensorsController : Controller
     {
         private readonly ISensorServices _sensorServices;
-        private readonly ISensorTypeServices _sensorTypeServices;
 
-        public SensorsController (ISensorServices sensorServices, ISensorTypeServices sensorTypeServices)
+        public SensorsController (ISensorServices sensorServices)
         {
             _sensorServices = sensorServices;
-            _sensorTypeServices = sensorTypeServices;
         }
 
 
         // Get Sensors List
         // 
         [HttpGet]
-        public async Task<IActionResult> GetSensors()
+        public async Task<IActionResult> Get()
         {
-            IEnumerable<Sensor> sensors = await _sensorServices.GetSensors();
+            List<Sensor> sensors = await _sensorServices.Get();
             return View(sensors);
         }
 
 
+        //Get Sensors by Id
+
+        [HttpGet("id")]
+        public async Task<IActionResult> GetSensorsById(int id)
+        {
+            var sensor = await _sensorServices.GetSensorById(id);
+            return sensor == null ? NotFound() : View(sensor);
+        }
+
+
+
+        // create new Sensor
+
+        public IActionResult Create()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(Sensor sensor)
@@ -42,6 +57,47 @@ namespace Greenhouse.web.Controllers
                 }
             }
             return View(sensor);
+        }
+
+
+        //Edit Sensor
+        public async Task<IActionResult> Edit(int id)
+        {
+            var sensor = await _sensorServices.GetSensorById(id);
+            return View(sensor);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, Sensor sensor)
+        {
+            if (id != sensor.Id)
+            {
+                return BadRequest();
+            }
+
+            Sensor sensorResult;
+            if (ModelState.IsValid)
+            {
+                sensorResult = await _sensorServices.Edit(sensor);
+
+                if (sensorResult != null)
+                {
+                    return RedirectToAction("Get");
+                }
+            }
+            return View(await _sensorServices.Get());
+        }
+
+        //Change state from true to false and vice versa for sensors
+        [HttpGet]
+        public async Task<IActionResult> ChangeState(int id)
+        {
+            bool res = await _sensorServices.ChangeState(id);
+
+            if (!res)
+                ModelState.AddModelError("Error001", "Error while deleting the record");
+
+            return RedirectToAction("Get");
         }
     }
 }

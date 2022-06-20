@@ -26,6 +26,15 @@ namespace Greenhouse.web.Controllers
         }
 
 
+        //Get Role by Id
+
+        [HttpGet("id")]
+        public async Task<IActionResult> GetRoleById(int id)
+        {
+            var role = await _rolesServices.GetRoleById(id);
+            return role == null ? NotFound() : View(role);
+        }
+
         // create new role
 
         public IActionResult Create()
@@ -48,15 +57,6 @@ namespace Greenhouse.web.Controllers
                 }
             }
             return View(role);
-        }
-
-        //Get Role by Id
-
-        [HttpGet("id")]
-        public async Task<IActionResult> GetRoleById(int id)
-        {
-            var role = await _rolesServices.GetRoleById(id);
-            return role == null ? NotFound() : View(role);
         }
 
 
@@ -86,6 +86,18 @@ namespace Greenhouse.web.Controllers
                 }
             }
             return View(await _rolesServices.Get());
+        }
+
+        //Change state from true to false and vice versa for roles
+        [HttpGet]
+        public async Task<IActionResult> ChangeState(int id)
+        {
+            bool res = await _rolesServices.ChangeState(id);
+
+            if (!res)
+                ModelState.AddModelError("Error001", "Error while deleting the record");
+
+            return RedirectToAction("Get");
         }
 
     }

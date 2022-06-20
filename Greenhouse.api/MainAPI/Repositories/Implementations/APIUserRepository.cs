@@ -9,10 +9,13 @@ namespace MainAPI.Repositories.Implementations
     {
         private readonly ApplicationDbContext _db;
 
+        private readonly IRoleRepository _roleRepository;
 
-        public APIUserRepository(ApplicationDbContext db)
+
+        public APIUserRepository(ApplicationDbContext db, IRoleRepository roleRepository)
         {
             _db = db;
+            _roleRepository = roleRepository;
         }
 
 
@@ -23,6 +26,9 @@ namespace MainAPI.Repositories.Implementations
 
             await _db.APIUsers.AddAsync(apiUser);
             await _db.SaveChangesAsync();
+
+            apiUser.Role = await _roleRepository.GetRole(apiUser.RoleId);
+
             return apiUser;
         }
 

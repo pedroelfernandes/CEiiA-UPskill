@@ -1,53 +1,62 @@
-﻿@model APIUser
+﻿@model Greenhouse.web.Models.APIUser
 
 @{
 	Layout = "_MainLayout";
 }
 
-<h1>Users</h1>
 
-<form method="post" asp-controller="APIUser" asp-action="Create">
-    <div class="border m-2 p-4">
-        <h2>
-            Create User
-        </h2>
-        <div asp-validation-summary="All"></div>
-        <div class="mb-3">
-            <label asp-for="Id" class="form-label"></label>
-            <input asp-for="Id" class="form-control" disabled />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Username" class="form-label"></label>
-            <input asp-for="Username" class="form-control" />
-            <span asp-validation-for="Username" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Password" class="form-label"></label>
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Email" class="form-label"></label>
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="IsActive" class="form-label"></label>
-            <input asp-for="IsActive" class="form-control" />
-            <span asp-validation-for="IsActive" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Role" class="form-label"></label>
-            <input asp-for="Role" class="form-control" />
-            <span asp-validation-for="Role" class="text-danger"></span>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Return Home</a>
-    </div>
-</form>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Create APIUser</title>
+</head>
+<body>
+
+	<h4>APIUser</h4>
+	<hr />
+	<div class="row">
+		<div class="col-md-4">
+			<form asp-action="Create">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				@*<div class="form-group">
+				<label asp-for="Id" class="control-label"></label>
+				<input asp-for="Id" class="form-control" />
+				<span asp-validation-for="Id" class="text-danger"></span>
+				</div>*@
+				<div class="form-group">
+					<label asp-for="Username" class="control-label"></label>
+					<input asp-for="Username" class="form-control" />
+					<span asp-validation-for="Username" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Password" class="control-label"></label>
+					<input asp-for="Password" class="form-control" />
+					<span asp-validation-for="Password" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Email" class="control-label"></label>
+					<input asp-for="Email" class="form-control" />
+					<span asp-validation-for="Email" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="RoleId" class="control-label"></label>
+					<input asp-for="RoleId" class="form-control" />
+					<span asp-validation-for="RoleId" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<input type="submit" value="Create" class="btn btn-primary" />
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div>
+		<a asp-controller="APIUser" asp-action="Get">Back to List</a>
+	</div>
+
+</body>
 
 @section Scripts {
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
-}
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+	}

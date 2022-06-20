@@ -118,26 +118,26 @@ namespace Greenhouse.web.Services.Implementations
         }
 
 
-        //public static async Task<List<SensorType>> ChangeState(string sensorTypeId, IConfiguration configuration)
-        //{
-        //    List<SensorType> sensorTypes = new();
+        //Delete-change status sensorType(bool)
+        public async Task<bool> ChangeState(int id)
+        {
+            SensorType sensorType = new();
 
-        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+            string url = _configuration.GetValue<string>("URL");
 
-        //    HttpResponseMessage response = await client.GetAsync($"getapisensors?id={sensorTypeId}");
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(sensorType), Encoding.UTF8);
 
-        //    response.EnsureSuccessStatusCode();
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var res = await response.Content.ReadFromJsonAsync<List<SensorType>>();
+            var response = await client.PutAsync(url + $"sensorType/ChangeState?id={id}", httpContent);
+            response.EnsureSuccessStatusCode();
 
-        //        if (res != null)
-        //        {
-        //            sensorTypes = res;
-        //        }
-        //    }
-        //    return sensorTypes;
-        //}
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<bool>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
+            }
+            return false;
+        }
     }
 }

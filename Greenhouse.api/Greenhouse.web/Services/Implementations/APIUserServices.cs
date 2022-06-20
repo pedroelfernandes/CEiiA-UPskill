@@ -38,6 +38,32 @@ namespace Greenhouse.web.Services.Implementations
         }
 
 
+        // Get APIUser by id
+
+        public async Task<APIUser> GetAPIUserById(int id)
+        {
+            APIUser apiUser = new();
+            string url = _configuration.GetValue<string>("URL");
+
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+
+            HttpResponseMessage response = await client.GetAsync($"apiuser/GetAPIUserById?id={id}");
+
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                apiUser = await response.Content.ReadFromJsonAsync<APIUser>();
+
+                if (apiUser == null)
+                {
+                    throw new Exception("APIUser not found.");
+                }
+            }
+            return apiUser;
+        }
+
+
         // Create a new user
         public async Task<APIUser> Create(APIUser apiUser)
         {
@@ -65,49 +91,55 @@ namespace Greenhouse.web.Services.Implementations
         }
 
 
-        //public async Task<List<APIUser>> Edit()
-        //{
-        //    List<APIUser> apiUsers = new();
+        //Edit a specific APIUser 
+        public async Task<APIUser> Edit(APIUser apiUser)
+        {
+            string url = _configuration.GetValue<string>("URL");
 
-        //    HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(apiUser), Encoding.UTF8);
 
-        //    HttpResponseMessage response = await client.GetAsync($"edit");
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-        //    response.EnsureSuccessStatusCode();
+            var response = await client.PutAsync(url + $"apiuser/edit", httpContent);
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var res = await response.Content.ReadFromJsonAsync<List<APIUser>>();
+            response.EnsureSuccessStatusCode();
 
-        //        if (res != null)
-        //        {
-        //            apiUsers = res;
-        //        }
-        //    }
-        //    return apiUsers;
-        //}
+            if (response.IsSuccessStatusCode)
+            {
+                var res = JsonConvert.DeserializeObject<APIUser>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
+
+                if (res != null)
+                {
+                    return res;
+                }
+            }
+            return new APIUser();
+
+        }
 
 
-        //public async Task<List<APIUser>> ChangeState()
-        //{
-        //    List<APIUser> apiUsers = new();
+        // Change state from true to false and vice versa for api users
+        public async Task<bool> ChangeState(int id)
+        {
+            APIUser apiUser = new();
 
-        //    HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
+            string url = _configuration.GetValue<string>("URL");
 
-        //    HttpResponseMessage response = await client.GetAsync($"changestate");
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(apiUser), Encoding.UTF8);
 
-        //    response.EnsureSuccessStatusCode();
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var res = await response.Content.ReadFromJsonAsync<List<APIUser>>();
+            var response = await client.PutAsync(url + $"apiuser/ChangeState?id={id}", httpContent);
 
-        //        if (res != null)
-        //        {
-        //            apiUsers = res;
-        //        }
-        //    }
-        //    return apiUsers;
-        //}
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<bool>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
+            }
+            return false;
+        }
     }
 }

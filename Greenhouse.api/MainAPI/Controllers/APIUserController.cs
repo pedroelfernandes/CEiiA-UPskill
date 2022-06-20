@@ -33,7 +33,7 @@ namespace MainAPI.Controllers
 
 
         [HttpGet]
-        public async Task<APIUserDTO> GetUser(int id) =>
+        public async Task<APIUserDTO> GetAPIUserById(int id) =>
             await _apiUserService.Get(id);
 
 

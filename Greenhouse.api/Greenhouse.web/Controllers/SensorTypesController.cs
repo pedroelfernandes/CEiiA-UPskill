@@ -87,5 +87,18 @@ namespace Greenhouse.web.Controllers
             }
             return View(await _sensorTypeServices.Get());
         }
+
+
+        //Change state from true to false and vice versa for sensor types
+        [HttpGet]
+        public async Task<IActionResult> ChangeState(int id)
+        {
+            bool res = await _sensorTypeServices.ChangeState(id);
+
+            if (!res)
+                ModelState.AddModelError("Error001", "Error while deleting the record");
+
+            return RedirectToAction("Get");
+        }
     }
 }

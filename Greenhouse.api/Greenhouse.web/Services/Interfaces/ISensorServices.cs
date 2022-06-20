@@ -4,10 +4,10 @@ namespace Greenhouse.web.Services.Interfaces
 {
     public interface ISensorServices
     {
-        Task<IEnumerable<Sensor>> GetSensors();
-        //Task<AssetType> GetAssetTypeById(int Id);
+        Task<List<Sensor>> Get();
+        Task<Sensor> GetSensorById(int id);
         Task<Sensor> Create(Sensor sensor);
-        //Task<AssetType> EditAssetType(int id, string name, string description, bool active);
-        //Task<bool> ChangeStateAssetType(int Id);
+        Task<Sensor> Edit(Sensor sensor);
+        Task<bool> ChangeState(int Id);
     }
 }

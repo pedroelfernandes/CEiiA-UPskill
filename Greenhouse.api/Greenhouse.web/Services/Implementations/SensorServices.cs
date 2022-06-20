@@ -15,13 +15,13 @@ namespace Greenhouse.web.Services.Implementations
             _configuration = configuration;
         }
 
-        public async Task<IEnumerable<Sensor>> GetSensors()
+        public async Task<List<Sensor>> Get()
         {
             List<Sensor> sensors = new();
 
             HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
 
-            HttpResponseMessage response = await client.GetAsync($"Sensor/GetSensors");
+            HttpResponseMessage response = await client.GetAsync($"Sensor/Get");
 
             response.EnsureSuccessStatusCode();
 
@@ -38,6 +38,32 @@ namespace Greenhouse.web.Services.Implementations
         }
 
 
+        // Get role by id
+        public async Task<Sensor> GetSensorById(int id)
+        {
+            Sensor sensor = new();
+            string url = _configuration.GetValue<string>("URL");
+
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+
+            HttpResponseMessage response = await client.GetAsync($"sensor/GetSensorById?id={id}");
+
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                sensor = await response.Content.ReadFromJsonAsync<Sensor>();
+
+                if (sensor == null)
+                {
+                    throw new Exception("Sensor not found.");
+                }
+            }
+            return sensor;
+        }
+
+
+        // Create new sensor
         public async Task<Sensor> Create(Sensor sensor)
         {
             string url = _configuration.GetValue<string>("URL");
@@ -64,49 +90,55 @@ namespace Greenhouse.web.Services.Implementations
         }
 
 
-        //public static async Task<List<Sensor>> Edit(string sensorId, IConfiguration configuration)
-        //{
-        //    List<Sensor> sensors = new();
 
-        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+        //Edit a specific Sensor 
+        public async Task<Sensor> Edit(Sensor sensor)
+        {
+            string url = _configuration.GetValue<string>("URL");
 
-        //    HttpResponseMessage response = await client.GetAsync($"getapisensors?id={sensorId}");
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(sensor), Encoding.UTF8);
 
-        //    response.EnsureSuccessStatusCode();
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var res = await response.Content.ReadFromJsonAsync<List<Sensor>>();
+            var response = await client.PutAsync(url + $"sensor/edit", httpContent);
 
-        //        if (res != null)
-        //        {
-        //            sensors = res;
-        //        }
-        //    }
-        //    return sensors;
-        //}
+            response.EnsureSuccessStatusCode();
 
+            if (response.IsSuccessStatusCode)
+            {
+                var res = JsonConvert.DeserializeObject<Sensor>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
 
-        //public static async Task<List<Sensor>> ChangeState(string sensorId, IConfiguration configuration)
-        //{
-        //    List<Sensor> sensors = new();
+                if (res != null)
+                {
+                    return res;
+                }
+            }
+            return new Sensor();
 
-        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+        }
 
-        //    HttpResponseMessage response = await client.GetAsync($"getapisensors?id={sensorId}");
+        // Change state from true to false and vice versa for sensors
+        public async Task<bool> ChangeState(int id)
+        {
+            Sensor sensor = new();
 
-        //    response.EnsureSuccessStatusCode();
+            string url = _configuration.GetValue<string>("URL");
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var res = await response.Content.ReadFromJsonAsync<List<Sensor>>();
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(sensor), Encoding.UTF8);
 
-        //        if (res != null)
-        //        {
-        //            sensors = res;
-        //        }
-        //    }
-        //    return sensors;
-        //}
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var response = await client.PutAsync(url + $"sensor/ChangeState?id={id}", httpContent);
+
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<bool>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
+            }
+            return false;
+        }
     }
 }

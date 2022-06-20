@@ -4,8 +4,8 @@ namespace Greenhouse.web.Models
 {
     public class APIUser
     {
-        
-        public int Id { get; set; }
+        [Key]
+        public int Id { get; set; } = 0;
 
 
         
