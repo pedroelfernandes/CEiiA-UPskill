@@ -5,56 +5,56 @@
 }
 
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>APIUSers</title>
+	<meta name="viewport" content="width=device-width" />
+	<title>APIUSers</title>
 </head>
 <body>
 	<div>
-        <h4 class="text-dark text-left m-2">List of APIUsers</h4>
-    </div>
+		<h4 class="text-dark text-left m-2">List of APIUsers</h4>
+	</div>
 
-<div class="text-end m-2">
-	<a asp-controller="APIUser" asp-action="Create" class="btn btn-dark btn-sm">
-		New APIUser
-	</a>
-</div>
-<div class="table-responsive-sm m-2">
-<table class="table table-bordered">
-	<thead>
-		<tr>
-			<th>User Id</th>
-			<th>Username</th>
-			<th>Password</th>
-			<th>Email Address</th>
-			<th>Status</th>
-			<th>Role</th>
-			<th>Role Permissions</th>
-			<th colspan="2"></th>
-		</tr>
-	</thead>
-	<tbody>
+	<div class="text-end m-2">
+		<a asp-controller="APIUser" asp-action="Create" class="btn btn-dark btn-sm">
+			New APIUser
+		</a>
+	</div>
+	<div class="table-responsive-sm m-2">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>User Id</th>
+					<th>Username</th>
+					<th>Password</th>
+					<th>Email Address</th>
+					<th>Status</th>
+					<th>Role</th>
+					<th>Role Permissions</th>
+					<th colspan="2"></th>
+				</tr>
+			</thead>
+			<tbody>
 
-		@foreach (APIUser apiUser in Model)
-		{
-			<tr>
-				<td>@apiUser.Id</td>
-				<td>@apiUser.Username</td>
-				<td>@apiUser.Password</td>
-				<td>@apiUser.Email</td>
-				<td>@(apiUser.IsActive ? "Active" : "Inactive")</td>
-				<td>@apiUser.Role.Name</td>
-				<td>@apiUser.Role.Description</td>
-				<td>
-					<a asp-controller="APIUser" asp-action="GetAPIUserById" class="btn btn-outline-dark btn-sm" asp-route-id="@apiUser.Id">Details</a>
-				</td>
-				<td>
-					<a asp-controller="APIUser" asp-action="ChangeState" class="btn btn-outline-dark btn-sm" asp-route-id="@apiUser.Id">Change State</a>
-				</td>
-			</tr>
-		}
-	</tbody>
-</table>
-</div>
+				@foreach (APIUser apiUser in Model)
+				{
+					<tr>
+						<td>@apiUser.Id</td>
+						<td>@apiUser.Username</td>
+						<td>@apiUser.Password</td>
+						<td>@apiUser.Email</td>
+						<td>@(apiUser.IsActive ? "Active" : "Inactive")</td>
+						<td>@apiUser.Role.Name</td>
+						<td>@apiUser.Role.Description</td>
+						<td>
+							<a asp-controller="APIUser" asp-action="GetAPIUserById" class="btn btn-outline-dark btn-sm" asp-route-id="@apiUser.Id">Details</a>
+						</td>
+						<td>
+							<a asp-controller="APIUser" asp-action="ChangeState" class="btn btn-outline-dark btn-sm" asp-route-id="@apiUser.Id">Change State</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 </body>
 
 @section Scripts {

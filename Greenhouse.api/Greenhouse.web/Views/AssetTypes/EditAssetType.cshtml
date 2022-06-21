@@ -1,11 +1,11 @@
 ﻿@model Greenhouse.web.Models.AssetType
 
-
-@*<!DOCTYPE html>*@
-
+@{
+	Layout = "_MainLayout";
+}
 
 <head>
-    @*<meta name="viewport" content="width=device-width" />*@
+    <meta name="viewport" content="width=device-width" />
     <title>Edit Asset Type</title>
 </head>
 
@@ -14,12 +14,12 @@
 
     @*<input type="hidden" name="number" asp-for="Id" />*@
     <div class = "row pb-2">
-	    <h4 class ="text-dark text-left m-3">
+	    <h4 class ="text-dark text-left m-2">
             Edit Asset Type
         </h4>
     </div>
 
-    <div asp-validation-summary="All">
+    <div asp-validation-summary="All" class="m-2">
         <div class="mb-3">
             <label asp-for="Id" class="form-label"></label>
             <input asp-for="Id" class="form-control" readonly />
@@ -34,22 +34,20 @@
             <input asp-for="Description" class="form-control" />
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
-@*        <div class="form-check mb-3">
+      @*<div class="form-check mb-3">
             <input asp-for="IsActive" class="form-check-input" />
             <label asp-for="IsActive" class="form-check-label"></label>
             <span asp-validation-for="IsActive" class="text-danger"></span>
         </div>*@
-        <button input type="submit" value = "Save" class="btn btn-outline-dark">Submit</button>
-        <a asp-controller="AssetTypes" asp-action="GetAssetTypes" class="btn btn-outline-secondary">Back to List</a>
+        <button input type="submit" value = "Save" class="btn btn-outline-dark  btn-sm">Submit</button>
+        <a asp-controller="AssetTypes" asp-action="GetAssetTypes" class="btn btn-outline-secondary btn-sm">Back</a>
     </div>
-
 </form>
-
 </body>
+
 @section Scripts {
 	@{
 		<partial name="_ValidationScriptsPartial" />
 	}
-
 }
   

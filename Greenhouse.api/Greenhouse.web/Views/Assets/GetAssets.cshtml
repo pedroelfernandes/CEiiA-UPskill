@@ -1,51 +1,59 @@
 ﻿@model IEnumerable<Greenhouse.web.Models.Asset>
 
+@{
+	Layout = "_LoggedInLayout";
+}
 
-<!DOCTYPE html>
-
-<html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>List of Assets</title>
+	<meta name="viewport" content="width=device-width" />
+	<title>List of Assets</title>
 </head>
 <body>
-    <h4 class="text-dark text-left m-3">List of Assets</h4>
+	<h4 class="text-dark text-left m-2">List of Assets</h4>
 
-    @*Create a new button to generate a New Asset Type*@
-	<div class="container text-end m-3">
+	@*Create a new button to generate a New Asset Type*@
+	<div class="text-end m-2">
 		<a asp-controller="Assets" asp-action="CreateAsset" class="btn btn-dark btn-sm">
-			Create new Asset
+			New Asset
 		</a>
 	</div>
 
 
-@*Create the table*@
-	<div class="table-responsive-sm">
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                @*<th>Id</th>*@
-                <th>Name</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th colspan="2"></th>
-
-            @foreach (var item in Model) {
-                <tr>
-
-                    @*<td>@item.Id</td>*@
-                    <td>@item.Name</td>
-                    <td>@item.Description</td>
-                    <td>@(item.IsActive ? "Active" : "Inactive")</td>
-				    <td  class="text-center">
-					    <a asp-controller="Assets" asp-action="GetAssetById" class="btn btn-outline-dark btn-sm" asp-route-id="@item.Id">Details</a>
-				    </td>
-				    <td  class="text-center">
-					    <a asp-controller="Assets" asp-action="ChangeStateAsset" class="btn btn-outline-dark btn-sm" asp-route-id="@item.Id">Change Status</a>
-				    </td>
-                </tr>
-            }
-    </table>
-    </div>
+	@*Create the table*@
+	<div class="table-responsive-sm m-2">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					@*<th>Id</th>*@
+					<th>Name</th>
+					<th>Description</th>
+					<th>Status</th>
+					<th colspan="2"></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (Asset asset in Model)
+				{
+					<tr>
+						@*<td>@asset.Id</td>*@
+						<td>@asset.Name</td>
+						<td>@asset.Description</td>
+						<td>@(asset.IsActive ? "Active" : "Inactive")</td>
+						<td>
+							<a asp-controller="Assets" asp-action="GetAssetById" class="btn btn-outline-dark btn-sm" asp-route-id="@asset.Id">Details</a>
+						</td>
+						<td>
+							<a asp-controller="Assets" asp-action="ChangeStateAsset" class="btn btn-outline-dark btn-sm" asp-route-id="@asset.Id">Change State</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 </body>
-</html>
+
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+	}

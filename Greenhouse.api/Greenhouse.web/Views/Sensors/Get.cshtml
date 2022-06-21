@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Greenhouse.web.Models.Sensor>
+
+@{
+	Layout = "_LoggedInLayout";
+}
+
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>List of Sensors</title>
+</head>
+<body>
+	<div>
+		<h4 class="text-dark text-left m-2">List of Sensors</h4>
+	</div>
+
+
+	<div class="table-responsive-sm m-2">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Sensor Id</th>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Unit</th>
+					<th>Company</th>
+					<th>Active Since</th>
+					<th>Status</th>
+					<th>SensorType</th>
+					<th>Asset</th>
+					<th colspan="2"></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (Sensor sensor in Model)
+				{
+					<tr>
+						<td>@sensor.Id</td>
+						<td>@sensor.Name</td>
+						<td>@sensor.Description</td>
+						<td>@sensor.Unit</td>
+						<td>@sensor.Company</td>
+						<td>@sensor.ActiveSince</td>
+						<td>@(sensor.IsActive ? "Active" : "Inactive")</td>
+						<td>@sensor.SensorType.Name</td>
+						<td>@sensor.Assets</td>
+						<td>
+							<a asp-controller="Sensor" asp-action="GetSensorById" class="btn btn-outline-dark btn-sm" asp-route-id="@sensor.Id">Details</a>
+						</td>
+						<td>
+							<a asp-controller="Sensor" asp-action="ChangeState" class="btn btn-outline-dark btn-sm" asp-route-id="@sensor.Id">Change State</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</body>
+
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+	}
