@@ -1,32 +1,49 @@
 ﻿@model List<Greenhouse.web.Models.Asset>
 
-<div class="">
-    Assets
-    <div class="accordion" id="accordionExample">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+            Assets
+            <div class="accordion" id="accordionAssets">
 
-        @foreach (Asset asset in Model)
-        {
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne-@asset.Id">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne-@asset.Id" aria-expanded="true" aria-controls="collapseOne-@asset.Id">
-                        @asset.Name
-                    </button>
-                </h2>
-                <div id="collapseOne-@asset.Id" class="accordion-collapse collapse show" aria-labelledby="headingOne-@asset.Id" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        @asset.Description
-                        @foreach (Sensor sensor in asset.Sensors)
-                        {
-                            <p>@sensor.Name</p>
-                        }
+                @foreach (Asset asset in Model)
+                {
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne-@asset.Id">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne-@asset.Id" aria-expanded="true" aria-controls="collapseOne-@asset.Id">
+                                @asset.Name
+                            </button>
+                        </h2>
+                        <div id="collapseOne-@asset.Id" class="accordion-collapse collapse" aria-labelledby="headingOne-@asset.Id" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <p><strong>@asset.Description</strong></p>
+
+                                <div class="accordion" id="accordion-@asset.Id">
+                                    @foreach (Sensor sensor in asset.Sensors)
+                                    {
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingSensor-@asset.Id-@sensor.Id">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSensor-@asset.Id-@sensor.Id" aria-expanded="true" aria-controls="collapseSensor-@asset.Id-@sensor.Id">
+                                                    <p>@sensor.Name</p>
+                                                </button>
+                                            </h2>
+                                            <div id="collapseSensor-@asset.Id-@sensor.Id" class="accordion-collapse collapse" aria-labelledby="headingSensor-@asset.Id-@sensor.Id" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <p>@sensor.Description</p>
+                                                    <p>@sensor.SensorType.Name</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                }
             </div>
-        }
-
+        </div>
+        <div class="col-9">
+            Graphs
+        </div>
     </div>
-</div>
-
-<div>
-    Graphs
 </div>
