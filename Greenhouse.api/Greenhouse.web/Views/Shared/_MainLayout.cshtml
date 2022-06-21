@@ -22,31 +22,26 @@
 				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" id="navbarColor01">
 					<ul class="navbar-nav flex-grow-1 justify-content-end">
 						<li class="nav-item">
-							<a class="nav-link text-light" asp-area="" asp-controller="APIs" asp-action="GetAPIs">API</a>
+							<a class="nav-link text-light" asp-area="" asp-controller="Sensors" asp-action="GetSensors">Sensors</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-light" asp-area="" asp-controller="Sensors" asp-action="GetSensors">SensorsList</a>
+							<a class="nav-link text-light" asp-area="" asp-controller="SensorTypes" asp-action="Get">SensorTypes</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-light" asp-area="" asp-controller="SensorTypes" asp-action="Get">SensorTypesList</a>
+							<a class="nav-link text-light" asp-area="" asp-controller="AssetTypes" asp-action="GetAssetTypes">AssetTypes</a>
 						</li>
 						<li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="AssetTypes" asp-action="GetAssetTypes">AssetTypesList</a>
-                        </li>
+							<a class="nav-link text-light" asp-area="" asp-controller="Assets" asp-action="GetAssets">Assets</a>
+						</li>
+
 						<li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Assets" asp-action="GetAssets">AssetsList</a>
-                        </li>
+							<a class="nav-link text-light" asp-area="" asp-controller="APIUser" asp-action="Get" asp-route-id="2">APIUsers</a>
+						</li>
 						<li class="nav-item">
-							<a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Create">Register</a>
+							<a class="nav-link text-light" asp-area="" asp-controller="Role" asp-action="Get" asp-route-id="2">Roles</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-light" asp-area="" asp-controller="APIUser" asp-action="Get" asp-route-id="2">Get APIUsers</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-light" asp-area="" asp-controller="Role" asp-action="Get" asp-route-id="2">Get Roles</a>
 						</li>
 
 					</ul>
@@ -54,7 +49,7 @@
 			</div>
 		</nav>
 	</header>
-	<div class="container min-vh-100 align-content-center" >
+	<div class="container min-vh-100 align-content-center">
 		<main role="main">
 			@RenderBody()
 		</main>

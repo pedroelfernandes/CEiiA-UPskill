@@ -1,91 +1,50 @@
-﻿@*@model Greenhouse.web.Models.Role
+﻿@model Greenhouse.web.Models.Role
 
 @{
 	Layout = "_MainLayout";
 }
 
-
-<h1>Roles</h1>
-
-<form method="post" asp-controller="Role" asp-action="Edit">
-	<input type="hidden" name="number" asp-for="Id" />
-	<div class="border m-2 p-4">
-		<h2>
-			Edit Roles
-		</h2>
-		<div asp-validation-summary="All"></div>
-		<div class="mb-3">
-			<label asp-for="Id" class="form-label"></label>
-			<input asp-for="Id" class="form-control" disabled />
-		</div>
-		<div class="mb-3">
-			<label asp-for="Name" class="form-label"></label>
-			<input asp-for="Name" class="form-control" />
-			<span asp-validation-for="Name" class="text-danger"></span>
-		</div>
-		<div class="mb-3">
-			<label asp-for="Description" class="form-label"></label>
-			<input asp-for="Description" class="form-control" />
-			<span asp-validation-for="Description" class="text-danger"></span>
-		</div>
-		<div class="form-group form-check">
-			<label asp-for="IsActive" class="form-check-label"></label>
-			<input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-			<span asp-validation-for="IsActive" class="text-danger"></span>
-		</div>
-		
-		<button type="submit" class="btn btn-primary">Submit</button>
-		<a asp-controller="Role" asp-action="Get" class="btn btn-secondary">Back to List</a>
-	</div>
-</form>
-
-@section Scripts {
-	@{
-		<partial name="_ValidationScriptsPartial" />
-	}
-	}*@
-
-@model Greenhouse.web.Models.Role
-@*<!DOCTYPE html>*@
 <head>
-    @*<meta name="viewport" content="width=device-width" />*@
-    <title>Edit Role</title>
+	<meta name="viewport" content="width=device-width" />
+	<title>Edit Role</title>
 </head>
+
 <body>
-<form method="post" asp-action="Edit">
-    @*<input type="hidden" name="number" asp-for="Id" />*@
-    <div class = "row pb-2">
-	<h4 class ="text-success text-left m-3">
-            Edit Role
-        </h4>
-    </div>
-    <div asp-validation-summary="All">
-        <div class="mb-3">
-            <label asp-for="Id" class="form-label"></label>
-            <input asp-for="Id" class="form-control" readonly />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Name" class="form-label"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Description" class="form-label"></label>
-            <input asp-for="Description" class="form-control" />
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
-@*        <div class="form-check mb-3">
-            <input asp-for="IsActive" class="form-check-input" />
-            <label asp-for="IsActive" class="form-check-label"></label>
-            <span asp-validation-for="IsActive" class="text-danger"></span>
-        </div>*@
-        <button input type="submit" value = "Save" class="btn btn-primary">Submit</button>
-        <a asp-controller="Role" asp-action="Get" class="btn btn-secondary">Back to List</a>
-    </div>
-</form>
+	<form method="post" asp-action="Edit">
+		@*<input type="hidden" name="number" asp-for="Id" />*@
+		<div class="row pb-2 m-2">
+			<h4 class="text-dark text-left">
+				Edit Role
+			</h4>
+		</div>
+
+		<div asp-validation-summary="All">
+			<div class="mb-3">
+				<label asp-for="Id" class="form-label"></label>
+				<input asp-for="Id" class="form-control" readonly />
+			</div>
+			<div class="mb-3">
+				<label asp-for="Name" class="form-label"></label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Description" class="form-label"></label>
+				<input asp-for="Description" class="form-control" />
+				<span asp-validation-for="Description" class="text-danger"></span>
+			</div>
+			@*        <div class="form-check mb-3">
+			<input asp-for="IsActive" class="form-check-input" />
+			<label asp-for="IsActive" class="form-check-label"></label>
+			<span asp-validation-for="IsActive" class="text-danger"></span>
+			</div>*@
+			<button input type="submit" value="Save" class="btn btn-outline-dark btn-sm">Submit</button>
+			<a asp-controller="Role" asp-action="Get" class="btn btn-outline-secondary btn-sm">Back</a>
+		</div>
+	</form>
 </body>
 @section Scripts {
 	@{
 		<partial name="_ValidationScriptsPartial" />
 	}
-}
+	}

@@ -4,20 +4,21 @@
 	Layout = "_MainLayout";
 }
 
-<h1>Users</h1>
 
 <head>
-	<title>Edit Role</title>
+	<meta name="viewport" content="width=device-width" />
+	<title>Edit APIUser</title>
 </head>
 <body>
-	<form method="post" asp-controller="APIUser" asp-action="Edit">
+	<form method="post" asp-action="Edit">
 		@*<input type="hidden" name="number" asp-for="Id" />*@
 		<div class="row pb-2">
-			<h4 class="text-success text-left m-3">
-				Edit Role
+			<h4 class="text-dark text-left m-2">
+				Edit APIUser
 			</h4>
 		</div>
-		<div asp-validation-summary="All">
+
+		<div asp-validation-summary="All" class="m-2">
 			<div class="mb-3">
 				<label asp-for="Id" class="form-label"></label>
 				<input asp-for="Id" class="form-control" readonly />
@@ -37,8 +38,8 @@
 			<label asp-for="IsActive" class="form-check-label"></label>
 			<span asp-validation-for="IsActive" class="text-danger"></span>
 			</div>*@
-			<button input type="submit" value="Save" class="btn btn-primary">Submit</button>
-			<a asp-controller="APIUser" asp-action="Get" class="btn btn-secondary">Back to List</a>
+			<button input type="submit" value="Save" class="btn btn-outline-dark btn-sm">Submit</button>
+			<a asp-controller="APIUser" asp-action="Get" class="btn btn-outline-secondary btn-sm">Back</a>
 		</div>
 	</form>
 </body>
