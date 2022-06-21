@@ -1,4 +1,5 @@
 ﻿using MainAPI.Data;
+using MainAPI.Helpers.Implementations;
 using MainAPI.Models;
 using MainAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,9 @@ namespace MainAPI.Repositories.Implementations
         {
             if (apiUser == null)
                 throw new Exception("User not defined.");
+
+            //hash password before storing user
+            //apiUser.Password = PwdEncryptor.Encrypt(apiUser.Password);
 
             await _db.APIUsers.AddAsync(apiUser);
             await _db.SaveChangesAsync();
@@ -67,6 +71,9 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<bool> Authorized(string username, string password)
         {
+            //hash password before checking with database database
+            //password = PwdEncryptor.Encrypt(password);
+
             APIUser apiUser = await _db.APIUsers.FirstAsync(u => u.Username == username && u.Password == password);
 
             if (apiUser != null)
