@@ -1,85 +1,91 @@
 ﻿@model Greenhouse.web.Models.Asset
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
+	Layout = "_MainLayout";
 }
 
-<!DOCTYPE html>
-
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Asset Details</title>
+	<meta name="viewport" content="width=device-width" />
+	<title>Asset Details</title>
 </head>
 
 <body>
+	<form>
+		<div class="row pb-2">
+			<h4 class="text-dark text-left m-2">
+				Asset Details
+			</h4>
+		</div>
 
-    <div class = "row pb-2">
-	<h4 class ="text-dark text-left m-3">
-		Asset Details
-	</h4>
-    </div>
-
-	<div class = "border m-2 p-4">
-    <hr />
-    <dl class="mb-3">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Company)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Company)
-        </dd>        
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location)
-        </dd>        
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreationDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AssetType.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AssetType.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sensors)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Sensors)
-        </dd>
-    </dl>
-</div>
-    <a asp-controller="Assets" asp-action="EditAsset" asp-route-id="@Model.Id" class="btn btn-outline-dark btn-sm">edit</a> 
-
-	<a asp-controller="Assets" asp-action="GetAssets" class="btn btn-outline-secondary  btn-sm" >Back to the list of Asset Types</a>
-      
+		<div class="border m-2 p-4">
+			<hr />
+			<dl class="mb-3">
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.Id)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.Id)
+				</dd>
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.Name)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.Name)
+				</dd>
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.Description)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.Description)
+				</dd>
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.Company)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.Company)
+				</dd>
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.Location)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.Location)
+				</dd>
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.CreationDate)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.CreationDate)
+				</dd>
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.AssetType.Description)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.AssetType.Description)
+				</dd>
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.IsActive)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.IsActive)
+				</dd>
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.Sensors)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.Sensors)
+				</dd>
+			</dl>
+		</div>
+		<div class="m-2">
+			<a asp-controller="Assets" asp-action="EditAsset" asp-route-id="@Model.Id" class="btn btn-outline-dark btn-sm">Edit</a>
+			<a asp-controller="Assets" asp-action="GetAssets" class="btn btn-outline-secondary btn-sm">Back to Assets</a>
+		</div>
+	</form>
 </body>
+
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+	}

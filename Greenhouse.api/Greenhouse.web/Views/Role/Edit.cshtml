@@ -12,13 +12,13 @@
 <body>
 	<form method="post" asp-action="Edit">
 		@*<input type="hidden" name="number" asp-for="Id" />*@
-		<div class="row pb-2 m-2">
-			<h4 class="text-dark text-left">
+		<div class="row pb-2">
+			<h4 class="text-dark text-left m-2">
 				Edit Role
 			</h4>
 		</div>
 
-		<div asp-validation-summary="All">
+		<div asp-validation-summary="All" class="m-2">
 			<div class="mb-3">
 				<label asp-for="Id" class="form-label"></label>
 				<input asp-for="Id" class="form-control" readonly />
