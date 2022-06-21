@@ -1,46 +1,64 @@
 ﻿@model IEnumerable<Greenhouse.web.Models.SensorType>
 
 @{
-    Layout = "_MainLayout";
+	Layout = "_MainLayout";
 }
 
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>List of Sensor Types</title>
+</head>
 
-<h1>List of SensorType</h1>
+<body>
+
+	<div>
+		<h4 class="text-dark text-left m-2">List of Sensor Types</h4>
+	</div>
 
 
-<div class="container text-end">
-    <a asp-controller="SensorTypes" asp-action="Create" class="btn btn-primary">
-        Create New SensorType
-    </a>
-</div>
+	<div class="text-end m-2">
+		<a asp-controller="SensorTypes" asp-action="Create" class="btn btn-dark btn-sm">
+			New SensorType
+		</a>
+	</div>
 
-<table class="table table-hover">
-	<thead>
-		<tr class="table-info">
-			<th>SensorType Id</th>
-			<th>Name</th>
-			<th>Description</th>
-			<th>Active Status</th>
-			<th></th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
+	<div class="table-responsive-sm m-2">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>SensorType Id</th>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Status</th>
+					<th colspan="2"></th>
+				</tr>
+			</thead>
+			<tbody>
 
-		@foreach (SensorType sensorType in Model)
-		{
-			<tr class="table-info">
-				<td>@sensorType.Id</td>
-				<td>@sensorType.Name</td>
-				<td>@sensorType.Description</td>
-				<td>@sensorType.IsActive</td>
-				<th>
-					<a asp-controller="SensorTypes" asp-action="GetSensorTypeById" asp-route-id="@sensorType.Id">Details</a>
-				</th>
-				<th>
-					<a asp-controller="SensorTypes" asp-action="ChangeState" asp-route-id="@sensorType.Id">ChangeState</a>
-				</th>
-			</tr>
-		}
-	</tbody>
-</table>
+				@foreach (SensorType sensorType in Model)
+				{
+					<tr>
+						<td>@sensorType.Id</td>
+						<td>@sensorType.Name</td>
+						<td>@sensorType.Description</td>
+						<td>@(sensorType.IsActive ? "Active" : "Inactive")</td>
+						<td>
+							<a asp-controller="SensorTypes" asp-action="GetSensorTypeById" class="btn btn-outline-dark btn-sm" asp-route-id="@sensorType.Id">Details</a>
+						</td>
+						<td>
+							<a asp-controller="SensorTypes" asp-action="ChangeState" class="btn btn-outline-dark btn-sm" asp-route-id="@sensorType.Id">ChangeState</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+
+
+		</table>
+	</div>
+</body>
+
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+	}
