@@ -1,4 +1,5 @@
 ﻿using MainAPI.Models;
+using Newtonsoft.Json;
 
 namespace MainAPI.DTO
 {
@@ -6,27 +7,38 @@ namespace MainAPI.DTO
     {
         public int Id { get; set; }
 
+
         public string? Name { get; set; }
+
 
         public string? Description { get; set; }
 
+
         public string? Company { get; set; }
+
 
         public string? Location { get; set; }
 
+
         public DateTime? CreationDate { get; set; }
+
 
         public int AssetTypeId { get; set; }
 
+
         public AssetTypeDTO? AssetType { get; set; }
+
 
         public bool IsActive { get; set; }
 
-        public IReadOnlyCollection<AssetSensor>? Sensors { get; set; }
+
+        public List<SensorDTO>? Sensors { get; set; }
 
 
         public static AssetDTO ToDto(Asset asset)
         {
+            List<Sensor> sensors = asset.Sensors.ToList().Select(s => s.Sensor).ToList(); 
+
             return new AssetDTO()
             {
                 Id = asset.Id,
@@ -38,7 +50,7 @@ namespace MainAPI.DTO
                 AssetTypeId = asset.AssetTypeId,
                 AssetType = AssetTypeDTO.ToDto(asset.AssetType),
                 IsActive = asset.IsActive,
-                Sensors = (IReadOnlyCollection<AssetSensor>?) asset.Sensors
+                Sensors = sensors.Select(s => SensorDTO.ToDto(s)).ToList()
             };
         }
     }

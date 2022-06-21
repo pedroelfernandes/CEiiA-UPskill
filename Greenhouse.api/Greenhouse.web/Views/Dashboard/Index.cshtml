@@ -15,10 +15,10 @@
                 <div id="collapseOne-@asset.Id" class="accordion-collapse collapse show" aria-labelledby="headingOne-@asset.Id" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         @asset.Description
-                        @*@foreach (AssetSensor sensor in asset.Sensors)
+                        @foreach (Sensor sensor in asset.Sensors)
                         {
-                            <p>@sensor.Sensor.Name</p>
-                        }*@
+                            <p>@sensor.Name</p>
+                        }
                     </div>
                 </div>
             </div>
