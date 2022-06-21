@@ -34,6 +34,10 @@ namespace MainAPI.Repositories.Implementations
         }
 
 
+        public async Task<List<Asset>> GetActiveAssets() =>
+            await _db.Assets.Where(a => a.IsActive).ToListAsync();
+
+
         public async Task<Asset> CreateAsset(Asset asset)
         {
             if (asset == null)
