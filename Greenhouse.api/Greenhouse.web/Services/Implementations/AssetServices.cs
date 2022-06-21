@@ -16,7 +16,6 @@ namespace Greenhouse.web.Services.Implementations
         }
 
 
-
         //Get list of AssetTypes
         public async Task<IEnumerable<Asset>> GetAssets()
         {
@@ -36,36 +35,6 @@ namespace Greenhouse.web.Services.Implementations
             }
             return assets;
         }
-
-
-
-        //Create new Asset
-        public async Task<Asset> CreateAsset(Asset asset)
-        {
-            string url = _configuration.GetValue<string>("URL");
-
-            HttpClient client = Helpers.Helpers.GetHttpClient(url);
-
-            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(asset), Encoding.UTF8);
-            
-            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-            var response = await client.PostAsync(url + $"Asset/CreateAsset", httpContent);
-
-            response.EnsureSuccessStatusCode();
-
-            if (response.IsSuccessStatusCode)
-            {
-                var res = JsonConvert.DeserializeObject<Asset>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
-
-                if (res != null)
-                {
-                    return res;
-                }
-            }
-            return new Asset();
-        }
-
 
 
         //Get Asset by Id
@@ -90,7 +59,28 @@ namespace Greenhouse.web.Services.Implementations
         }
 
 
+        //Create new Asset
+        public async Task<Asset> CreateAsset(Asset asset)
+        {
+            string url = _configuration.GetValue<string>("URL");
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(asset), Encoding.UTF8);
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            HttpResponseMessage response = await client.PostAsync(url + $"Asset/CreateAsset", httpContent);
+            response.EnsureSuccessStatusCode();
 
+            if (response.IsSuccessStatusCode)
+            {
+                Asset res = JsonConvert.DeserializeObject<Asset>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
+
+                if (res != null)
+                    asset = res;
+            }
+
+            return asset;
+        }
+
+        
         //Edit a specific Asset
         public async Task<Asset> EditAsset(Asset asset)
         {
@@ -106,13 +96,11 @@ namespace Greenhouse.web.Services.Implementations
                 var res = JsonConvert.DeserializeObject<Asset>(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
 
                 if (res != null)
-                {
-                    return res;
-                }
+                    asset = res;
             }
-            return new Asset();
-        }
 
+            return asset;
+        }
 
 
         //Delete-change status asset(bool)

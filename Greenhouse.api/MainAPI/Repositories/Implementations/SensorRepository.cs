@@ -27,7 +27,7 @@ namespace MainAPI.Repositories.Implementations
         }
 
 
-        public async Task<Sensor> Get(int id)
+        public async Task<Sensor> GetSensor(int id)
         {
             Sensor sensor = await _db.Sensors.Include(s => s.SensorType).FirstAsync(s => s.Id == id);
 
@@ -36,6 +36,10 @@ namespace MainAPI.Repositories.Implementations
 
             return sensor;
         }
+
+
+        public async Task<List<Sensor>> Get() =>
+            await _db.Sensors.Include(s => s.SensorType).ToListAsync();
 
 
         public async Task<Sensor> Edit(Sensor sensor)

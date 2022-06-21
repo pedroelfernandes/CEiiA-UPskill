@@ -58,16 +58,33 @@ namespace MainAPI.Services.Implementations
         }
             
 
-
         //Transfer the CreateAsset content to DTO
-        public async Task<AssetDTO> CreateAsset(Asset asset) =>
-            AssetDTO.ToDto(await _assetRepository.CreateAsset(asset));
+        public async Task<AssetDTO> CreateAsset(Asset asset)
+        {
+            //Asset assetTemp = await _assetRepository.CreateAsset(asset);
+            asset = await _assetRepository.CreateAsset(asset);
 
+            //assetTemp.Sensors = await _assetSensorService.GetAssetSensors(assetTemp.Id);
+            asset.Sensors = await _assetSensorService.GetAssetSensors(asset.Id);
+
+            //return AssetDTO.ToDto(assetTemp);
+            return AssetDTO.ToDto(asset);
+        }
+            
 
         //Edit
-        public async Task<AssetDTO> EditAsset(Asset asset) =>
-            AssetDTO.ToDto(await _assetRepository.EditAsset(asset));
+        public async Task<AssetDTO> EditAsset(Asset asset)
+        {
+            //Asset assetTemp = await _assetRepository.EditAsset(asset);
+            asset = await _assetRepository.EditAsset(asset);
 
+            //assetTemp.Sensors = await _assetSensorService.GetAssetSensors(assetTemp.Id);
+            asset.Sensors = await _assetSensorService.GetAssetSensors(asset.Id);
+
+            //return AssetDTO.ToDto(assetTemp);
+            return AssetDTO.ToDto(asset);
+        }
+            
 
         //Inactivate Asset
         public async Task<bool> ChangeState(int id) =>

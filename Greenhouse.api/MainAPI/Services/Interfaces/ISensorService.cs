@@ -8,7 +8,10 @@ namespace MainAPI.Services.Interfaces
         Task<SensorDTO> Create(Sensor sensor);
 
 
-        Task<SensorDTO> Get(int id);
+        Task<List<SensorDTO>> Get();
+
+
+        Task<SensorDTO> GetSensor(int id);
 
 
         Task<SensorDTO> Edit(Sensor sensor);
