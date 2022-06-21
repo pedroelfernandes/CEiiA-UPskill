@@ -8,6 +8,9 @@ namespace MainAPI.Services.Interfaces
         Task<List<AssetDTO>> GetAssets();
 
 
+        Task<List<AssetDTO>> GetActiveAssets();
+
+
         Task<AssetDTO> GetAssetById(int Id);
 
 

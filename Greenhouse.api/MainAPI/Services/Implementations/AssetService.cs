@@ -26,7 +26,11 @@ namespace MainAPI.Services.Implementations
 
         //transform Assets list to a DTO object
         public async Task<List<AssetDTO>> GetAssets() =>
-            (await _assetRepository.GetAssets()).ToList().Select(asset => AssetDTO.ToDto(asset)).ToList();
+            (await _assetRepository.GetAssets()).Select(asset => AssetDTO.ToDto(asset)).ToList();
+
+
+        public async Task<List<AssetDTO>> GetActiveAssets() =>
+            (await _assetRepository.GetActiveAssets()).Select(asset => AssetDTO.ToDto(asset)).ToList();
 
 
         //transfer a specific Asset to DTO

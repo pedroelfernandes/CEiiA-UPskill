@@ -7,6 +7,9 @@ namespace MainAPI.Repositories.Interfaces
         Task<List<Asset>> GetAssets();
 
 
+        Task<List<Asset>> GetActiveAssets();
+
+
         Task<Asset> GetAssetById(int Id);
 
 
