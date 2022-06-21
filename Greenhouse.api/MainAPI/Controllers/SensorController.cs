@@ -19,8 +19,13 @@ namespace MainAPI.Controllers
 
 
         [HttpGet]
-        public async Task<SensorDTO> Get(int id) =>
-            await _sensorService.Get(id);
+        public async Task<List<SensorDTO>> Get() =>
+            await _sensorService.Get();
+
+
+        [HttpGet]
+        public async Task<SensorDTO> GetSensorById(int id) =>
+            await _sensorService.GetSensor(id);
 
 
         // Edit sensor information

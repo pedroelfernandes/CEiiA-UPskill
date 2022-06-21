@@ -24,8 +24,12 @@ namespace MainAPI.Services.Implementations
             SensorDTO.ToDto(await _sensorRepository.Create(sensor));
 
 
-        public async Task<SensorDTO> Get(int id) =>
-            SensorDTO.ToDto(await _sensorRepository.Get(id));
+        public async Task<List<SensorDTO>> Get() =>
+            (await _sensorRepository.Get()).Select(s => SensorDTO.ToDto(s)).ToList();
+
+
+        public async Task<SensorDTO> GetSensor(int id) =>
+            SensorDTO.ToDto(await _sensorRepository.GetSensor(id));
 
 
         public async Task<bool> ChangeState(int id) =>
