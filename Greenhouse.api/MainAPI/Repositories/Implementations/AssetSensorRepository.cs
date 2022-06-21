@@ -17,6 +17,6 @@ namespace MainAPI.Repositories.Implementations
 
 
         public async Task<List<AssetSensor>> GetAssetSensors(int assetId) =>
-            await _db.AssetSensors.Where(a => a.AssetId == assetId).Include(a => a.Sensor).ToListAsync();
+            await _db.AssetSensors.Where(a => a.AssetId == assetId).Include(a => a.Sensor).Include(a => a.Sensor.SensorType).ToListAsync();
     }
 }

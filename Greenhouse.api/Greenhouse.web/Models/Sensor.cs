@@ -15,7 +15,7 @@ namespace Greenhouse.web.Models
 
         public string? Company { get; set; }
 
-        public DataType ActiveSince { get; set; }
+        public DateTime ActiveSince { get; set; }
 
         public bool IsActive { get; set; }
 
