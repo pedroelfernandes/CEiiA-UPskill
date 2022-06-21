@@ -35,7 +35,7 @@
                 <tr>
 
                     @*<td>@item.Id</td>*@
-                    <td>@item.Name)</td>
+                    <td>@item.Name</td>
                     <td>@item.Description</td>
                     <td>@(item.IsActive ? "Active" : "Inactive")</td>
 				    <td  class="text-center">
@@ -45,9 +45,12 @@
 					    <a asp-controller="AssetTypes" asp-action="ChangeStateAssetType" class="btn btn-outline-dark btn-sm" asp-route-id="@item.Id">Change Status</a>
 				    </td>
                 </tr>
-            }
+                }
     </table>
     </div>
+@*<script src ="./js/site.js"></script>
+<script src ="./"*@
+
 </body>
 </html>
 

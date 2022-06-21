@@ -60,11 +60,11 @@
                 <input asp-for="AssetType.Description" class="form-control" />
                 <span asp-validation-for="AssetType.Description" class="text-danger"></span>
             </div>
-            <div class="mb-3">
+           @* <div class="mb-3">
                 <label asp-for="Sensors" class="form-label"></label>
                 <input asp-for="Sensors" class="form-control" />
                 <span asp-validation-for="Sensors" class="text-danger"></span>
-            </div>
+            </div>*@
 
             <button input type="submit" value = "Save" class="btn btn-outline-dark">Submit</button>
             <a asp-controller="Assets" asp-action="GetAssets" class="btn btn-outline-secondary">Back to List</a>
