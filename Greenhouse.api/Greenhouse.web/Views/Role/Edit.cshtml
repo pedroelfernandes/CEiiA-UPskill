@@ -20,10 +20,6 @@
 
 		<div asp-validation-summary="All" class="m-2">
 			<div class="mb-3">
-				<label asp-for="Id" class="form-label"></label>
-				<input asp-for="Id" class="form-control" readonly />
-			</div>
-			<div class="mb-3">
 				<label asp-for="Name" class="form-label"></label>
 				<input asp-for="Name" class="form-control" />
 				<span asp-validation-for="Name" class="text-danger"></span>
@@ -33,11 +29,6 @@
 				<input asp-for="Description" class="form-control" />
 				<span asp-validation-for="Description" class="text-danger"></span>
 			</div>
-			@*        <div class="form-check mb-3">
-			<input asp-for="IsActive" class="form-check-input" />
-			<label asp-for="IsActive" class="form-check-label"></label>
-			<span asp-validation-for="IsActive" class="text-danger"></span>
-			</div>*@
 			<button input type="submit" value="Save" class="btn btn-outline-dark btn-sm">Submit</button>
 			<a asp-controller="Role" asp-action="Get" class="btn btn-outline-secondary btn-sm">Back</a>
 		</div>

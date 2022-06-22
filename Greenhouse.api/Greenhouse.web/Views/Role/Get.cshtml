@@ -28,7 +28,6 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>Role Id</th>
 					<th>Name</th>
 					<th>Description</th>
 					<th>Status</th>
@@ -39,7 +38,6 @@
 				@foreach (Role role in Model)
 				{
 					<tr>
-						<td>@role.Id</td>
 						<td>@role.Name</td>
 						<td>@role.Description</td>
 						<td>@(role.IsActive ? "Active" : "Inactive")</td>

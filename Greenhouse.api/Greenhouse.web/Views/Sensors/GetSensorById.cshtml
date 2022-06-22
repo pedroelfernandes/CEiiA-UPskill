@@ -1,0 +1,59 @@
+﻿@model Sensor
+
+@{
+	Layout = "_MainLayout";
+}
+
+
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Sensor</title>
+</head>
+<body>
+	<div>
+		<h4 class="text-dark text-left m-2">Sensor</h4>
+	</div>
+
+
+	<div class="table-responsive-sm m-2">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Unit</th>
+					<th>Company</th>
+					<th>Creation Date</th>
+					<th>Status</th>
+					<th>Sensor Type</th>
+					<th>Sensor Type Description</th>
+					<th colspan="2"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>@Model.Name</td>
+					<td>@Model.Description</td>
+					<td>@Model.Unit</td>
+					<td>@Model.Company</td>
+					<td>@Model.ActiveSince</td>
+					<td>@((bool)Model.IsActive ? "Active" : "Inactive")</td>
+					<td>@Model.SensorType.Name</td>
+					<td>@Model.SensorType.Description</td>
+					<td>
+						<a asp-controller="Sensors" asp-action="Edit" class="btn btn-outline-dark btn-sm" asp-route-id="@Model.Id">Edit</a>
+					</td>
+					<td>
+						<a asp-controller="Sensors" asp-action="Get" class="btn btn-outline-dark btn-sm" asp-route-id="@Model.Id">Back</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+	}

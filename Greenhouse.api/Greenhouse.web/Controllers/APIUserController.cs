@@ -1,6 +1,7 @@
 ﻿using Greenhouse.web.Models;
 using Greenhouse.web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Greenhouse.web.Controllers
 {
@@ -39,8 +40,10 @@ namespace Greenhouse.web.Controllers
 
 
         // create new role
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            List<Role> roles = await _rolesServices.Get();
+            ViewBag.RoleId = new SelectList(roles, "Id", "Name");
             return View();
         }
 
@@ -66,6 +69,8 @@ namespace Greenhouse.web.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var apiUser = await _apiUserServices.GetAPIUserById(id);
+            List<Role> roles = await _rolesServices.Get();
+            ViewBag.RoleId = new SelectList(roles, "Id", "Name");
             return View(apiUser);
         }
 
