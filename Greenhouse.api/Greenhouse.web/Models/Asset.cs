@@ -5,8 +5,7 @@ namespace Greenhouse.web.Models
 {
     public class Asset
     {
-        [Key]
-        public int Id { get; set; }
+        public int? Id { get; set; } = 0;
 
 
         public string? Name { get; set; }
@@ -22,7 +21,7 @@ namespace Greenhouse.web.Models
 
 
         [Display(Name = "Creation Date")]
-        public DateTime? CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; } = DateTime.Now;
 
 
         [Display(Name = "Asset Type")]
