@@ -22,9 +22,7 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>User Id</th>
 					<th>Username</th>
-					<th>Password</th>
 					<th>Email Address</th>
 					<th>Status</th>
 					<th>Role</th>
@@ -37,9 +35,7 @@
 				@foreach (APIUser apiUser in Model)
 				{
 					<tr>
-						<td>@apiUser.Id</td>
 						<td>@apiUser.Username</td>
-						<td>@apiUser.Password</td>
 						<td>@apiUser.Email</td>
 						<td>@(apiUser.IsActive ? "Active" : "Inactive")</td>
 						<td>@apiUser.Role.Name</td>

@@ -9,10 +9,13 @@ namespace MainAPI.Repositories.Implementations
     {
         private readonly ApplicationDbContext _db;
 
+        private readonly ISensorTypeRepository _sensorTypeRepository;
 
-        public SensorRepository(ApplicationDbContext db)
+
+        public SensorRepository(ApplicationDbContext db, ISensorTypeRepository sensorTypeRepository)
         {
             _db = db;
+            _sensorTypeRepository = sensorTypeRepository;
         }
 
 
@@ -46,6 +49,8 @@ namespace MainAPI.Repositories.Implementations
         {
             if (sensor == null)
                 throw new Exception("Sensor not found.");
+
+            sensor.SensorType = await _sensorTypeRepository.GetSensorTypeById(sensor.SensorTypeId);
 
             _db.Sensors.Update(sensor);
             await _db.SaveChangesAsync();

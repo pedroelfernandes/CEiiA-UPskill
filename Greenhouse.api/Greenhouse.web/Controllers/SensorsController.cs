@@ -1,16 +1,19 @@
 ﻿using Greenhouse.web.Models;
 using Greenhouse.web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Greenhouse.web.Controllers
 {
     public class SensorsController : Controller
     {
         private readonly ISensorServices _sensorServices;
+        private readonly ISensorTypeServices _sensorTypeServices;
 
-        public SensorsController (ISensorServices sensorServices)
+        public SensorsController (ISensorServices sensorServices, ISensorTypeServices sensorTypeServices)
         {
             _sensorServices = sensorServices;
+            _sensorTypeServices = sensorTypeServices;
         }
 
 
@@ -24,15 +27,14 @@ namespace Greenhouse.web.Controllers
         }
 
 
-        //Get Sensors by Id
+        //Get Sensor by Id
 
         [HttpGet("id")]
-        public async Task<IActionResult> GetSensorsById(int id)
+        public async Task<IActionResult> GetSensorById(int id)
         {
             var sensor = await _sensorServices.GetSensorById(id);
             return sensor == null ? NotFound() : View(sensor);
         }
-
 
 
         // create new Sensor
@@ -60,10 +62,14 @@ namespace Greenhouse.web.Controllers
         }
 
 
+
+
         //Edit Sensor
         public async Task<IActionResult> Edit(int id)
         {
             var sensor = await _sensorServices.GetSensorById(id);
+            List<SensorType> sensorTypes = await _sensorTypeServices.Get();
+            ViewBag.SensorTypeId = new SelectList(sensorTypes, "Id", "Name");
             return View(sensor);
         }
 

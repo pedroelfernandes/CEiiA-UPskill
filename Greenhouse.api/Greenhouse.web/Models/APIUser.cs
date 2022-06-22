@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Greenhouse.web.Models
 {
@@ -25,6 +26,8 @@ namespace Greenhouse.web.Models
 
         
         public int RoleId { get; set; }
+
+        [BindProperty]
         public Role? Role { get; set; }
     }
 }

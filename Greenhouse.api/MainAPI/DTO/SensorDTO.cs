@@ -7,11 +7,17 @@ namespace MainAPI.DTO
     {
         public int Id { get; set; }
 
+
+        public string? IdInAPI { get; set; }
+
         public string? Name { get; set; }
 
         public string? Description { get; set; }
 
         public string? Unit { get; set; }
+
+
+        public int? URLId { get; set; }
 
         public string? Company { get; set; }
 
@@ -29,9 +35,11 @@ namespace MainAPI.DTO
             return new SensorDTO()
             {
                 Id = sensor.Id,
+                IdInAPI = sensor.IdInAPI,
                 Name = sensor.Name,
                 Description = sensor.Description,
                 Unit = sensor.Unit,
+                URLId = sensor.URLId,
                 Company = sensor.Company,
                 ActiveSince = sensor.ActiveSince,
                 IsActive = sensor.IsActive,

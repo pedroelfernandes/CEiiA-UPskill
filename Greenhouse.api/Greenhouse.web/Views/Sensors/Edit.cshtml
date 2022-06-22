@@ -1,0 +1,71 @@
+﻿@model Greenhouse.web.Models.Sensor
+
+@{
+	Layout = "_MainLayout";
+}
+
+
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Edit Sensor</title>
+</head>
+<body>
+	<form method="post" asp-action="Edit">
+		<input type="hidden" name="number" asp-for="Id" />
+		<input type="hidden" name="isactive" asp-for="IsActive" />
+		<input type="hidden" name="activesince" asp-for="ActiveSince" />
+		<input type="hidden" name="idinapi" asp-for="IdInAPI" />
+		<input type="hidden" name="urlid" asp-for="URLId" />
+		<div class="row pb-2">
+			<h4 class="text-dark text-left m-2">
+				Edit Sensor
+			</h4>
+		</div>
+
+		<div asp-validation-summary="All" class="m-2">
+			<div class="mb-3">
+				<label asp-for="Name" class="form-label"></label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Description" class="form-label"></label>
+				<input asp-for="Description" class="form-control" />
+				<span asp-validation-for="Description" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Unit" class="form-label"></label>
+				<input asp-for="Unit" class="form-control" />
+				<span asp-validation-for="Unit" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Company" class="form-label"></label>
+				<input asp-for="Company" class="form-control" />
+				<span asp-validation-for="Company" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="SensorTypeId" class="form-label">Sensor Name</label>
+				<select asp-for="SensorTypeId" class="form-control" asp-items="ViewBag.SensorTypeId"></select> 
+				<span asp-validation-for="SensorTypeId" class="text-danger"></span>
+			</div>
+			@*<div class="mb-3">
+				<label asp-for="SensorType.Description" class="form-label"></label>
+				<input asp-for="SensorType.Description" class="form-control" />
+				<span asp-validation-for="SensorType.Description" class="text-danger"></span>
+			</div>*@
+			@*        <div class="form-check mb-3">
+			<input asp-for="IsActive" class="form-check-input" />
+			<label asp-for="IsActive" class="form-check-label"></label>
+			<span asp-validation-for="IsActive" class="text-danger"></span>
+			</div>*@
+			<button input type="submit" value="Save" class="btn btn-outline-dark btn-sm">Submit</button>
+			<a asp-controller="Sensors" asp-action="Get" class="btn btn-outline-secondary btn-sm">Back</a>
+		</div>
+	</form>
+</body>
+
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+	}

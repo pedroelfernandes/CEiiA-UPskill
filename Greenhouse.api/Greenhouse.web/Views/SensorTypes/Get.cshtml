@@ -26,7 +26,6 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>SensorType Id</th>
 					<th>Name</th>
 					<th>Description</th>
 					<th>Status</th>
@@ -38,7 +37,6 @@
 				@foreach (SensorType sensorType in Model)
 				{
 					<tr>
-						<td>@sensorType.Id</td>
 						<td>@sensorType.Name</td>
 						<td>@sensorType.Description</td>
 						<td>@(sensorType.IsActive ? "Active" : "Inactive")</td>
