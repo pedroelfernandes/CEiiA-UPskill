@@ -9,7 +9,7 @@
 	<title>List of Assets</title>
 </head>
 <body>
-	<h4 class="text-dark text-left m-2">List of Assets</h4>
+	<h4 class="text-dark text-left m-2" id="ListOfAssets">List of Assets</h4>
 
 	@*Create a new button to generate a New Asset Type*@
 	<div class="text-end m-2">
@@ -27,6 +27,8 @@
 					@*<th>Id</th>*@
 					<th>Name</th>
 					<th>Description</th>
+					<th>AssetType Name</th>
+					<th>AssetType Description</th>
 					<th>Status</th>
 					<th colspan="2"></th>
 				</tr>
@@ -38,6 +40,8 @@
 						@*<td>@asset.Id</td>*@
 						<td>@asset.Name</td>
 						<td>@asset.Description</td>
+						<td>@asset.AssetType.Name</td>
+						<td>@asset.AssetType.Description</td>
 						<td>@(asset.IsActive ? "Active" : "Inactive")</td>
 						<td>
 							<a asp-controller="Assets" asp-action="GetAssetById" class="btn btn-outline-dark btn-sm" asp-route-id="@asset.Id">Details</a>

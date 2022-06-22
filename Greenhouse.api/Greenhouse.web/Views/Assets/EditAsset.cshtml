@@ -47,15 +47,15 @@
 				<span asp-validation-for="CreationDate" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
-				<label asp-for="AssetType.Name" class="form-label">AssetType Name</label>
-				<input asp-for="AssetType.Name" class="form-control" />
-				<span asp-validation-for="AssetType.Name" class="text-danger"></span>
+				<label asp-for="AssetTypeId" class="form-label">AssetType Name</label>
+				<select asp-for="AssetTypeId" class="form-control" asp-items="ViewBag.AssetTypeId"></select>
+				<span asp-validation-for="AssetTypeId" class="text-danger"></span>
 			</div>
-			<div class="mb-3">
+@*			<div class="mb-3">
 				<label asp-for="AssetType.Description" class="form-label">AssetType Description</label>
 				<input asp-for="AssetType.Description" class="form-control" />
 				<span asp-validation-for="AssetType.Description" class="text-danger"></span>
-			</div>
+			</div>*@
 			<div class="mb-3">
 				<label asp-for="Sensors" class="form-label"></label>
 				<input asp-for="Sensors" class="form-control" />

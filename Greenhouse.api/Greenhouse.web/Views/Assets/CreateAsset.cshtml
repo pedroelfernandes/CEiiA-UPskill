@@ -43,8 +43,8 @@
 			</div>
 
 			<div class="mb-3">
-				<label asp-for="AssetTypeId" class="control-label"></label>
-				<input asp-for="AssetTypeId" class="form-control" />
+				<label asp-for="AssetTypeId" class="control-label">Asset Type Name</label>
+				<select asp-for="AssetTypeId" class="form-control" asp-items="ViewBag.AssetTypeId"></select>
 				<span asp-validation-for="AssetTypeId" class="text-danger"></span>
 			</div>
 		</div>

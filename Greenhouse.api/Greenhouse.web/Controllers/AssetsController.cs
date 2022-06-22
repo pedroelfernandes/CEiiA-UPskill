@@ -1,6 +1,7 @@
 ﻿using Greenhouse.web.Models;
 using Greenhouse.web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Greenhouse.web.Controllers
 {
@@ -9,9 +10,11 @@ namespace Greenhouse.web.Controllers
     {
 
         private readonly IAssetServices _assetServices;
-        public AssetsController(IAssetServices assetServices)
+        private readonly IAssetTypeServices _assetTypeServices;
+        public AssetsController(IAssetServices assetServices, IAssetTypeServices assetTypeServices)
         {
             _assetServices = assetServices;
+            _assetTypeServices = assetTypeServices;
         }
 
 
@@ -27,9 +30,12 @@ namespace Greenhouse.web.Controllers
 
 
         //Create new Asset
-        public IActionResult CreateAsset()
+        public async Task<IActionResult> CreateAsset()
         {
+            List<AssetType> assets = await _assetTypeServices.GetAssetTypes();
+            ViewBag.AssetTypeId = new SelectList(assets, "Id", "Name");
             return View();
+
         }
 
         [HttpPost]
@@ -66,6 +72,8 @@ namespace Greenhouse.web.Controllers
         public async Task<IActionResult> EditAsset(int id)
         {
             var asset = await _assetServices.GetAssetById(id);
+            List<AssetType> assets = await _assetTypeServices.GetAssetTypes();
+            ViewBag.AssetTypeId = new SelectList(assets, "Id", "Name");
             return View(asset);
         }
 

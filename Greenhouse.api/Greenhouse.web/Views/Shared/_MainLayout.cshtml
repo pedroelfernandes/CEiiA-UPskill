@@ -19,36 +19,35 @@
 						aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" id="navbarColor01">
-					<ul class="navbar-nav flex-grow-1 justify-content-end">
-						<li class="nav-item">
-							<a class="nav-link text-light" asp-area="" asp-controller="Sensors" asp-action="Get">Sensors</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-light" asp-area="" asp-controller="SensorTypes" asp-action="Get">SensorTypes</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-light" asp-area="" asp-controller="AssetTypes" asp-action="GetAssetTypes">AssetTypes</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-light" asp-area="" asp-controller="Assets" asp-action="GetAssets">Assets</a>
-						</li>
 
-						<li class="nav-item">
-							<a class="nav-link text-light" asp-area="" asp-controller="APIUser" asp-action="Get" asp-route-id="2">APIUsers</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-light" asp-area="" asp-controller="Role" asp-action="Get" asp-route-id="2">Roles</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-						</li>
-
-					</ul>
+				<div class="navbar navbar-expand-lg navbar-dark bg-dark">
+					<div class = "container-fluid">
+						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+							<ul class="navbar-nav">
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" id="navvarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										Select an option
+									</a>
+									<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+										<li><a class="dropdown-item" asp-area="" asp-controller="AssetTypes" asp-action="GetAssetTypes">AssetTypes</a></li>
+										<li><a class="dropdown-item" asp-area="" asp-controller="Assets" asp-action="GetAssets">Assets</a></li>
+										<li><a class="dropdown-item" asp-area="" asp-controller="SensorTypes" asp-action="Get">SensorTypes</a></li>
+										<li><a class="dropdown-item" asp-area="" asp-controller="Sensors" asp-action="Get">Sensors</a></li>
+										<li><a class="dropdown-item" asp-area="" asp-controller="APIUser" asp-action="Get">Users</a></li>
+										<li><a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="Get">Roles</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</nav>
 	</header>
+
 	<div class="container min-vh-100 align-content-center">
 		<main role="main">
 			@RenderBody()
@@ -60,9 +59,11 @@
 			&copy; 2022 - Greenhouse.web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
 		</div>
 	</footer>
+
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
 	@await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
