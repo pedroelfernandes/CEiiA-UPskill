@@ -18,7 +18,6 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>Sensor Id</th>
 					<th>Name</th>
 					<th>Description</th>
 					<th>Unit</th>
@@ -26,7 +25,6 @@
 					<th>Active Since</th>
 					<th>Status</th>
 					<th>SensorType</th>
-					<th>Asset</th>
 					<th colspan="2"></th>
 				</tr>
 			</thead>
@@ -34,7 +32,6 @@
 				@foreach (Sensor sensor in Model)
 				{
 					<tr>
-						<td>@sensor.Id</td>
 						<td>@sensor.Name</td>
 						<td>@sensor.Description</td>
 						<td>@sensor.Unit</td>
@@ -42,7 +39,6 @@
 						<td>@sensor.ActiveSince</td>
 						<td>@((bool)sensor.IsActive ? "Active" : "Inactive")</td>
 						<td>@sensor.SensorType.Name</td>
-						<td>@sensor.Assets</td>
 						<td>
 							<a asp-controller="Sensors" asp-action="GetSensorById" class="btn btn-outline-dark btn-sm" asp-route-id="@sensor.Id">Details</a>
 						</td>

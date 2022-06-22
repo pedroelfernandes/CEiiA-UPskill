@@ -23,6 +23,10 @@
 		</div>
 
 		<div asp-validation-summary="All" class="m-2">
+			<div class="mb-3" hidden>
+				<label asp-for="Id" class="form-label"></label>
+				<input asp-for="Id" class="form-control"/>
+			</div>
 			<div class="mb-3">
 				<label asp-for="Name" class="form-label"></label>
 				<input asp-for="Name" class="form-control" />
@@ -45,13 +49,13 @@
 			</div>
 			<div class="mb-3">
 				<label asp-for="SensorTypeId" class="form-label">Sensor Name</label>
-				<select asp-for="SensorTypeId" class="form-control" asp-items="ViewBag.SensorTypeId"></select> 
+				<select asp-for="SensorTypeId" class="form-control" asp-items="ViewBag.SensorTypeId"></select>
 				<span asp-validation-for="SensorTypeId" class="text-danger"></span>
 			</div>
 			@*<div class="mb-3">
-				<label asp-for="SensorType.Description" class="form-label"></label>
-				<input asp-for="SensorType.Description" class="form-control" />
-				<span asp-validation-for="SensorType.Description" class="text-danger"></span>
+			<label asp-for="SensorType.Description" class="form-label"></label>
+			<input asp-for="SensorType.Description" class="form-control" />
+			<span asp-validation-for="SensorType.Description" class="text-danger"></span>
 			</div>*@
 			@*        <div class="form-check mb-3">
 			<input asp-for="IsActive" class="form-check-input" />
