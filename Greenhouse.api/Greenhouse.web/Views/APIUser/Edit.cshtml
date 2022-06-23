@@ -42,6 +42,16 @@
 				<select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
 				<span asp-validation-for="RoleId" class="text-danger"></span>
 			</div>
+			<div class="mb-3">
+				<label asp-for="OldPassword" class="form-label">Old Password</label>
+				<input asp-for="OldPassword" class="form-control" />
+				<span asp-validation-for="OldPassword" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Password" class="form-label">New Password</label>
+				<input asp-for="Password" class="form-control" />
+				<span asp-validation-for="Password" class="text-danger"></span>
+			</div>
 			@*        <div class="form-check mb-3">
 			<input asp-for="IsActive" class="form-check-input" />
 			<label asp-for="IsActive" class="form-check-label"></label>

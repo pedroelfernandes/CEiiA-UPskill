@@ -14,7 +14,7 @@ namespace MainAPI.Repositories.Interfaces
         public Task<APIUser> Get(int id);
 
 
-        public Task<APIUser> Edit(APIUser apiUser);
+        public Task<APIUser> Edit(APIUser apiUser, string? oldPassword, string? newPassword);
 
 
         public Task<bool> ChangeState(int id);

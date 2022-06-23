@@ -41,12 +41,25 @@ namespace MainAPI.Repositories.Implementations
             await _db.APIUsers.Include(u => u.Role).FirstAsync(u => u.Id == id);
 
 
-        public async Task<APIUser> Edit(APIUser apiUser)
+        public async Task<APIUser> Edit(APIUser apiUser, string? oldPassword, string? newPassword)
         {
             if (apiUser == null)
                 throw new Exception("APIUser not defined.");
 
-            _db.APIUsers.Update(apiUser);
+            bool exists = await _db.APIUsers.AnyAsync(u => u.Id == apiUser.Id);
+
+            _db.APIUsers.Attach(apiUser);
+
+            if (_db.APIUsers.FindAsync(apiUser.Id).Result.Password == oldPassword)
+            {
+                apiUser.Password = newPassword;
+                _db.Entry(apiUser).Property(u => u.Password).IsModified = true;
+            }
+
+            _db.Entry(apiUser).Property(u => u.Username).IsModified = true;
+            _db.Entry(apiUser).Property(u => u.Email).IsModified = true;
+            _db.Entry(apiUser).Property(u => u.RoleId).IsModified = true;
+
             await _db.SaveChangesAsync();
             return apiUser;
         }
