@@ -14,35 +14,26 @@
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 			<div class="container-fluid">
-				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Greenhouse.web</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01"
+				@*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Greenhouse.web</a>*@
+				<button class="navbar-toggler ml" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
 						aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-
-				<div class="navbar navbar-expand-lg navbar-dark bg-dark">
-					<div class = "container-fluid">
-						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"></span>
-						</button>
-						<div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-							<ul class="navbar-nav">
-								<li class="nav-item dropdown">
-									<a class="nav-link dropdown-toggle" id="navvarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-										Select an option
-									</a>
-									<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-										<li><a class="dropdown-item" asp-area="" asp-controller="AssetTypes" asp-action="GetAssetTypes">AssetTypes</a></li>
-										<li><a class="dropdown-item" asp-area="" asp-controller="Assets" asp-action="GetAssets">Assets</a></li>
-										<li><a class="dropdown-item" asp-area="" asp-controller="SensorTypes" asp-action="Get">SensorTypes</a></li>
-										<li><a class="dropdown-item" asp-area="" asp-controller="Sensors" asp-action="Get">Sensors</a></li>
-										<li><a class="dropdown-item" asp-area="" asp-controller="APIUser" asp-action="Get">Users</a></li>
-										<li><a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="Get">Roles</a></li>
-									</ul>
-								</li>
+				<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+					<ul class="navbar-nav">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle h1" id="navbarnavDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Select an option</a>							
+							<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarnavDropdownMenuLink">
+								<li><a class="dropdown-item" asp-area="" asp-controller="AssetTypes" asp-action="GetAssetTypes">AssetTypes</a></li>
+								<li><a class="dropdown-item" asp-area="" asp-controller="Assets" asp-action="GetAssets">Assets</a></li>
+								<li><a class="dropdown-item" asp-area="" asp-controller="SensorTypes" asp-action="Get">SensorTypes</a></li>
+								<li><a class="dropdown-item" asp-area="" asp-controller="Sensors" asp-action="Get">Sensors</a></li>
+								<li><a class="dropdown-item" asp-area="" asp-controller="APIUser" asp-action="Get">Users</a></li>
+								<li><a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="Get">Roles</a></li>
 							</ul>
-						</div>
-					</div>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</nav>
@@ -54,7 +45,7 @@
 		</main>
 	</div>
 
-	<footer class="border-top footer text-muted">
+	<footer class="border-top footer text-muted p-4">
 		<div class="container">
 			&copy; 2022 - Greenhouse.web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
 		</div>
