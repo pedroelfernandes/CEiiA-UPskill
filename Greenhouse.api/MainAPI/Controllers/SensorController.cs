@@ -30,7 +30,7 @@ namespace MainAPI.Controllers
 
         // Edit sensor information
         [HttpPut]
-        public async Task<SensorDTO> Edit(Sensor sensor) =>
+        public async Task<SensorDTO> Edit(SensorDTO sensor) =>
             await _sensorService.Edit(sensor);
 
 

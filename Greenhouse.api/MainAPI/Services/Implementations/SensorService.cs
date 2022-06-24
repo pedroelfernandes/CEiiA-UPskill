@@ -10,13 +10,15 @@ namespace MainAPI.Services.Implementations
         private readonly ISensorRepository _sensorRepository;
         private readonly ILayerAPISensorService _layerAPISensorService;
         private readonly ISensorTypeService _sensorTypeService;
+        private readonly ISensorTypeRepository _sensorTypeRepository;
 
 
-        public SensorService(ISensorRepository sensorRepository, ILayerAPISensorService layerAPISensorService, ISensorTypeService sensorTypeService)
+        public SensorService(ISensorRepository sensorRepository, ILayerAPISensorService layerAPISensorService, ISensorTypeService sensorTypeService, ISensorTypeRepository sensorTypeRepository)
         {
             _sensorRepository = sensorRepository;
             _layerAPISensorService = layerAPISensorService;
             _sensorTypeService = sensorTypeService;
+            _sensorTypeRepository = sensorTypeRepository;
         }
 
 
@@ -36,8 +38,21 @@ namespace MainAPI.Services.Implementations
             await _sensorRepository.ChangeState(id);
 
 
-        public async Task<SensorDTO> Edit(Sensor sensor) =>
-            SensorDTO.ToDto(await _sensorRepository.Edit(sensor));
+        public async Task<SensorDTO> Edit(SensorDTO sensorDTO) =>
+            SensorDTO.ToDto(await _sensorRepository.Edit(new Sensor
+            {
+                Id = sensorDTO.Id,
+                Name = sensorDTO.Name,
+                Description = sensorDTO.Description,
+                Unit = sensorDTO.Unit,
+                Company = sensorDTO.Company,
+                SensorTypeId = sensorDTO.SensorTypeId,
+                SensorType = new SensorType
+                {
+                    Id = sensorDTO.SensorTypeId
+                }
+            }));
+            
 
 
         public async Task<bool> CheckForNewSensors()
