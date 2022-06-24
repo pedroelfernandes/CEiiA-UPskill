@@ -26,8 +26,9 @@ namespace MainAPI.Services.Implementations
         }
 
 
-        public async Task<APIUserDTO> Create(APIUser apiUser) =>
-            APIUserDTO.ToDto(await _apiUserRepository.Create(apiUser));
+        public async Task<APIUserDTO> Create(APIUserDTO apiUserDTO, string password) =>
+            APIUserDTO.ToDto(await _apiUserRepository.Create(new APIUser {Id = 0, Email = apiUserDTO.Email, Password = password,
+                Username = apiUserDTO.Username, RoleId = apiUserDTO.RoleId}));
 
 
         public async Task<List<APIUserDTO>> Get() =>
@@ -42,8 +43,16 @@ namespace MainAPI.Services.Implementations
             await _apiUserRepository.ChangeState(id);
 
 
-        public async Task<APIUserDTO> Edit(APIUser apiUser) =>
-            APIUserDTO.ToDto(await _apiUserRepository.Edit(apiUser));
+        public async Task<APIUserDTO> Edit(APIUserDTO apiUserDTO, string? oldPassword, string? newPassword) =>
+            APIUserDTO.ToDto(await _apiUserRepository.Edit(new APIUser
+            {
+                Id = apiUserDTO.Id,
+                Email = apiUserDTO.Email,
+                //Password = password,
+                Username = apiUserDTO.Username,
+                RoleId = apiUserDTO.RoleId,
+                Role = new Role { Id = apiUserDTO.RoleId}
+            }, oldPassword, newPassword));
 
 
         public async Task<string> Login(string username, string password)

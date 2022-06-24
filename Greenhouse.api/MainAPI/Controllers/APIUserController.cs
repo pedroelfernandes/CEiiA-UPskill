@@ -23,8 +23,8 @@ namespace MainAPI.Controllers
 
         // Create a new user
         [HttpPost]
-        public async Task<APIUserDTO> Create(APIUser apiUser) =>
-            await _apiUserService.Create(apiUser);
+        public async Task<APIUserDTO> Create(APIUserDTO apiUserDTO, string password) =>
+            await _apiUserService.Create(apiUserDTO, password);
 
 
         [HttpGet]
@@ -45,8 +45,8 @@ namespace MainAPI.Controllers
 
         // Edit user information
         [HttpPut]
-        public async Task<APIUserDTO> Edit(APIUser apiUser) =>
-            await _apiUserService.Edit(apiUser);
+        public async Task<APIUserDTO> Edit(APIUserDTO apiUserDTO, string? oldPassword, string? newPassword) =>
+            await _apiUserService.Edit(apiUserDTO, oldPassword, newPassword);
 
 
         [HttpGet]

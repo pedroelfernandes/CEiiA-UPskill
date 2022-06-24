@@ -74,7 +74,7 @@ namespace Greenhouse.web.Services.Implementations
             HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(apiUser), Encoding.UTF8);
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            var response = await client.PostAsync(url + $"apiuser/create", httpContent);
+            var response = await client.PostAsync(url + $"apiuser/create?password={apiUser.Password}", httpContent);
 
             response.EnsureSuccessStatusCode();
 
@@ -101,7 +101,11 @@ namespace Greenhouse.web.Services.Implementations
 
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            var response = await client.PutAsync(url + $"apiuser/edit", httpContent);
+            HttpResponseMessage response;
+            if (apiUser.Password != null && apiUser.OldPassword != null)
+                response = await client.PutAsync(url + $"apiuser/edit?newpassword={apiUser.Password}&oldpassword={apiUser.OldPassword}", httpContent);
+            else
+                response = await client.PutAsync(url + $"apiuser/edit", httpContent);
 
             response.EnsureSuccessStatusCode();
 

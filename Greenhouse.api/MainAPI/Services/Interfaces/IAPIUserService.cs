@@ -5,7 +5,7 @@ namespace MainAPI.Services.Interfaces
 {
     public interface IAPIUserService
     {
-        Task<APIUserDTO> Create(APIUser apiUser);
+        Task<APIUserDTO> Create(APIUserDTO apiUserDTO, string password);
 
 
         Task<List<APIUserDTO>> Get();
@@ -14,7 +14,7 @@ namespace MainAPI.Services.Interfaces
         Task<APIUserDTO> Get(int id);
 
 
-        Task<APIUserDTO> Edit(APIUser apiUser);
+        Task<APIUserDTO> Edit(APIUserDTO apiUserDTO, string? oldPassword, string? newPassword);
 
 
         Task<bool> ChangeState(int id);
