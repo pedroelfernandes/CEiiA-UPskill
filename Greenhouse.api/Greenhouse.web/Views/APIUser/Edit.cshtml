@@ -11,9 +11,8 @@
 </head>
 <body>
 	<form method="post" asp-action="Edit">
-		<input type="hidden" name="number" asp-for="Id" />
+		
 		<input type="hidden" name="isactive" asp-for="IsActive" />
-		<input type="hidden" name="passwaord" asp-for="Password" />
 
 
 		<div class="row pb-2">
@@ -23,10 +22,11 @@
 		</div>
 
 		<div asp-validation-summary="All" class="m-2">
-			@*<div class="mb-3" hidden>
+@*			<input type="hidden" name="number" asp-for="Id" value="@Model.Id" />
+*@			<div class="mb-3" hidden>
 			<label asp-for="Id" class="form-label"></label>
 			<input asp-for="Id" class="form-control"/>
-			</div>*@
+			</div>
 			<div class="mb-3">
 				<label asp-for="Username" class="form-label"></label>
 				<input asp-for="Username" class="form-control" />

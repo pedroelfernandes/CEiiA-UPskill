@@ -50,7 +50,7 @@ namespace MainAPI.Repositories.Implementations
 
             _db.APIUsers.Attach(apiUser);
 
-            if (_db.APIUsers.FindAsync(apiUser.Id).Result.Password == oldPassword)
+            if (oldPassword != null && await CheckOldPassword(apiUser.Id, oldPassword))
             {
                 apiUser.Password = newPassword;
                 _db.Entry(apiUser).Property(u => u.Password).IsModified = true;
@@ -62,6 +62,13 @@ namespace MainAPI.Repositories.Implementations
 
             await _db.SaveChangesAsync();
             return apiUser;
+        }
+
+        private async Task<bool> CheckOldPassword(int id, string oldPassword)
+        {
+            APIUser apiUser = await _db.APIUsers.FindAsync(id);
+            return apiUser.Password == oldPassword;
+
         }
 
 

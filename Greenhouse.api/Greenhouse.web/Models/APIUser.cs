@@ -7,7 +7,7 @@ namespace Greenhouse.web.Models
     public class APIUser
     {
         [Key]
-        public int Id { get; set; } = 0;
+        public int Id { get; set; }
 
 
         public string? Username { get; set; }

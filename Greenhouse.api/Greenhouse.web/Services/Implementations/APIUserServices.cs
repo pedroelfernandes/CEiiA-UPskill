@@ -103,9 +103,9 @@ namespace Greenhouse.web.Services.Implementations
 
             HttpResponseMessage response;
             if (apiUser.Password != null && apiUser.OldPassword != null)
-                response = await client.PutAsync(url + $"apiuser/create?newpassword={apiUser.Password}&oldpassword={apiUser.OldPassword}", httpContent);
+                response = await client.PutAsync(url + $"apiuser/edit?newpassword={apiUser.Password}&oldpassword={apiUser.OldPassword}", httpContent);
             else
-                response = await client.PutAsync(url + $"apiuser/create", httpContent);
+                response = await client.PutAsync(url + $"apiuser/edit", httpContent);
 
             response.EnsureSuccessStatusCode();
 

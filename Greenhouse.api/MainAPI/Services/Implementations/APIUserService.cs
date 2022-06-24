@@ -50,7 +50,8 @@ namespace MainAPI.Services.Implementations
                 Email = apiUserDTO.Email,
                 //Password = password,
                 Username = apiUserDTO.Username,
-                RoleId = apiUserDTO.RoleId
+                RoleId = apiUserDTO.RoleId,
+                Role = new Role { Id = apiUserDTO.RoleId}
             }, oldPassword, newPassword));
 
 

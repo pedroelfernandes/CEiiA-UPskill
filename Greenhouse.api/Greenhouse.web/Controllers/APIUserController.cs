@@ -92,7 +92,7 @@ namespace Greenhouse.web.Controllers
                     return RedirectToAction("Get");
                 }
             }
-            return View(await _apiUserServices.Get());
+            return View(apiUser);
         }
 
         //Change state from true to false and vice versa for apiUsers
