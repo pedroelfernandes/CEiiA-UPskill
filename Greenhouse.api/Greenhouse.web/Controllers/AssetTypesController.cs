@@ -8,17 +8,16 @@ namespace Greenhouse.web.Controllers
     [Route("[controller]/[action]")]
     public class AssetTypesController : Controller
     {
-
         private readonly IAssetTypeServices _assetTypeServices;
+
+
         public AssetTypesController(IAssetTypeServices assetTypeServices)
         {
             _assetTypeServices = assetTypeServices;
         }
 
 
-
         //Get Full List of AssetTypes
-
         [HttpGet]
         public async Task<IActionResult> GetAssetTypes()
         {
@@ -26,13 +25,12 @@ namespace Greenhouse.web.Controllers
         }
 
 
-
         //Create new AssetType
-
         public IActionResult CreateAssetType()
         {
             return View();
         }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateAssetType(AssetType assetType)
@@ -51,9 +49,7 @@ namespace Greenhouse.web.Controllers
         }
 
 
-
         //Get AssetType by Id
-
         [HttpGet("id")]
         public async Task<IActionResult> GetAssetTypeById(int id)
         {
@@ -62,13 +58,13 @@ namespace Greenhouse.web.Controllers
         }
 
 
-
         //Edit AssetType
         public async Task<IActionResult> EditAssetType(int id)
         {
             var assetType = await _assetTypeServices.GetAssetTypeById(id);
             return View(assetType);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> EditAssetType(int id, AssetType assetType)
@@ -91,9 +87,7 @@ namespace Greenhouse.web.Controllers
         }
 
 
-
         //Change the status of the assetType(AssetType)
-
         [HttpGet]
         public async Task<IActionResult> ChangeStateAssetType(int id)
         {
