@@ -37,7 +37,7 @@
 						<td>@sensor.Unit</td>
 						<td>@sensor.Company</td>
 						<td>@sensor.ActiveSince</td>
-						<td>@((bool)sensor.IsActive ? "Active" : "Inactive")</td>
+						<td>@(sensor.IsActive ? "Active" : "Inactive")</td>
 						<td>@sensor.SensorType.Name</td>
 						<td>
 							<a asp-controller="Sensors" asp-action="GetSensorById" class="btn btn-outline-dark btn-sm" asp-route-id="@sensor.Id">Details</a>

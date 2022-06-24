@@ -14,7 +14,7 @@ namespace MainAPI.Services.Interfaces
         Task<SensorDTO> GetSensor(int id);
 
 
-        Task<SensorDTO> Edit(Sensor sensor);
+        Task<SensorDTO> Edit(SensorDTO sensor);
 
 
         Task<bool> ChangeState(int id);

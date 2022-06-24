@@ -91,7 +91,7 @@ namespace Greenhouse.web.Controllers
                     return RedirectToAction("Get");
                 }
             }
-            return View(await _sensorServices.Get());
+            return View(sensor);
         }
 
         //Change state from true to false and vice versa for sensors

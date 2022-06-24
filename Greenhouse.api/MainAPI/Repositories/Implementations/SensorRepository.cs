@@ -50,10 +50,15 @@ namespace MainAPI.Repositories.Implementations
             if (sensor == null)
                 throw new Exception("Sensor not found.");
 
-            sensor.SensorType = await _sensorTypeRepository.GetSensorTypeById(sensor.SensorTypeId);
+            _db.Sensors.Attach(sensor);
+            _db.Entry(sensor).Property(s => s.Name).IsModified = true;
+            _db.Entry(sensor).Property(s => s.Description).IsModified = true;
+            _db.Entry(sensor).Property(s => s.Unit).IsModified = true;
+            _db.Entry(sensor).Property(s => s.Company).IsModified = true;
+            _db.Entry(sensor).Property(s => s.SensorTypeId).IsModified = true;
 
-            _db.Sensors.Update(sensor);
             await _db.SaveChangesAsync();
+
             return sensor;
         }
 
