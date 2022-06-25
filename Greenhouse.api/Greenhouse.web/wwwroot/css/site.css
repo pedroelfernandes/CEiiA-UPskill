@@ -16,3 +16,16 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.accordion-button:not(.collapsed) {
+    color: #fff;
+    background-color: #353631;
+}
+
+.accordion-button::selection::after {
+    filter: brightness(0%) invert(100%);
+}
+
+.accordion-button:not(.collapsed)::after {
+    filter: brightness(0%) invert(100%);
+}
