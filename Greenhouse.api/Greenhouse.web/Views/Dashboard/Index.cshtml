@@ -1,49 +1,78 @@
 ﻿@model List<Greenhouse.web.Models.Asset>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-3">
-            Assets
-            <div class="accordion" id="accordionAssets">
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="dashboard.css" rel="stylesheet">
+    <title>Dashboard Template · Bootstrap v5.2</title>
+</head>
+<body>
 
-                @foreach (Asset asset in Model)
-                {
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne-@asset.Id">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne-@asset.Id" aria-expanded="true" aria-controls="collapseOne-@asset.Id">
-                                @asset.Name
-                            </button>
-                        </h2>
-                        <div id="collapseOne-@asset.Id" class="accordion-collapse collapse" aria-labelledby="headingOne-@asset.Id" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <p><strong>@asset.Description</strong></p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+                <div class="accordion" id="accordionAssets">
 
-                                <div class="accordion" id="accordion-@asset.Id">
-                                    @foreach (Sensor sensor in asset.Sensors)
-                                    {
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header" id="headingSensor-@asset.Id-@sensor.Id">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSensor-@asset.Id-@sensor.Id" aria-expanded="true" aria-controls="collapseSensor-@asset.Id-@sensor.Id">
-                                                    <p>@sensor.Name</p>
-                                                </button>
-                                            </h2>
-                                            <div id="collapseSensor-@asset.Id-@sensor.Id" class="accordion-collapse collapse" aria-labelledby="headingSensor-@asset.Id-@sensor.Id" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <p>@sensor.Description</p>
-                                                    <p>@sensor.SensorType.Name</p>
+                    @foreach (Asset asset in Model)
+                    {
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne-@asset.Id">
+                                <button class="accordion-button btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne-@asset.Id" aria-expanded="true" aria-controls="collapseOne-@asset.Id">
+                                    @asset.Name
+                                </button>
+                            </h2>
+                            <div id="collapseOne-@asset.Id" class="accordion-collapse collapse" aria-labelledby="headingOne-@asset.Id" data-bs-parent="#accordionAssets">
+                                <div class="accordion-body">
+                                    <p><strong>@asset.Description</strong></p>
+
+                                    <div class="accordion" id="accordion-@asset.Id">
+
+                                        @foreach (Sensor sensor in asset.Sensors)
+                                        {
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingSensor-@asset.Id-@sensor.Id">
+                                                    <button class="accordion-button btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSensor-@asset.Id-@sensor.Id" aria-expanded="true" aria-controls="collapseSensor-@asset.Id-@sensor.Id">
+                                                        @sensor.Name
+                                                    </button>
+                                                </h2>
+                                                <div id="collapseSensor-@asset.Id-@sensor.Id" class="accordion-collapse collapse" aria-labelledby="headingSensor-@asset.Id-@sensor.Id" data-bs-parent="#accordion-@asset.Id">
+                                                    <div class="accordion-body">
+                                                        @sensor.Description
+                                                        @sensor.SensorType.Name
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    }
+                                        }
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+
+                </div>
             </div>
-        </div>
-        <div class="col-9">
-            Graphs
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <input type="date" id="startDate" class="btn btn-sm btn-outline-dark" placeholder="Start Date">
+                        <input type="date" id="endDate" class="btn btn-sm btn-outline-dark" placeholder="End Date">
+                    </div>
+                </div>
+                <canvas class="my-4 w-100" id="myChart" width="900" height="380">Charts</canvas>
+            </main>
         </div>
     </div>
-</div>
+
+
+    <script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
