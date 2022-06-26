@@ -39,8 +39,8 @@ namespace MainAPI.Controllers
 
         //Edit asset
         [HttpPut]
-        public async Task<AssetDTO> EditAsset(Asset asset) =>
-            await _assetService.EditAsset(asset);
+        public async Task<AssetDTO> EditAsset(AssetDTO assetDTO) =>
+            await _assetService.EditAsset(assetDTO);
 
 
         //Delete Asset

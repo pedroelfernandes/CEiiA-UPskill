@@ -73,10 +73,22 @@ namespace MainAPI.Services.Implementations
             
 
         //Edit
-        public async Task<AssetDTO> EditAsset(Asset asset)
+        public async Task<AssetDTO> EditAsset(AssetDTO assetDTO)
         {
             //Asset assetTemp = await _assetRepository.EditAsset(asset);
-            asset = await _assetRepository.EditAsset(asset);
+            Asset asset = await _assetRepository.EditAsset(new Asset
+            {
+                Id = assetDTO.Id,
+                Name = assetDTO.Name,
+                Description = assetDTO.Description,
+                Company = assetDTO.Company,
+                Location = assetDTO.Location,
+                AssetTypeId = assetDTO.AssetTypeId,
+                AssetType = new AssetType
+                {
+                    Id = assetDTO.AssetTypeId
+                }
+            });
 
             //assetTemp.Sensors = await _assetSensorService.GetAssetSensors(assetTemp.Id);
             asset.Sensors = await _assetSensorService.GetAssetSensors(asset.Id);

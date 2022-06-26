@@ -17,7 +17,7 @@ namespace MainAPI.Services.Interfaces
         Task<AssetDTO> CreateAsset(Asset asset);
 
 
-        Task<AssetDTO> EditAsset(Asset asset);
+        Task<AssetDTO> EditAsset(AssetDTO asset);
 
 
         Task<bool> ChangeState(int Id);

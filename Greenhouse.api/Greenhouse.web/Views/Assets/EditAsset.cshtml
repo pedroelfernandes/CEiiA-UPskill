@@ -17,7 +17,7 @@
 			</h4>
 		</div>
 		<div asp-validation-summary="All" class="m-2">
-			<div class="mb-3">
+			<div class="mb-3" hidden>
 				<label asp-for="Id" class="form-label"></label>
 				<input asp-for="Id" class="form-control" readonly />
 			</div>
@@ -41,11 +41,11 @@
 				<input asp-for="Location" class="form-control" />
 				<span asp-validation-for="Location" class="text-danger"></span>
 			</div>
-			<div class="mb-3">
+			@*<div class="mb-3">
 				<label asp-for="CreationDate" class="form-label"></label>
 				<input asp-for="CreationDate" class="form-control" readonly />
 				<span asp-validation-for="CreationDate" class="text-danger"></span>
-			</div>
+			</div>*@
 			<div class="mb-3">
 				<label asp-for="AssetTypeId" class="form-label">AssetType Name</label>
 				<select asp-for="AssetTypeId" class="form-control" asp-items="ViewBag.AssetTypeId"></select>
@@ -56,11 +56,11 @@
 				<input asp-for="AssetType.Description" class="form-control" />
 				<span asp-validation-for="AssetType.Description" class="text-danger"></span>
 			</div>*@
-			<div class="mb-3">
+			@*<div class="mb-3">
 				<label asp-for="Sensors" class="form-label"></label>
 				<input asp-for="Sensors" class="form-control" />
 				<span asp-validation-for="Sensors" class="text-danger"></span>
-			</div>
+			</div>*@
 			<button input type="submit" value="Save" class="btn btn-outline-dark btn-sm">Submit</button>
 			<a asp-controller="Assets" asp-action="GetAssets" class="btn btn-outline-secondary btn-sm">Back to List</a>
 		</div>
