@@ -85,14 +85,11 @@ namespace MainAPI.Repositories.Implementations
         }
 
 
-        public async Task<bool> Authorized(string username, string password)
+        public async Task<APIUser> Authorized(string username, string password)
         {
             APIUser apiUser = await _db.APIUsers.FirstAsync(u => u.Username == username && u.Password == password);
 
-            if (apiUser != null)
-                return true;
-
-            return false;
+            return apiUser;
         }
     }
 }
