@@ -9,5 +9,7 @@ namespace Greenhouse.web.Services.Interfaces
         Task<Asset> GetAssetById(int id);
         Task<Asset> EditAsset(Asset asset);
         Task<bool> ChangeStateAsset(int id);
+        Task<bool> RemoveAssetSensor(int assetId, int sensorId);
+        Task<bool> AddAssetSensor(int assetId, int sensorId);
     }
 }

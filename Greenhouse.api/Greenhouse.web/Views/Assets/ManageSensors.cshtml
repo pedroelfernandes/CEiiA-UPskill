@@ -1,0 +1,70 @@
+﻿
+
+
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Asset</title>
+</head>
+
+<body>
+
+	<div class="row pb-2">
+		<h3 class="text-dark text-left m-2">
+			Asset
+		</h3>
+	</div>
+	<br />
+	<div class="row pb-2">
+		<h4 class="text-dark text-left m-2">
+			Current list of sensors
+		</h4>
+	</div>
+
+	<div class="table-responsive-sm m-2">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th colspan="1"></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (Sensor sensor in ViewBag.Sensors)
+				{
+					<tr>
+						<td>@sensor.Name</td>
+						<td>@sensor.Description</td>
+						<td>
+							<a asp-controller="Assets" asp-action="RemoveSensor" class="btn btn-outline-dark btn-sm" asp-route="assetId=ViewBag.AssetId&sensorId=sensor.Id">Remove Sensor</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+
+	<div class="table-responsive-sm m-2">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th colspan="1"></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (Sensor sensor in ViewBag.MissingSensors)
+				{
+					<tr>
+						<td>@sensor.Name</td>
+						<td>@sensor.Description</td>
+						<td>
+							<a asp-controller="Assets" asp-action="AddSensor" class="btn btn-outline-dark btn-sm" asp-route="assetId=ViewBag.AssetId&sensorId=sensor.Id">Add Sensor</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</body>

@@ -120,5 +120,44 @@ namespace Greenhouse.web.Services.Implementations
             }
             return false;
         }
+
+
+
+        // Remove sensor from asset
+        public async Task<bool> RemoveAssetSensor(int assetId, int sensorId)
+        {
+            Asset asset = new();
+            string url = _configuration.GetValue<string>("URL");
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+            var response = await client.GetAsync(url + $"Asset/RemoveAssetSensor?assetId={assetId}, sensorId={sensorId}");
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var res = await response.Content.ReadFromJsonAsync<bool>();
+                return res;
+            }
+            return false;
+        }
+
+
+        // Add sensor to asset
+        public async Task<bool> AddAssetSensor(int assetId, int sensorId)
+        {
+            Asset asset = new();
+            string url = _configuration.GetValue<string>("URL");
+            HttpClient client = Helpers.Helpers.GetHttpClient(url);
+            var response = await client.GetAsync(url + $"Asset/AddAssetSensor?assetId={assetId}, sensorId={sensorId}");
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var res = await response.Content.ReadFromJsonAsync<bool>();
+                return res;
+            }
+            return false;
+        }
+
+
     }
 }

@@ -11,11 +11,13 @@ namespace MainAPI.Controllers
     public class AssetController : Controller
     {
         private readonly IAssetService _assetService;
+        private readonly IAssetSensorService _assetSensorService;
 
 
-        public AssetController(IAssetService assetService)
+        public AssetController(IAssetService assetService, IAssetSensorService assetSensorService)
         {
             _assetService = assetService;
+            _assetSensorService = assetSensorService;
         }
 
 
@@ -47,5 +49,16 @@ namespace MainAPI.Controllers
         [HttpPut]
         public async Task<bool> ChangeState(int id) =>
             await _assetService.ChangeState(id);
+
+
+        //Add Sensor to Asset
+        [HttpPost]
+        public async Task<bool> AddAssetSensor(int assetId, int sensorId) =>
+            await _assetSensorService.AddAssetSensor(assetId, sensorId);
+
+        //Remove Sensor from Asset
+        [HttpPost]
+        public async Task<bool> RemoveAssetSensor(int assetId, int sensorId) =>
+            await _assetSensorService.RemoveAssetSensor(assetId, sensorId);
     }
 }
