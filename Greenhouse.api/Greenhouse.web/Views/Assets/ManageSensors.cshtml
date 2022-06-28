@@ -1,0 +1,97 @@
+﻿
+
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<title>Asset</title>
+</head>
+
+<body>
+
+	<div class="row pb-2">
+		<h3 class="text-dark text-left m-2">
+			Asset current list of sensors
+		</h3>
+	</div>
+
+	<div class="table-responsive-sm m-2">
+		<table class="table table-bordered">
+			<thead id="tableHead">
+				<tr>
+					<th class="col-2">Name</th>
+					<th class="col-8">Description</th>
+					<th class="col-2"></th>
+				</tr>
+			</thead>
+			<tbody id = "tableBody">
+				@foreach (Sensor sensor in ViewBag.Sensors)
+				{
+					<tr>
+						<td>@sensor.Name</td>
+						<td>@sensor.Description</td>
+						<td>
+							@Html.ActionLink("Remove Sensor", "RemoveSensor", "Assets", new{assetId=ViewBag.AssetId, sensorId=sensor.Id}, new {@class="btn btn-outline-dark btn-sm"})
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+
+	<div class="row pb-2">
+		<h3 class="text-dark text-left m-2">
+			Add sensors to your Asset
+		</h3>
+	</div>
+	<div class="table-responsive-sm m-2">
+		<table class="table table-bordered">
+			<thead  id="tableHead2">
+				<tr>
+					<th class="col-2">Name</th>
+					<th class="col-8">Description</th>
+					<th class="col-2"></th>
+				</tr>
+			</thead>
+			<tbody  id = "tableBody2">
+				@foreach (Sensor sensor in ViewBag.MissingSensors)
+				{
+					<tr>
+						<td>@sensor.Name</td>
+						<td>@sensor.Description</td>
+						<td>
+							@Html.ActionLink("Add Sensor", "AddSensor", "Assets", new{assetId=ViewBag.AssetId, sensorId=sensor.Id}, new {@class="btn btn-outline-dark btn-sm"})
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</body>
+
+
+				
+<script>
+	$(function () {
+
+var tableBody = $("#tableBody"),
+    tableHead = $("#tableHead");
+    
+    tableHead.on("click", function () {
+        tableBody.slideToggle("slow");
+    });
+
+});
+	$(function () {
+
+var tableBody = $("#tableBody2"),
+    tableHead = $("#tableHead2");
+    
+    tableHead.on("click", function () {
+        tableBody.slideToggle("slow");
+    });
+
+});
+</script> 

@@ -17,5 +17,12 @@ namespace MainAPI.Services.Implementations
 
         public async Task<List<AssetSensor>> GetAssetSensors(int assetId) =>
             await _assetSensorRepository.GetAssetSensors(assetId);
+
+
+        public async Task<bool> AddAssetSensor (int assetId, int sensorId) =>
+            await _assetSensorRepository.AddAssetSensor(assetId, sensorId);
+
+        public async Task<bool> RemoveAssetSensor(int assetId, int sensorId) =>
+            await _assetSensorRepository.RemoveAssetSensor(assetId, sensorId);
     }
 }

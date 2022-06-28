@@ -12,11 +12,14 @@ namespace Greenhouse.web.Controllers
 
         private readonly IAssetTypeServices _assetTypeServices;
 
+        private readonly ISensorServices _sensorServices;
 
-        public AssetsController(IAssetServices assetServices, IAssetTypeServices assetTypeServices)
+
+        public AssetsController(IAssetServices assetServices, IAssetTypeServices assetTypeServices, ISensorServices sensorServices)
         {
             _assetServices = assetServices;
             _assetTypeServices = assetTypeServices;
+            _sensorServices = sensorServices;
         }
 
 
@@ -106,6 +109,45 @@ namespace Greenhouse.web.Controllers
                 ModelState.AddModelError("Error001", "Error while deleting the record");
 
             return RedirectToAction("GetAssets");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> ManageSensors(int id)
+        {
+            List<Sensor> sensors = (await _assetServices.GetAssetById(id)).Sensors;
+            List<Sensor> sensorList = await _sensorServices.Get();
+
+            //sensorList = sensorList.Except(sensors).ToList();
+            Sensor sensorToRemove = new();
+            foreach (Sensor sensor in sensors)
+            {
+                sensorList.Remove(sensorList.Find(s => s.Id == sensor.Id));
+            }
+
+
+            ViewBag.Sensors = sensors;
+            ViewBag.AssetId = id;
+            ViewBag.MissingSensors = sensorList;
+
+            return View(id);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RemoveSensor(int assetId, int sensorId)
+        {
+            bool res = await _assetServices.RemoveAssetSensor(assetId, sensorId);
+
+            return RedirectToAction($"ManageSensors",new { id = assetId});
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> AddSensor(int assetId, int sensorId)
+        {
+            bool res = await _assetServices.AddAssetSensor(assetId, sensorId);
+
+            return RedirectToAction($"ManageSensors", new { id = assetId });
         }
     }
 }
