@@ -8,7 +8,9 @@
 <head>
 	<meta name="viewport" content="width=device-width" />
 	<title>Create APIUser</title>
+
 </head>
+
 <body>
 	<form method="post" asp-action="Create">
 		<div class="row pb-2">
@@ -24,12 +26,17 @@
 				<span asp-validation-for="Username" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
-				<label asp-for="Password" class="control-label"></label>
-				<input asp-for="Password" class="form-control" required pattern="[0-9a-fA-F]{4,8}" title="Enter a password including 4-8 hexadecimal digits"/>
+				<label asp-for="Password" class="control-label">Password</label>
+				<input asp-for="Password" id="pass1" class="form-control" required type="password"/>
 				<span asp-validation-for="Password" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
-				<label asp-for="Email" class="control-label"></label>
+				<label asp-for="OldPassword" class="control-label">Confirm Password</label>
+				<input asp-for="OldPassword" id="pass2" class="form-control" required type="password"/>
+				<span asp-validation-for="OldPassword" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Email" class="control-label">E-mail</label>
 				<input asp-for="Email" class="form-control" required type="email"/>
 				<span asp-validation-for="Email" class="text-danger"></span>
 			</div>
@@ -40,7 +47,7 @@
 			</div>
 		</div>
 		<div class="m-2">
-			<button input type="submit" value="Create" class="btn btn-outline-dark btn-sm">Submit</button>
+			<button input type="submit" value="Create" onclick="return ValidatePassword()" class="btn btn-outline-dark btn-sm">Submit</button>
 			<a asp-controller="APIUser" asp-action="Get" class="btn btn-outline-secondary btn-sm">Back to List</a>
 		</div>
 	</form>
@@ -50,4 +57,16 @@
 	@{
 		<partial name="_ValidationScriptsPartial" />
 	}
-	}
+
+	<script type="text/javascript">
+        function ValidatePassword() {
+            var pass1 = document.getElementById("pass1").value;
+            var pass2 = document.getElementById("pass2").value;
+            if (pass1 != pass2) {
+                alert("Passwords do not match. Please, confirm the entered passwords");
+                return false;
+            }
+            return true;
+        }
+    </script>
+}
