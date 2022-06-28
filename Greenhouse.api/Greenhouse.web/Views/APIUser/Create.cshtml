@@ -13,24 +13,24 @@
 	<form method="post" asp-action="Create">
 		<div class="row pb-2">
 			<h4 class="text-dark text-left m-2">
-				APIUser
+				User
 			</h4>
 		</div>
 
-		<div asp-validation-summary="All" class="m-2">
+		<div class="m-2">
 			<div class="mb-3">
 				<label asp-for="Username" class="control-label"></label>
-				<input asp-for="Username" class="form-control" />
+				<input asp-for="Username" class="form-control" required/>
 				<span asp-validation-for="Username" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
 				<label asp-for="Password" class="control-label"></label>
-				<input asp-for="Password" class="form-control" />
+				<input asp-for="Password" class="form-control" required pattern="[0-9a-fA-F]{4,8}" title="Enter a password including 4-8 hexadecimal digits"/>
 				<span asp-validation-for="Password" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
 				<label asp-for="Email" class="control-label"></label>
-				<input asp-for="Email" class="form-control" />
+				<input asp-for="Email" class="form-control" required type="email"/>
 				<span asp-validation-for="Email" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
