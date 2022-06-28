@@ -16,3 +16,20 @@ for (i = 0; i < rows.length; i++) {
     if (cells[0].innerHTML == 'Y')
         rows[i].className = "yellow";
 }
+
+//Password confirmation
+
+//var password = document.getElementById("password")
+//var confirm_password = document.getElementById("oldPassword");
+
+//function validatePassword(){
+//    if (password.value != oldPassword.value) {
+//        confirm_password.setCustomValidity("Passwords Don't Match");
+//    } else {
+//        confirm_password.setCustomValidity('');
+//    }
+//}
+
+//password.onchange = validatePassword;
+//confirm_password.onkeyup = validatePassword;
+
