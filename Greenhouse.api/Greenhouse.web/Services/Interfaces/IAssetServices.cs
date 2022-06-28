@@ -4,7 +4,7 @@ namespace Greenhouse.web.Services.Interfaces
 {
     public interface IAssetServices
     {
-        Task<IEnumerable<Asset>> GetAssets();
+        Task<List<Asset>> GetAssets();
         Task<Asset> CreateAsset(Asset asset);
         Task<Asset> GetAssetById(int id);
         Task<Asset> EditAsset(Asset asset);

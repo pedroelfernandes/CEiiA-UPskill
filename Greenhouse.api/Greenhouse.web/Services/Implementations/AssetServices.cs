@@ -17,7 +17,7 @@ namespace Greenhouse.web.Services.Implementations
 
 
         //Get list of AssetTypes
-        public async Task<IEnumerable<Asset>> GetAssets()
+        public async Task<List<Asset>> GetAssets()
         {
             List<Asset> assets = new();
             HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
