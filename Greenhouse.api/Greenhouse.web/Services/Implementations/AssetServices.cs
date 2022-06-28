@@ -129,7 +129,7 @@ namespace Greenhouse.web.Services.Implementations
             Asset asset = new();
             string url = _configuration.GetValue<string>("URL");
             HttpClient client = Helpers.Helpers.GetHttpClient(url);
-            var response = await client.GetAsync(url + $"Asset/RemoveAssetSensor?assetId={assetId}, sensorId={sensorId}");
+            var response = await client.GetAsync(url + $"Asset/RemoveAssetSensor?assetId={assetId}&sensorId={sensorId}");
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -147,7 +147,7 @@ namespace Greenhouse.web.Services.Implementations
             Asset asset = new();
             string url = _configuration.GetValue<string>("URL");
             HttpClient client = Helpers.Helpers.GetHttpClient(url);
-            var response = await client.GetAsync(url + $"Asset/AddAssetSensor?assetId={assetId}, sensorId={sensorId}");
+            var response = await client.GetAsync(url + $"Asset/AddAssetSensor?assetId={assetId}&sensorId={sensorId}");
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)

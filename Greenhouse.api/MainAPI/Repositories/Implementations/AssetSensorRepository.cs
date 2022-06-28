@@ -26,22 +26,16 @@ namespace MainAPI.Repositories.Implementations
 
             await _db.SaveChangesAsync();
 
-            if ((await _db.AssetSensors.FirstAsync(a => a.AssetId == assetId && a.SensorId == sensorId)) == null)
-                return false;
-
             return true;
         }
 
 
         public async Task<bool> RemoveAssetSensor(int assetId, int sensorId)
         {
-            AssetSensor assetSensor = new AssetSensor { AssetId = assetId, SensorId = sensorId };
-            _db.AssetSensors.Remove(assetSensor);
+            //AssetSensor assetSensor = new AssetSensor { AssetId = assetId, SensorId = sensorId };
+            _db.AssetSensors.Remove(_db.AssetSensors.Where(a => a.SensorId == sensorId && a.AssetId == assetId).First());
 
             await _db.SaveChangesAsync();
-
-            if ((await _db.AssetSensors.FirstAsync(a => a.AssetId == assetId && a.SensorId == sensorId)) == null)
-                return false;
 
             return true;
         }

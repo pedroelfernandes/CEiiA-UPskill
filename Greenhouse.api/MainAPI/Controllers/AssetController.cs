@@ -52,12 +52,12 @@ namespace MainAPI.Controllers
 
 
         //Add Sensor to Asset
-        [HttpPost]
+        [HttpGet]
         public async Task<bool> AddAssetSensor(int assetId, int sensorId) =>
             await _assetSensorService.AddAssetSensor(assetId, sensorId);
 
         //Remove Sensor from Asset
-        [HttpPost]
+        [HttpGet]
         public async Task<bool> RemoveAssetSensor(int assetId, int sensorId) =>
             await _assetSensorService.RemoveAssetSensor(assetId, sensorId);
     }

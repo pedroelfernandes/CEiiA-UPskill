@@ -118,7 +118,13 @@ namespace Greenhouse.web.Controllers
             List<Sensor> sensors = (await _assetServices.GetAssetById(id)).Sensors;
             List<Sensor> sensorList = await _sensorServices.Get();
 
-            sensorList = sensorList.Except(sensors).ToList();
+            //sensorList = sensorList.Except(sensors).ToList();
+            Sensor sensorToRemove = new();
+            foreach (Sensor sensor in sensors)
+            {
+                sensorList.Remove(sensorList.Find(s => s.Id == sensor.Id));
+            }
+
 
             ViewBag.Sensors = sensors;
             ViewBag.AssetId = id;
@@ -127,21 +133,21 @@ namespace Greenhouse.web.Controllers
             return View(id);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> RemoveSensor(int assetId, int sensorId)
         {
             bool res = await _assetServices.RemoveAssetSensor(assetId, sensorId);
 
-            return RedirectToAction("ManageSensors", assetId);
+            return RedirectToAction($"ManageSensors",new { id = assetId});
         }
 
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> AddSensor(int assetId, int sensorId)
         {
             bool res = await _assetServices.AddAssetSensor(assetId, sensorId);
 
-            return RedirectToAction("ManageSensors", assetId);
+            return RedirectToAction($"ManageSensors", new { id = assetId });
         }
     }
 }
