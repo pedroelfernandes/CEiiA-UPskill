@@ -55,14 +55,26 @@ namespace MainAPI.Services.Implementations
             }, oldPassword, newPassword));
 
 
-        public async Task<string> Login(string username, string password)
+        public async Task<List<string>> Login(string username, string password)
         {
-            bool authorized = await _apiUserRepository.Authorized(username, password);
+            List<string> strings = new();
 
-            if (authorized)
-                return _jwtToken.GenerateJwtToken(username);
+            APIUser apiUser = await _apiUserRepository.Authorized(username, password);
 
-            return string.Empty;
+            string token = string.Empty, name = string.Empty, role = string.Empty;
+
+            if (apiUser != null)
+            {
+                token = _jwtToken.GenerateJwtToken(username);
+                name = apiUser.Username;
+                role = apiUser.Role.Name;
+            }
+                
+            strings.Add(name);
+            strings.Add(role);
+            strings.Add(token);
+
+            return strings;
         }
     }
 }

@@ -87,7 +87,12 @@ namespace MainAPI.Repositories.Implementations
 
         public async Task<APIUser> Authorized(string username, string password)
         {
-            APIUser apiUser = await _db.APIUsers.FirstAsync(u => u.Username == username && u.Password == password);
+            bool isValid = await _db.APIUsers.AnyAsync(u => u.Username == username && u.Password == password);
+
+            APIUser apiUser = null;
+
+            if(isValid)
+                apiUser = await _db.APIUsers.Include(u => u.Role).FirstAsync(u => u.Username == username && u.Password == password);
 
             return apiUser;
         }

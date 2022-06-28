@@ -50,7 +50,7 @@ namespace MainAPI.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Login(string username, string password) =>
-            new ObjectResult(await _apiUserService.Login(username, password));
+        public async Task<JsonResult> Login(string username, string password) =>
+            Json(await _apiUserService.Login(username, password));
     }
 }
