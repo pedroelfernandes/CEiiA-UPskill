@@ -23,7 +23,7 @@ namespace MainAPI.Services.Implementations
         }
 
 
-        public async Task<IReadOnlyList<Reading>> GetBySensorId(int urlId, string sensorId, int size)
+        public async Task<List<Reading>> GetBySensorId(int urlId, string sensorId, int size)
         {
             List<Reading> readings = new();
 
@@ -55,7 +55,7 @@ namespace MainAPI.Services.Implementations
         }
 
 
-        public async Task<IReadOnlyList<Reading>> GetBetweenDatesBySensorId(int urlId, string sensorId, DateTime startDate, DateTime endDate)
+        public async Task<List<Reading>> GetBetweenDatesBySensorId(int urlId, string sensorId, DateTime startDate, DateTime endDate)
         {
             List<Reading> readings = new();
 
