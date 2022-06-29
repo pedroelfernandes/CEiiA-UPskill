@@ -19,14 +19,17 @@
 
 	<div class="table-responsive-sm m-2">
 		<table class="table table-bordered">
-			<thead id="tableHead">
+			<thead >
 				<tr>
 					<th class="col-2">Name</th>
 					<th class="col-8">Description</th>
-					<th class="col-2"></th>
+					<th class="col-2">
+						<button type="button" class="btn btn-outline-dark btn-sm" data-toggle="collapse" data-target="#demo"  id="tableHead">Hide</button>
+						<div id="demo" class="collapse"></div>
+					</th>
 				</tr>
 			</thead>
-			<tbody id = "tableBody">
+			<tbody id="tableBody">
 				@foreach (Sensor sensor in ViewBag.Sensors)
 				{
 					<tr>
@@ -48,14 +51,17 @@
 	</div>
 	<div class="table-responsive-sm m-2">
 		<table class="table table-bordered">
-			<thead  id="tableHead2">
+			<thead >
 				<tr>
 					<th class="col-2">Name</th>
 					<th class="col-8">Description</th>
-					<th class="col-2"></th>
+					<th class="col-2">
+						<button type="button" class="btn btn-outline-dark btn-sm" data-toggle="collapse" data-target="#demo" id="tableHead2">Hide</button>
+						<div id="demo" class="collapse"></div>
+					</th>
 				</tr>
 			</thead>
-			<tbody  id = "tableBody2">
+			<tbody id="tableBody2">
 				@foreach (Sensor sensor in ViewBag.MissingSensors)
 				{
 					<tr>
@@ -72,26 +78,34 @@
 </body>
 
 
-				
+
 <script>
-	$(function () {
+	$(function() {
 
-var tableBody = $("#tableBody"),
-    tableHead = $("#tableHead");
-    
-    tableHead.on("click", function () {
-        tableBody.slideToggle("slow");
+		var tableBody = $("#tableBody"),
+			tableHead = $("#tableHead");
+
+		tableHead.on("click", function() {
+			tableBody.slideToggle("slow");
+		});
+
+	});
+	$(function() {
+
+		var tableBody = $("#tableBody2"),
+			tableHead = $("#tableHead2");
+
+		tableHead.on("click", function() {
+			tableBody.slideToggle("slow");
+		});
+
+	});
+</script>
+
+<script>
+	$('button').click(function(){ //you can give id or class name here for $('button')
+    $(this).text(function(i,old){
+        return old=='Show' ?  'Hide' : 'Show';
     });
-
 });
-	$(function () {
-
-var tableBody = $("#tableBody2"),
-    tableHead = $("#tableHead2");
-    
-    tableHead.on("click", function () {
-        tableBody.slideToggle("slow");
-    });
-
-});
-</script> 
+</script>
