@@ -1,97 +1,152 @@
 ﻿using Greenhouse.web.Models;
+using Greenhouse.web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Greenhouse.web.Services.Implementations
 {
-    public class ReadingServices
+    public class ReadingServices : IReadingServices
     {
-        public static async Task<List<Reading>> GetLastByAPI(string apiId, IConfiguration configuration)
+        private readonly IConfiguration _configuration;
+
+
+        public ReadingServices(IConfiguration configuration)
         {
-            List<Reading> reading = new();
+            _configuration = configuration;
+        }
 
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
 
-            HttpResponseMessage response = await client.GetAsync($"getlastbyapi?id={apiId}");
+        public async Task<List<Reading>> GetSensorReadings(int sensorId, int size)
+        {
+            List<Reading> readings = new();
+
+            HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
+
+            HttpResponseMessage response = await client.GetAsync($"reading/getlastsensorreadings?sensorid={sensorId}&size={size}");
 
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
             {
-                var res = await response.Content.ReadFromJsonAsync<List<Reading>>();
+                List<Reading> res = await response.Content.ReadFromJsonAsync<List<Reading>>();
 
                 if (res != null)
-                {
-                    reading = res;
-                }
+                    readings = res;
             }
-            return reading;
+
+            return readings;
         }
 
-        public static async Task<Reading> GetLastSensorValue(string apiId, string sensorId, IConfiguration configuration)
+
+        public async Task<List<Reading>> GetSensorReadingsBetweenDates(int sensorId, DateOnly startDate, DateOnly endDate)
         {
-            Reading reading = new();
+            List<Reading> readings = new();
 
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+            HttpClient client = Helpers.Helpers.GetHttpClient(_configuration.GetValue<string>("URL"));
 
-            HttpResponseMessage response = await client.GetAsync($"getlastbyapibysensorid?id={apiId}&sensorId={sensorId}");
+            HttpResponseMessage response = await client.GetAsync($"reading/getbetweendatesbysensorid?sensorid={sensorId}&startDate={startDate}&endDate={endDate}");
 
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
             {
-                var res = await response.Content.ReadFromJsonAsync<Reading>();
+                List<Reading> res = await response.Content.ReadFromJsonAsync<List<Reading>>();
 
                 if (res != null)
-                {
-                    reading = res;
-                }
+                    readings = res;
             }
-            return reading;
+
+            return readings;
         }
 
-        public static async Task<List<Reading>> GetLastValuesBySensorId(string apiId, string sensorId, string limit, IConfiguration configuration)
-        {
-            List<Reading> reading = new();
 
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+        //public static async Task<List<Reading>> GetLastByAPI(string apiId, IConfiguration configuration)
+        //{
+        //    List<Reading> reading = new();
 
-            HttpResponseMessage response = await client.GetAsync($"getlastvaluesbysensorid?id={apiId}&sensorId={sensorId}&limit={limit}");
+        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
 
-            response.EnsureSuccessStatusCode();
+        //    HttpResponseMessage response = await client.GetAsync($"getlastbyapi?id={apiId}");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadFromJsonAsync<List<Reading>>();
+        //    response.EnsureSuccessStatusCode();
 
-                if (res != null)
-                {
-                    reading = res;
-                }
-            }
-            return reading;
-        }
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var res = await response.Content.ReadFromJsonAsync<List<Reading>>();
 
-        public static async Task<List<Sensor>> GetAPISensors(string apiId, IConfiguration configuration)
-        {
-            List<Sensor> sensors = new();
+        //        if (res != null)
+        //        {
+        //            reading = res;
+        //        }
+        //    }
+        //    return reading;
+        //}
 
-            HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+        //public static async Task<Reading> GetLastSensorValue(string apiId, string sensorId, IConfiguration configuration)
+        //{
+        //    Reading reading = new();
 
-            HttpResponseMessage response = await client.GetAsync($"getapisensors?id={apiId}");
+        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
 
-            response.EnsureSuccessStatusCode();
+        //    HttpResponseMessage response = await client.GetAsync($"getlastbyapibysensorid?id={apiId}&sensorId={sensorId}");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadFromJsonAsync<List<Sensor>>();
+        //    response.EnsureSuccessStatusCode();
 
-                if (res != null)
-                {
-                    sensors = res;
-                }
-            }
-            return sensors;
-        }
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var res = await response.Content.ReadFromJsonAsync<Reading>();
+
+        //        if (res != null)
+        //        {
+        //            reading = res;
+        //        }
+        //    }
+        //    return reading;
+        //}
+
+        //public static async Task<List<Reading>> GetLastValuesBySensorId(string apiId, string sensorId, string limit, IConfiguration configuration)
+        //{
+        //    List<Reading> reading = new();
+
+        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+
+        //    HttpResponseMessage response = await client.GetAsync($"getlastvaluesbysensorid?id={apiId}&sensorId={sensorId}&limit={limit}");
+
+        //    response.EnsureSuccessStatusCode();
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var res = await response.Content.ReadFromJsonAsync<List<Reading>>();
+
+        //        if (res != null)
+        //        {
+        //            reading = res;
+        //        }
+        //    }
+        //    return reading;
+        //}
+
+        //public static async Task<List<Sensor>> GetAPISensors(string apiId, IConfiguration configuration)
+        //{
+        //    List<Sensor> sensors = new();
+
+        //    HttpClient client = Helpers.Helpers.GetHttpClient(configuration.GetValue<string>("URL"));
+
+        //    HttpResponseMessage response = await client.GetAsync($"getapisensors?id={apiId}");
+
+        //    response.EnsureSuccessStatusCode();
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var res = await response.Content.ReadFromJsonAsync<List<Sensor>>();
+
+        //        if (res != null)
+        //        {
+        //            sensors = res;
+        //        }
+        //    }
+        //    return sensors;
+        //}
+
 
         //public static async Task<IEnumerable<API>> GetAPI(IConfiguration configuration)
         //{
@@ -116,6 +171,5 @@ namespace Greenhouse.web.Services.Implementations
         //    }
         //    return apis;
         //}
-
     }
 }

@@ -11,10 +11,11 @@
     <script src="https://raw.githubusercontent.com/google/palette.js/master/palette.js"></script>
     <title>Client Dashboard</title>
 </head>
-<body onload="updateChart()">
+<body onload="updateAssetTypes()">
     <header class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2 ps-4">User Dashboard</h1>
+        <h1 class="h2 ps-4" onclick="updateAssetTypes()" style="cursor: pointer;">User Dashboard</h1>
         <div class="btn-toolbar mb-2 mb-md-0 pe-4">
+            <button type="button" onclick="updateSensorBetweenDates()" class="btn btn-sm btn-outline-dark">Filter Dates</button>
             <input type="date" id="startDate" class="btn btn-sm btn-outline-dark" placeholder="Start Date">
             <input type="date" id="endDate" class="btn btn-sm btn-outline-dark" placeholder="End Date">
         </div>
@@ -28,7 +29,7 @@
                     {
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne-@asset.Id">
-                                <button class="accordion-button btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne-@asset.Id" aria-expanded="true" aria-controls="collapseOne-@asset.Id">
+                                <button class="accordion-button btn-dark" type="button" onclick="updateSensorTypes(@asset.Id)" data-bs-toggle="collapse" data-bs-target="#collapseOne-@asset.Id" aria-expanded="true" aria-controls="collapseOne-@asset.Id">
                                     @asset.Name
                                 </button>
                             </h2>
@@ -42,7 +43,7 @@
                                         {
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="headingSensor-@asset.Id-@sensor.Id">
-                                                    <button class="accordion-button btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSensor-@asset.Id-@sensor.Id" aria-expanded="true" aria-controls="collapseSensor-@asset.Id-@sensor.Id">
+                                                    <button class="accordion-button btn-dark" type="button" onclick="updateSensor(@sensor.Id, '@sensor.Name', '@sensor.Unit')" data-bs-toggle="collapse" data-bs-target="#collapseSensor-@asset.Id-@sensor.Id" aria-expanded="true" aria-controls="collapseSensor-@asset.Id-@sensor.Id">
                                                         @sensor.Name
                                                     </button>
                                                 </h2>
@@ -62,11 +63,11 @@
                     }
 
                 </div>
-                <button onclick="updateChart()">Fetch Data</button>
+                <button onclick="updateAssetTypes()">Fetch Data</button>
             </div>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="col-10 w-50 mx-auto">
-                    <canvas class="my-4 w-100" id="myChart" width="900" height="400"></canvas>
+                <div class="col-10 w-75 mx-auto">
+                    <canvas class="my-4 w-100" id="myChart"></canvas>
                 </div>
             </main>
             <script type="text/javascript" src="~/js/dashboard.js"></script>
