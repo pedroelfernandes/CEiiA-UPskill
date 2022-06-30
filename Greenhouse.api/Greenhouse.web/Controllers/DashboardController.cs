@@ -96,7 +96,7 @@ namespace Greenhouse.web.Controllers
         }
 
 
-        public async Task<JsonResult> GetSensorReadingsBetweenDates(int sensorId, DateOnly startDate, DateOnly endDate)
+        public async Task<JsonResult> GetSensorReadingsBetweenDates(int sensorId, DateTime startDate, DateTime endDate)
         {
             List<Reading> readings = await _readingServices.GetSensorReadingsBetweenDates(sensorId, startDate, endDate);
 

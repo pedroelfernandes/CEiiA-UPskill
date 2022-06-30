@@ -1,4 +1,9 @@
-﻿function updateAssetTypes() {
+﻿let globalSensorId;
+let globalSensorName;
+let globalSensorUnit;
+
+
+function updateAssetTypes() {
     async function fetchData() {
         const url = 'https://localhost:7248/dashboard/getassetscount';
         const response = await fetch(url);
@@ -61,6 +66,10 @@ function updateSensorTypes(assetId) {
 
 
 function updateSensor(sensorId, sensorName, sensorUnit) {
+    globalSensorId = sensorId;
+    globalSensorName = sensorName;
+    globalSensorUnit = sensorUnit;
+
     async function fetchData() {
         const url = 'https://localhost:7248/dashboard/getsensorreadings?sensorId=' + sensorId;
         const response = await fetch(url);
@@ -92,9 +101,17 @@ function updateSensor(sensorId, sensorName, sensorUnit) {
 };
 
 
-function updateSensorBetweenDates(sensorId, sensorName, sensorUnit, startDate, endDate) {
+function lastReadings() {
+    updateSensor(globalSensorId, globalSensorName, globalSensorUnit);
+}
+
+
+function updateSensorBetweenDates() {
+    let startDate = document.getElementById('startDate').value;
+    let endDate = document.getElementById('endDate').value;
+
     async function fetchData() {
-        const url = 'https://localhost:7248/dashboard/getsensorreadingsbetweendates?sensorId=' + sensorId + '&startdate=' + startDate + '&enddate=' + endDate;
+        const url = 'https://localhost:7248/dashboard/getsensorreadingsbetweendates?sensorId=' + globalSensorId + '&startdate=' + startDate + '&enddate=' + endDate;
         const response = await fetch(url);
         const datapoints = await response.json();
         return datapoints;
@@ -112,10 +129,10 @@ function updateSensorBetweenDates(sensorId, sensorName, sensorUnit, startDate, e
             });
 
         myChart.config.type = 'line';
-        myChart.config.options.plugins.title.text = sensorName;
+        myChart.config.options.plugins.title.text = globalSensorName;
         myChart.config.data.labels = readingDate;
         myChart.config.data.datasets[0].data = readingValue;
-        myChart.config.data.datasets[0].label = 'Unit: ' + sensorUnit;
+        myChart.config.data.datasets[0].label = 'Unit: ' + globalSensorUnit;
         myChart.config.data.datasets[0].backgroundColor = 'rgb(255, 255, 255)';
         myChart.config.data.datasets[0].borderColor = 'rgb(75, 192, 192)';
         myChart.config.options.plugins.legend.position = 'right';
@@ -131,15 +148,6 @@ function generateColor(size) {
     }
 
     return arr;
-    //let arr = [];
-    //let r1 = '8';
-    //let g1 = '2';
-    //let b1 = '8';
-    //for (let i = 0; i < size; i++) {
-    //    arr[i] = '#' + r1 + Math.floor(Math.random() * 16) + g1 + Math.floor(Math.random() * 16) + b1 + Math.floor(Math.random() * 16);
-    //}
-
-    //return arr;
 }
 
 const data = {

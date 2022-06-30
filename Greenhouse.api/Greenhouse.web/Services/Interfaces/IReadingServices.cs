@@ -6,6 +6,6 @@ namespace Greenhouse.web.Services.Interfaces
     {
         Task<List<Reading>> GetSensorReadings(int sensorId, int size = 20);
 
-        Task<List<Reading>> GetSensorReadingsBetweenDates(int sensorId, DateOnly startDate, DateOnly endDate);
+        Task<List<Reading>> GetSensorReadingsBetweenDates(int sensorId, DateTime startDate, DateTime endDate);
     }
 }

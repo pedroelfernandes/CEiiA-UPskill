@@ -37,7 +37,7 @@ namespace Greenhouse.web.Services.Implementations
         }
 
 
-        public async Task<List<Reading>> GetSensorReadingsBetweenDates(int sensorId, DateOnly startDate, DateOnly endDate)
+        public async Task<List<Reading>> GetSensorReadingsBetweenDates(int sensorId, DateTime startDate, DateTime endDate)
         {
             List<Reading> readings = new();
 
