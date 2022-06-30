@@ -19,14 +19,14 @@
 		</a>
 	</div>
 	<div class="table-responsive-sm m-2">
-		<table class="table table-bordered">
+		<table class="table table-bordered" id="getTable">
 			<thead>
 				<tr>
 					<th>Username</th>
 					<th>Email Address</th>
-					<th>Status</th>
 					<th>Role</th>
 					<th>Role Permissions</th>
+					<th>Status</th>
 					<th colspan="2"></th>
 				</tr>
 			</thead>
@@ -37,9 +37,9 @@
 					<tr>
 						<td>@apiUser.Username</td>
 						<td>@apiUser.Email</td>
-						<td>@(apiUser.IsActive ? "Active" : "Inactive")</td>
 						<td>@apiUser.Role.Name</td>
 						<td>@apiUser.Role.Description</td>
+						<td>@(apiUser.IsActive ? "Active" : "Inactive")</td>
 						<td>
 							<a asp-controller="APIUser" asp-action="GetAPIUserById" class="btn btn-outline-dark btn-sm" asp-route-id="@apiUser.Id">Details</a>
 						</td>
@@ -57,4 +57,30 @@
 	@{
 		<partial name="_ValidationScriptsPartial" />
 	}
+
+	<script  type="text/javascript">
+		
+		var rows = document.querySelector("td");
+		var table = document.getElementById("getTable");
+
+		for (let i in table.rows) {
+			let row = table.rows[i]
+
+			for (let j in row.cells) {
+				let col = row.cells[j]
+
+					if (j == 4 && col.innerHTML == "Active") {
+						row.style.backgroundColor = "rgba(240, 240, 240, 0.8)";
+						row.style.color = "rgb(0,0,0)";
+						row.style.fontWeight = "500";
+					}
+
+					if (j == 4 && col.innerHTML == "Inactive") {
+						row.style.fontWeight = "lighter";
+						row.style.color = "rgba(140, 140, 140, 0.8)";
+					}         
+			}
+		}
+	</script>
+
 	}
