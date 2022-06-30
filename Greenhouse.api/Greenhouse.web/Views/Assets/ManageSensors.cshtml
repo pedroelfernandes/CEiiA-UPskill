@@ -1,6 +1,5 @@
 ﻿
 
-
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -77,6 +76,7 @@
 	</div>
 		<div class="m-2">
 			<a asp-controller="Assets" asp-action="GetAssets" class="btn btn-outline-dark">Back to Assets List</a>
+						<a asp-controller="Assets" asp-action="GetAssetById" asp-route-id="@TempData["AssetId"]" class="btn btn-outline-dark">Back to Asset Details</a>
 		</div>
 </body>
 
