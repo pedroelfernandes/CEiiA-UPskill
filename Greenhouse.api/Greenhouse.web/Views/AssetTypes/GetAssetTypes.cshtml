@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div>
-		<h4 class="text-dark text-left m-2">List of Asset Types</h4>
+		<h4 class="text-dark text-left pt-5">List of Asset Types</h4>
 	</div>
 
 
@@ -26,9 +26,9 @@
 			<thead>
 				<tr>
 					@*<th>Id</th>*@
-					<th>Name</th>
-					<th>Description</th>
-					<th>Status</th>
+					<th>ASSET TYPE NAME</th>
+					<th>DESCRIPTION</th>
+					<th>STATUS</th>
 					<th colspan="2"></th>
 			</thead>
 			<tbody>
@@ -36,14 +36,14 @@
 				{
 					<tr>
 						@*<td>@item.Id</td>*@
-						<td>@assetType.Name</td>
+						<td >@assetType.Name</td>
 						<td>@assetType.Description</td>
 						<td>@(assetType.IsActive ? "Active" : "Inactive")</td>
 						<td>
-							<a asp-controller="AssetTypes" asp-action="GetAssetTypeById" class="btn btn-outline-dark btn-sm" asp-route-id="@assetType.Id">Details</a>
+							<a asp-controller="AssetTypes" asp-action="GetAssetTypeById" name="@string.Format("btnActions{0}", assetType.IsActive)" class="btn btn-outline-dark btn-sm" asp-route-id="@assetType.Id">Details</a>
 						</td>
 						<td>
-							<a asp-controller="AssetTypes" asp-action="ChangeStateAssetType" class="btn btn-outline-dark btn-sm" asp-route-id="@assetType.Id">Change State</a>
+							<a asp-controller="AssetTypes" asp-action="ChangeStateAssetType" name="@string.Format("btnActions{0}", assetType.IsActive)" class="btn btn-outline-dark btn-sm" asp-route-id="@assetType.Id">Change State</a>
 						</td>
 					</tr>
 				}
@@ -54,32 +54,79 @@
 
 @section Scripts {
 	@{
-		<partial name="_ValidationScriptsPartial" />
+	<partial name="_ValidationScriptsPartial" />
 	}
 
 	<script  type="text/javascript">
-
+		
 		var rows = document.querySelector("td");
 		var table = document.getElementById("getTable");
+		//var buttonsFalse = document.getElementsByName("btnActionsFalse");
+		//var buttonsTrue = document.getElementsByName("btnActionsTrue");
+		//console.log(buttonsFalse);
 
 		for (let i in table.rows) {
 			let row = table.rows[i]
-			for (let j in row.cells) {
-			   let col = row.cells[j]
-			   if (j == 2  && col.innerHTML == "Active"){
-				   row.style.backgroundColor="rgba(240, 240, 240, 1 )";
-				   row.style.color="rgb(0,0,0)";
-					row.style.fontWeight="500";
-			   }
 
-				 if (j == 2  && col.innerHTML == "Inactive"){
-					row.style.fontWeight="lighter";
-					row.style.color="rgba(140, 140, 140, 0.8)";
-					//row.style.backgroundColor="rgba(236, 240, 241, 1 )";
-				    //row.style.fontFamily="'Courier New', monospace" ;   
-			   }   
-		   } 
+			for (let j in row.cells) {
+				let col = row.cells[j]
+
+					//buttonsFalse[i].classList.remove("btn-outline-dark");
+					//buttonsFalse[i].classList.add("btn-outline-light");
+					//buttonsFalse[i].classList.add("text-muted");
+					//buttonsTrue[i].classList.remove("btn-outline-dark");
+					//buttonsTrue[i].classList.add("fw-bold");
+
+					if (j == 2 && col.innerHTML == "Active") {
+						row.style.backgroundColor = "rgba(240, 240, 240, 0.8)";
+						row.style.color = "rgb(0,0,0)";
+						row.style.fontWeight = "500";
+					}
+
+					if (j == 2 && col.innerHTML == "Inactive") {
+						row.style.fontWeight = "lighter";
+						row.style.color = "rgba(140, 140, 140, 0.8)";
+					}         
+			}
 		}
-		
 	</script>
+
+@*	<script  type="text/javascript">
+		
+	var rows = document.querySelector("td");
+	var table = document.getElementById("getTable");
+	var buttonFalse = document.getElementsByName("btnActionsFalse");
+	//console.log(buttonFalse);
+
+	for (let a in buttonFalse) {
+	console.log(buttonFalse[a]);
+
+		buttonFalse[a].classList.remove('btn-secondary')
+		//buttonFalse[a].classList.add("btn-light");
+		buttonFalse[a].classList.add("text-muted");
+		buttonFalse[a].classList.add("border-secondary");
+	}
+
+	for (let i in table.rows) {
+		let row = table.rows[i]
+
+		for (let j in row.cells) {
+			let col = row.cells[j]
+			//buttonFalse.classList.add("text-muted");
+
+			if (j == 2  && col.innerHTML == "Active"){
+				row.style.backgroundColor="rgba(0, 204, 68, 0.1 )";
+				row.style.color="rgb(0,0,0)";
+				row.style.fontWeight="500";				   
+                //button.style.color = "rgba(140, 140, 140, 0.8)";
+				//button.style.border = "rgba(140, 140, 140, 0.8)";
+			}
+			 
+			if (j == 2  && col.innerHTML == "Inactive"){
+				row.style.fontWeight="lighter";
+				row.style.color="rgba(140, 140, 140, 0.8)";				  
+			} 
+		}
+	}	
+</script>*@
 }
