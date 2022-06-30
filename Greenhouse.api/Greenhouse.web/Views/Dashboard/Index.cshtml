@@ -15,9 +15,9 @@
     <header class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2 ps-4" onclick="updateAssetTypes()" style="cursor: pointer;">User Dashboard</h1>
         <div class="btn-toolbar mb-2 mb-md-0 pe-4">
-            <button type="button" onclick="updateSensorBetweenDates()" class="btn btn-sm btn-outline-dark">Filter Dates</button>
-            <input type="date" id="startDate" class="btn btn-sm btn-outline-dark" placeholder="Start Date">
-            <input type="date" id="endDate" class="btn btn-sm btn-outline-dark" placeholder="End Date">
+            <button type="button" onclick="lastReadings()" class="btn btn-sm btn-outline-dark">Show last 20 readings</button>
+            <input type="date" onchange="document.getElementById('endDate').disabled = false;" id="startDate" class="btn btn-sm btn-outline-dark">
+            <input type="date" disabled onchange="updateSensorBetweenDates()" id="endDate" class="btn btn-sm btn-outline-dark">
         </div>
     </header>
     <div class="container-fluid">
