@@ -115,6 +115,7 @@ namespace Greenhouse.web.Controllers
         [HttpGet]
         public async Task<IActionResult> ManageSensors(int id)
         {
+            TempData["AssetId"] = id;
             List<Sensor> sensors = (await _assetServices.GetAssetById(id)).Sensors;
             List<Sensor> sensorList = await _sensorServices.Get();
 
