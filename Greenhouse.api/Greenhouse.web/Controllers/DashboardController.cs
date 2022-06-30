@@ -12,12 +12,21 @@ namespace Greenhouse.web.Controllers
 
         private readonly IAssetTypeServices _assetTypeServices;
 
+        private readonly ISensorTypeServices _sensorTypeServices;
 
-        public DashboardController(IAssetServices assetServices, IAssetTypeServices assetTypeServices)
+        private readonly IReadingServices _readingServices;
+
+
+        public DashboardController(IAssetServices assetServices, IAssetTypeServices assetTypeServices, 
+            ISensorTypeServices sensorTypeServices, IReadingServices readingServices)
         {
             _assetServices = assetServices;
 
             _assetTypeServices = assetTypeServices;
+
+            _sensorTypeServices = sensorTypeServices;
+
+            _readingServices = readingServices;
         }
 
 
@@ -52,6 +61,46 @@ namespace Greenhouse.web.Controllers
             }
 
             return Json(counters);
+        }
+
+
+        public async Task<JsonResult> GetSensorsCount(int assetId)
+        {
+            List<Sensor> sensors = (await _assetServices.GetAssetById(assetId)).Sensors;
+
+            List<SensorType> sensorTypes = await _sensorTypeServices.Get();
+
+            List<Counter> counters = new();
+
+            foreach (SensorType sensorType in sensorTypes)
+            {
+                int count = sensors.Where(s => s.SensorTypeId == sensorType.Id).Count();
+
+                if (count != 0)
+                {
+                    Counter counter = new Counter { Type = sensorType.Name, Count = count};
+
+                    counters.Add(counter);
+                }
+            }
+
+            return Json(counters);
+        }
+
+
+        public async Task<JsonResult> GetSensorReadings(int sensorId)
+        {
+            List<Reading> readings = await _readingServices.GetSensorReadings(sensorId);
+
+            return Json(readings.Select(r => new { Value = r.Value, Date = r.ReadDate }));
+        }
+
+
+        public async Task<JsonResult> GetSensorReadingsBetweenDates(int sensorId, DateOnly startDate, DateOnly endDate)
+        {
+            List<Reading> readings = await _readingServices.GetSensorReadingsBetweenDates(sensorId, startDate, endDate);
+
+            return Json(readings.Select(r => new { Value = r.Value, Date = r.ReadDate }));
         }
     }
 
